@@ -5,8 +5,11 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected EnemyData enemyData;
 
     protected Resource health;
+    protected EnemyNav navAgent;
 
     public EnemyData Data { get { return enemyData; } }
+    public Vector3 Position { get { return transform.position; } }
+    public Vector3 Velocity { get { return navAgent.Velocity; } }
 
     protected void Awake()
     {
@@ -24,6 +27,8 @@ public class Enemy : MonoBehaviour, IDamageable
             Debug.LogError($"{this.name} has not been assigned data values!");
             gameObject.SetActive(false);
         }
+
+        navAgent = GetComponent<EnemyNav>();
     }
 
     public void TakeDamage(float damage)

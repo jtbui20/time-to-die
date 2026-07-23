@@ -9,6 +9,7 @@ public class EnemyNav: MonoBehaviour
     private NavMeshAgent agent;
     [SerializeField] private Waypoint waypoint;
     [SerializeField] private Vector3 destination;
+    public Vector3 Velocity { get { return agent.velocity;} }
 
     private void Awake()
     {
