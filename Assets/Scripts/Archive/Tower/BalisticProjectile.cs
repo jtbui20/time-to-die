@@ -64,7 +64,7 @@ public class BalisticProjectile : MonoBehaviour, IProjectile
         IDamageable target = col.gameObject.GetComponent<IDamageable>();
         if (target != null)
         {
-            target.TakeDamage(damage);
+            target.TakeDamage((int)damage);
             Destroy(gameObject);
         }
 

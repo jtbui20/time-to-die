@@ -10,6 +10,7 @@ public class Enemy1 : MonoBehaviour, IDamageable
     public EnemyData Data { get { return enemyData; } }
     public Vector3 Position { get { return transform.position; } }
     public Vector3 Velocity { get { return navAgent.Velocity; } }
+    public IDamageable Source { get { return this; } }
 
     protected void Awake()
     {
@@ -31,9 +32,9 @@ public class Enemy1 : MonoBehaviour, IDamageable
         navAgent = GetComponent<EnemyNav>();
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
-        health.ChangeValue(-damage);
+        health.ChangeValue(-(float)damage);
     }
 
     protected void CheckHealth()
