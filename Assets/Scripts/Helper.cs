@@ -39,3 +39,46 @@ public struct ProjectileStats
         Target = target;
     }
 }
+
+public readonly struct GridCoords
+{
+    public readonly int X;
+    public readonly int Y;
+
+    public GridCoords(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public int ToIndex(int width)
+    {
+        return X + Y * width;
+    }
+
+    public Vector2Int ToVector2Int()
+    {
+        return new Vector2Int(X,Y);
+    }
+
+    public static GridCoords FromVector2Int(Vector2Int v)
+    {
+        return new GridCoords(v.x, v.y);
+    }
+
+    public GridCoords OffsetFrom(GridCoords coords)
+    {
+        return new GridCoords(X+coords.X, Y+coords.Y);
+    }
+
+    public override string ToString()
+    {
+        return $"({X}, {Y})";
+    }
+}
+
+public struct TileData
+{
+    public byte TerrainID;
+    public bool IsOccupied;
+}

@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 142925963}
   - component: {fileID: 142925962}
   - component: {fileID: 142925961}
+  - component: {fileID: 142925965}
   m_Layer: 0
   m_Name: Sphere (5)
   m_TagString: Untagged
@@ -226,6 +227,78 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.48, y: 1.24, z: -0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &142925965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142925960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
+--- !u!1 &146218554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 146218557}
+  - component: {fileID: 146218556}
+  - component: {fileID: 146218555}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &146218555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146218554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f14d23f1558754d8af7807e424bf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameClock
+--- !u!114 &146218556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146218554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cabf373edfd174a93b3be6e60557f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombManager
+  explodeDelay: 0.5
+  explodeQueue: []
+--- !u!4 &146218557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146218554}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.55095, y: 0, z: 1.21372}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,6 +453,7 @@ GameObject:
   - component: {fileID: 245349008}
   - component: {fileID: 245349007}
   - component: {fileID: 245349006}
+  - component: {fileID: 245349010}
   m_Layer: 0
   m_Name: Sphere (1)
   m_TagString: Untagged
@@ -480,6 +554,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &245349010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245349005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &500936314
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +658,7 @@ GameObject:
   - component: {fileID: 529808869}
   - component: {fileID: 529808868}
   - component: {fileID: 529808867}
+  - component: {fileID: 529808871}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -671,6 +759,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &529808871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529808866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &556834435
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +784,7 @@ GameObject:
   - component: {fileID: 556834438}
   - component: {fileID: 556834437}
   - component: {fileID: 556834436}
+  - component: {fileID: 556834440}
   m_Layer: 0
   m_Name: Sphere (2)
   m_TagString: Untagged
@@ -783,6 +885,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &556834440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556834435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &951778152
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +1093,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1059635021}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 146218555}
+        m_TargetAssemblyTypeName: GameClock, Assembly-CSharp
+        m_MethodName: Tick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1059635021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,6 +1156,7 @@ GameObject:
   - component: {fileID: 1089272999}
   - component: {fileID: 1089272998}
   - component: {fileID: 1089272997}
+  - component: {fileID: 1089273001}
   m_Layer: 0
   m_Name: Sphere (3)
   m_TagString: Untagged
@@ -1129,6 +1257,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1089273001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089272996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &1279185049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,6 +1548,7 @@ GameObject:
   - component: {fileID: 1769938083}
   - component: {fileID: 1769938082}
   - component: {fileID: 1769938081}
+  - component: {fileID: 1769938085}
   m_Layer: 0
   m_Name: Sphere (4)
   m_TagString: Untagged
@@ -1507,6 +1649,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1769938085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769938080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &1851995294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,3 +1780,4 @@ SceneRoots:
   - {fileID: 1089273000}
   - {fileID: 1769938084}
   - {fileID: 142925964}
+  - {fileID: 146218557}

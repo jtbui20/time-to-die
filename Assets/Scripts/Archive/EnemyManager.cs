@@ -5,9 +5,9 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance;
 
-    private List<Enemy> enemies = new();
+    private List<Enemy1> enemies = new();
 
-    public List<Enemy> EnemyList { get { return enemies; } }
+    public List<Enemy1> EnemyList { get { return enemies; } }
 
     public void Awake()
     {
@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void AddEnemy(Enemy enemy)
+    public void AddEnemy(Enemy1 enemy)
     {
         if (!enemies.Contains(enemy))
         {
@@ -29,7 +29,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void RemoveEnemy(Enemy enemy)
+    public void RemoveEnemy(Enemy1 enemy)
     {
         if (enemies.Contains(enemy))
         {

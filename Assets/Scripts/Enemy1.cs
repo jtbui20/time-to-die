@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy1 : MonoBehaviour, IDamageable
 {
     [SerializeField] protected EnemyData enemyData;
 
