@@ -71,6 +71,14 @@ public class BombManager : MonoBehaviour
 
         foreach (FreeBomb target in additionalTargets)
         {
+            // KB
+            Vector3 direction = target.Position - currentBomb.Position;
+            direction.y = 0f;
+            direction.Normalize();
+            Vector3 newPos = target.Position + direction * currentBomb.ChainDistance;
+            target.Position = newPos;
+
+            // Tick
             target.ChangeHealth(-currentBomb.ChainTick);
             if (target.Health <= 0)
             {

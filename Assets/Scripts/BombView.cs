@@ -32,6 +32,8 @@ public class BombView : MonoBehaviour
         countdownText.alignment = TextAlignmentOptions.Center;
         countdownText.color = Color.white;
         UpdateView();
+
+        Bomb.Position = transform.position;
     }
 
     private void OnDisable()

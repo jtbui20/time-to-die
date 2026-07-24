@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &142925961
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77cabf373edfd174a93b3be6e60557f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombManager
-  explodeDelay: 0.5
+  explodeDelay: 2
   explodeQueue: []
 --- !u!4 &146218557
 Transform:
@@ -549,7 +549,7 @@ Transform:
   m_GameObject: {fileID: 245349005}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.37, y: 1.24, z: 2.31}
+  m_LocalPosition: {x: 5.43, y: 1.24, z: 0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -755,7 +755,7 @@ Transform:
   m_GameObject: {fileID: 529808866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.13233, y: 1.24, z: -0.43421}
+  m_LocalPosition: {x: 1.61, y: 1.24, z: -2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1255,7 +1255,7 @@ Transform:
   m_GameObject: {fileID: 1089272996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.32, y: 1.24, z: 3.86}
+  m_LocalPosition: {x: -0.32, y: 1.24, z: -2.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
   countdownTextOffset: {x: 0, y: 1, z: 0}
-  bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
+  bombDef: {fileID: 11400000, guid: 2c1e8bbec4cb33249a22395d320250c8, type: 2}
 --- !u!1 &1279185049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,7 +1560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1769938081
 SphereCollider:
   m_ObjectHideFlags: 0
