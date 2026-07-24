@@ -15,8 +15,6 @@ MonoBehaviour:
   BombBagReference:
   - {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
   - {fileID: 11400000, guid: 2c1e8bbec4cb33249a22395d320250c8, type: 2}
-  StageNumber: 2
-  StageHistory:
-  - Casino 1
-  - Casino 1
+  StageNumber: 1
+  StageHistory: []
   CurrentLevel: {fileID: 11400000, guid: 40a38d9be6854385ea9d350856326ebb, type: 2}

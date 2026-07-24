@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c9e942a28947cd914b14fe2a1032cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.SessionManager
-  player: {fileID: 0}
+  player: {fileID: 11400000, guid: 8f7b003cffdc48cff92af3f7f3cb9615, type: 2}
   GameplayManagerPrefab: {fileID: 2043260073283946676, guid: 860f944fb69fb5b90b0df6169664d15f, type: 3}
   ImmediateStart: 1

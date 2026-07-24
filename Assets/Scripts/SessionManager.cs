@@ -23,10 +23,12 @@ namespace DefaultNamespace
                 SetupNextStage();
             }
         }
+        
 
-        public void InjectData(PlayerData player)
+        public void NewRun(PlayerData player)
         {
             this.player = player;
+            SetupNextStage();
         }
 
         async Awaitable SetupNextStage()
