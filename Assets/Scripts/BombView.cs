@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Cysharp.Threading.Tasks;
 
 public class BombView : UnitView
 {
@@ -9,10 +10,19 @@ public class BombView : UnitView
     private TextMeshPro countdownText;
     private GameObject countdownObject;
     private Camera mainCam;
+    private Animator animator;
+
+    private BombManager _bombManager;
 
     public void Awake()
     {
         mainCam = Camera.main;
+        animator = GetComponent<Animator>();
+    }
+
+    public void Inject(BombManager bombManager)
+    {
+        _bombManager = bombManager;
     }
 
     public void Init(FreeBomb bomb)

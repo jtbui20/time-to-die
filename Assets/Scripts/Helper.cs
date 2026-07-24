@@ -1,5 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+
 
 public static class Helper
 {
@@ -98,4 +102,49 @@ public struct TileData
 {
     public byte TerrainID;
     public bool IsOccupied;
+}
+
+public static class AnimatorExtensions
+{
+    public static async UniTask PlayAsync(
+        this Animator animator, 
+        string stateName, 
+        int layer = 0, 
+        CancellationToken cancellationToken = default)
+    {
+        if (animator == null) throw new ArgumentNullException(nameof(animator));
+
+        // 1. Start playing the animation state
+        animator.Play(stateName, layer, 0f);
+
+        // 2. Wait until the next frame so the Animator transitions to the target state
+        await UniTask.NextFrame(cancellationToken);
+
+        // 3. Monitor the state loop until completion
+        while (true)
+        {
+            // Exit early if the cancellation token triggers (e.g., GameObject destroyed)
+            cancellationToken.ThrowIfCancellationRequested();
+
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(layer);
+
+            // Ensure the animator is still playing our intended state
+            if (stateInfo.IsName(stateName))
+            {
+                // normalizedTime ranges from 0.0 to 1.0 (or higher if looping)
+                if (stateInfo.normalizedTime >= 1.0f)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                // The animator has moved to another state entirely
+                break;
+            }
+
+            // Yield execution until the next Update loop step
+            await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken);
+        }
+    }
 }

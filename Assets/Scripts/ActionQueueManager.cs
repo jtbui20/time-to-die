@@ -1,45 +1,96 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using DefaultNamespace.Simplified;
-using DG.Tweening;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace DefaultNamespace
+public enum ActionQueueType
 {
-    public class ActionQueueManager : MonoBehaviour
+    Explode,
+    Move
+}
+
+public struct ActionQueueRequest
+{
+    public ActionQueueType Type;
+    public int ChainNumber;
+    public Func<CancellationToken, UniTask> Task;
+
+    public ActionQueueRequest(ActionQueueType type, Func<CancellationToken, UniTask> task)
     {
-        private Queue<Func<CancellationToken, Awaitable>> taskQueue = new();
-        private bool isProcessing = false;
-        
-        public int QueueCount => taskQueue.Count;
+        Type = type;
+        Task = task;
+    }
+}
 
-        private CancellationToken destroyToken => destroyCancellationToken;
+public class ActionQueueManager : MonoBehaviour
+{
+    // Queue storing functions that return a UniTask
+    private readonly Queue<ActionQueueRequest> taskQueue = new();
+    private bool isProcessing = false;
+    private CancellationTokenSource cts;
 
-        public void EnqueueTask(Func<CancellationToken, Awaitable> taskFactory)
+    private void Awake()
+    {
+        cts = new CancellationTokenSource();
+    }
+
+    // Add a new async task to the back of the queue
+    public void EnqueueTask(ActionQueueRequest request)
+    {
+        taskQueue.Enqueue(request);
+    }
+
+    public void ClearQueue()
+    {
+        taskQueue.Clear();
+    }
+
+    public async UniTaskVoid ProcessQueueLoop()
+    {
+        if (isProcessing) return;
+        isProcessing = true;
+
+        while (taskQueue.Count > 0)
         {
-            taskQueue.Enqueue(taskFactory);
-        }
-
-        public async Awaitable ProcessNextQueueAsync()
-        {
-            if (!isProcessing) return;
-            isProcessing = true;
+            // Dequeue the next task
+            var nextRequest = taskQueue.Dequeue();
+            
+            var nextTask = nextRequest.Task;
             try
             {
-                var taskFactory = taskQueue.Dequeue();
-                await taskFactory(destroyToken);
+                // Run and completely await the task before continuing the loop
+                // Depending on the type of task we have here, we need to send it to the right places
+
+                switch (nextRequest.Type)
+                {
+                    case ActionQueueType.Explode:
+                        case ActionQueueType.Move:
+                        // Send this to the animator
+                        break;
+                    default:
+                        break;
+                }
+                
+                await nextTask.Invoke(cts.Token);
             }
             catch (OperationCanceledException)
             {
-                Debug.Log("Task Cancelled");
+                Debug.Log("Task queue processing was canceled.");
+                break;
             }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
             }
-
-            isProcessing = false;
         }
+
+        isProcessing = false;
+    }
+
+    private void OnDestroy()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using static System.Math;
 using UnityEngine;
 
@@ -17,6 +18,9 @@ public class FreeBomb : FreeUnit
     public int ChainDistance { get { return chainDistance; } }
     public int ChainTick { get { return chainTick; } }
     public int Damage { get { return damage; } }
+
+    public event Action<UniTask> OnExplode;
+    public event Func<Vector3, UniTask> OnMove;
 
     public FreeBomb(IUnitDefinition unit) : base(unit)
     {
@@ -40,7 +44,7 @@ public class FreeBomb : FreeUnit
         base.AdjustStatus();
     }
 
-    public List<IDamageable> Explode(int destructibleMask)
+    public List<IDamageable> GetExplodeHits(int destructibleMask)
     {
         List<IDamageable> targets = new();
 
