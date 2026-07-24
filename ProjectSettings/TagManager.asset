@@ -12,6 +12,10 @@ TagManager:
   - Water
   - UI
   - Navigation
+  - Destructible
+  - 
+  - 
+  - Placeable
   - 
   - 
   - 
@@ -22,11 +26,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Overlay
   - 
   - 
   - 
