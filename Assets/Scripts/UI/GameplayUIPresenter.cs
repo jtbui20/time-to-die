@@ -28,7 +28,6 @@ namespace DefaultNamespace.UI
 
         void Start()
         {
-            Debug.Log("bound");
             endTurnButton.onClick.AddListener(() => OnEndTurnButtonPressed?.Invoke());
         }
         
