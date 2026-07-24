@@ -17,4 +17,5 @@ MonoBehaviour:
   MinVelocity: 3
   MaxVelocity: 6
   MinProjectileHoming: 0
-  MaxProjectileHoming: 5
+  MaxProjectileHoming: 8
+  Lifetime: 3

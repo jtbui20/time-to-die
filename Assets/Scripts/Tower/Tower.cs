@@ -6,7 +6,7 @@ public abstract class Tower: MonoBehaviour
     [SerializeField] protected Transform launcherPoint;
 
     protected EnemyManager enemyManager;
-    [SerializeField] protected Enemy target;
+    [SerializeField] protected Enemy1 target;
     protected float scanTimer = 0f;
     protected float shootTimer = 0f;
 
@@ -41,11 +41,13 @@ public abstract class Tower: MonoBehaviour
     {
         if (scanTimer <= 0f)
         {
-            Enemy closestTarget = null;
+            Enemy1 closestTarget = null;
             float distance = Mathf.Infinity;
             foreach (var enemy in enemyManager.EnemyList)
             {
-                Vector3 dist = enemy.Position - transform.position;
+                //Vector3 dist = enemy.Position - transform.position; !!!
+                Vector3 dist = transform.position;
+
                 if (dist.sqrMagnitude < distance)
                 {
                     closestTarget = enemy;

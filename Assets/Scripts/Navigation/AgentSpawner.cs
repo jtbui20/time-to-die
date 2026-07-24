@@ -25,7 +25,7 @@ public class AgentSpawner: MonoBehaviour
 
         if (enemyManager != null)
         {
-            enemyManager.AddEnemy(agent.GetComponent<Enemy>());
+            enemyManager.AddEnemy(agent.GetComponent<Enemy1>());
         }
     }
 }
