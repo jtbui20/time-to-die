@@ -5,14 +5,14 @@ public abstract class Tower: MonoBehaviour
     [SerializeField] protected TowerData towerData;
     [SerializeField] protected Transform launcherPoint;
 
-    protected EnemyManager enemyManager;
+    protected EnemyManager1 enemyManager;
     [SerializeField] protected Enemy1 target;
     protected float scanTimer = 0f;
     protected float shootTimer = 0f;
 
     protected void Start()
     {
-        enemyManager = EnemyManager.Instance;
+        enemyManager = EnemyManager1.Instance;
 
         if (towerData == null) 
         {
@@ -22,7 +22,7 @@ public abstract class Tower: MonoBehaviour
 
         if (enemyManager == null) 
         {
-            Debug.LogError($"{this.name} can not find EnemyManager in scene!"); 
+            Debug.LogError($"{this.name} can not find EnemyManager1 in scene!"); 
             gameObject.SetActive(false); 
         }
     }

@@ -27,7 +27,6 @@ public class FreeBomb : FreeUnit
             return; 
         }
 
-
         AdjustStatus();
     }
 

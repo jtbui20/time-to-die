@@ -1,18 +1,25 @@
 using UnityEngine;
 
-public class UnitView : MonoBehaviour
+public class UnitView : MonoBehaviour, IDamageable
 {
-    public Unit Unit { get; private set; }
+    public FreeUnit Unit { get; private set; }
+    public virtual IDamageable Source { get { return Unit; } }
 
-    public void Init(Unit unit)
+    public void Init(FreeUnit unit)
     {
         if (unit == null) { return; }
 
         Unit = unit;
         Unit.OnPositionChanged += UpdatePosition;
+        Unit.OnStatusChanged += UpdateView;
+        Unit.OnCleanup += Cleanup;
+
+        UpdateView();
+
+        Unit.Position = transform.position;
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         if (Unit != null)
         {
@@ -20,8 +27,24 @@ public class UnitView : MonoBehaviour
         }
     }
 
-    private void UpdatePosition()
+    protected void UpdatePosition()
     {
-        transform.position = new Vector3(Unit.Position.X, 0.5f, Unit.Position.Y);
+        transform.position = Unit.Position;
+    }
+
+    protected virtual void UpdateView()
+    {
+        // Healthbar and other visuals update here
+    }
+
+    protected void Cleanup()
+    {
+        Unit.OnCleanup -= Cleanup;
+        Destroy(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Unit.TakeDamage(damage);
     }
 }

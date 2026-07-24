@@ -1,11 +1,11 @@
 using UnityEngine;
 using TMPro;
 
-public class BombView : MonoBehaviour, IDamageable
+public class BombView : UnitView
 {
     [SerializeField] Vector3 countdownTextOffset;
     public FreeBomb Bomb { get; private set; }
-    public IDamageable Source { get { return Bomb; } }
+    public override IDamageable Source { get { return Bomb; } }
     private TextMeshPro countdownText;
     private GameObject countdownObject;
     private Camera mainCam;
@@ -20,9 +20,6 @@ public class BombView : MonoBehaviour, IDamageable
         if (bomb == null) { return; }
 
         Bomb = bomb;
-        Bomb.OnPositionChanged += UpdatePosition;
-        Bomb.OnStatusChanged += UpdateView;
-        Bomb.OnCleanup += Cleanup;
 
         countdownObject = new GameObject("Countdown Text");
         countdownObject.transform.parent = transform;
@@ -32,17 +29,8 @@ public class BombView : MonoBehaviour, IDamageable
         countdownText.fontSize = 12;
         countdownText.alignment = TextAlignmentOptions.Center;
         countdownText.color = Color.white;
-        UpdateView();
 
-        Bomb.Position = transform.position;
-    }
-
-    private void OnDisable()
-    {
-        if (Bomb != null)
-        {
-            Bomb.OnPositionChanged -= UpdatePosition;
-        }
+        base.Init(bomb);
     }
 
     private void Update()
@@ -53,27 +41,11 @@ public class BombView : MonoBehaviour, IDamageable
         }
     }
 
-    private void UpdatePosition()
-    {
-        transform.position = Bomb.Position;
-    }
-
-    private void UpdateView()
+    protected override void UpdateView()
     {
         if (countdownText != null)
         {
             countdownText.text = Bomb.Health.ToString();
         }
-    }
-
-    private void Cleanup()
-    {
-        Bomb.OnCleanup -= Cleanup;
-        Destroy(gameObject);
-    }
-
-    public void TakeDamage(int damage)
-    {
-        Bomb.TakeDamage(damage);
     }
 }
