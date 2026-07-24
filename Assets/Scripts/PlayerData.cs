@@ -9,7 +9,8 @@ namespace DefaultNamespace
     /// <summary>
     /// This is more like save data imo
     /// </summary>
-    public class PlayerData : MonoBehaviour
+    [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
+    public class PlayerData : ScriptableObject
     {
         public List<BombDefinition> BombBagReference;
         public int StageNumber;

@@ -1,5 +1,8 @@
 using DefaultNamespace;
+using DefaultNamespace.Game_State;
+using DefaultNamespace.UI;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public enum GameplayStates
 {
@@ -14,52 +17,129 @@ public enum GameplayStates
 
 public class GameplayScenarioManager : MonoBehaviour
 {
+    // TODO: SO for config
     public int Lives;
     public int CurrentTurn = 0;
+    public GameplayStates CurrentState;
+
+    public Object MapData;
 
     private GameplayPlayerInstance player;
-
     private BombManager _bombManager;
-
     private EnemyManager _enemyManager;
-    
+
+    private GameScenarioDirector _director;
+    private GameplayUIPresenter _uiPresenter;
+
+    public bool ImmediateStart = false;
+
+    void Awake()
+    {
+        player = GetComponent<GameplayPlayerInstance>();
+        _bombManager = GetComponent<BombManager>();
+        _enemyManager = GetComponent<EnemyManager>();
+        _director = GetComponentInChildren<GameScenarioDirector>();
+        _uiPresenter = GetComponentInChildren<GameplayUIPresenter>();
+    }
     
     void Start()
     {
-        ResetScenario();
+        if (ImmediateStart)
+        {
+            Setup();
+            SwitchToState(GameplayStates.GameStart);
+        }
     }
 
-    public void ResetScenario()
+    public void Inject(PlayerData player)
     {
-        Lives = 5;
-        CurrentTurn = 0;
+        GetComponent<GameplayPlayerInstance>().Inject(player);
     }
 
-    public void SetupGameplay(GameplayPlayerInstance player)
+    void Setup()
     {
-        this.player = player;
+        player.InitializePlayer();
+        // Spawn in the UI prefab
+        _uiPresenter.OnEndTurnButtonPressed += OnPlayerEndTurn;
+        _director.OnTimelineCompleted += OnTimelineCompleted;
     }
 
-    // This offloads work done from the Session manager to the Gameplay scenario manager's playable director
-    public void InitializeGameplaySequences()
+    public void GeneralUpdateUI()
     {
-        StartScenario();
+        _uiPresenter.UpdateStageText(CurrentState);
+        _uiPresenter.UpdateEnemiesLeftText(15);
     }
 
     public void Deconstruct()
     {
-        Destroy(_bombManager);
-        Destroy(_enemyManager);
+        Destroy(gameObject);
     }
 
-    public void StartScenario()
+    public void SwitchToState(GameplayStates state)
+    {
+        CurrentState = state;
+        Debug.Log($"Switching to state: {state}");
+        switch (CurrentState)
+        {
+            case GameplayStates.GameStart:
+                StartScenario();
+                break;
+            case GameplayStates.TurnStart:
+                TurnStart();
+                break;
+            case GameplayStates.PlayerTurn:
+                PlayerTurn();
+                break;
+            case GameplayStates.PlayerExit:
+                PlayerEndTurn();
+                break;
+            case GameplayStates.Detonation:
+                DetonationStep();
+                break;
+            case GameplayStates.EnemyTurn:
+                EnemyTurn();
+                break;
+            case GameplayStates.GameEnd:
+                GameEnd();
+                break;
+            default:
+                throw new System.NotImplementedException($"State {state} is not implemented");
+        }
+        
+        _director.PlayState(CurrentState);
+    }
+
+    public void OnTimelineCompleted(GameplayStates state)
+    {
+        switch (state)
+        {
+            case GameplayStates.GameStart:
+                SwitchToState(GameplayStates.TurnStart);
+                break;
+            case GameplayStates.TurnStart:
+                SwitchToState(GameplayStates.PlayerTurn);
+                break;
+            case GameplayStates.PlayerExit:
+                SwitchToState(GameplayStates.Detonation);
+                break;
+            case GameplayStates.Detonation:
+                SwitchToState(GameplayStates.EnemyTurn);
+                break;
+            case GameplayStates.EnemyTurn:
+                SwitchToState(GameplayStates.TurnStart);
+                break;
+            default:
+                Debug.LogWarning($"No next state defined for {CurrentState}");
+                break;
+        }
+    }
+
+    void StartScenario()
     {
         // Start with enemy turn spawning
         // _enemyManager.SpawnEnemies()
         
         // Then we transition to turn start
-        Debug.Log("Starting Scenario");
-        TurnStart();
     }
 
     void TurnStart()
@@ -67,7 +147,18 @@ public class GameplayScenarioManager : MonoBehaviour
         // Show turn start
         CurrentTurn++;
         player.BombDeck.Draw(player.MaxHandSize);
-        _bombManager.Tick();
+        
+        // _bombManager.Tick();
+    }
+
+    void PlayerTurn()
+    {
+        // Enable inputs and such
+    }
+
+    void OnPlayerEndTurn()
+    {
+        SwitchToState(GameplayStates.PlayerExit);
     }
 
     void PlayerEndTurn()
@@ -81,8 +172,7 @@ public class GameplayScenarioManager : MonoBehaviour
         // await
         
         // This will eventually tick multiple times by a separate function
-        _bombManager.Tick();
-        await Awaitable.WaitForSecondsAsync(3f);
+        // _bombManager.Tick();
 
         // _enemyManager.ProcessDamage();
         // _enemyManager.ProcessDeathChains();
@@ -91,6 +181,9 @@ public class GameplayScenarioManager : MonoBehaviour
     async Awaitable EnemyTurn()
     {
         // _enemyManager.ProcessStep();
-        await Awaitable.WaitForSecondsAsync(3f);
+    }
+
+    async Awaitable GameEnd()
+    {
     }
 }
