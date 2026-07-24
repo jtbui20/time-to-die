@@ -4,6 +4,7 @@ using static System.Math;
 using UnityEngine;
 using System.Numerics;
 
+[Serializable]
 public class Bomb : Unit
 {
     private BombType bombType;
