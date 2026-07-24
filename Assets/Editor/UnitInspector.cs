@@ -1,23 +1,25 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(BombView), true)]
+[CustomEditor(typeof(UnitView), true)]
 public class UnitInspector : Editor
 {
     public override bool RequiresConstantRepaint()
     {
-        return true;
+        return Application.isPlaying;
     }
 
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
+        if (!Application.isPlaying) { return; }
+
         EditorGUILayout.Space();
 
-        BombView unitView = (BombView)target;
+        UnitView unitView = (UnitView)target;
 
-        FreeUnit unit = unitView.Bomb;
+        FreeUnit unit = unitView.Unit;
 
         EditorGUI.BeginChangeCheck();
         int healthField = EditorGUILayout.IntField("Health", unit.Health);
@@ -34,6 +36,7 @@ public class UnitInspector : Editor
 
     public void OnSceneGUI()
     {
+        if (!Application.isPlaying) { return; }
         Tools.hidden = true;
     }
 

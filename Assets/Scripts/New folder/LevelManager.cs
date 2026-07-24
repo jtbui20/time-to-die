@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
             UnitView unitScript = unitView.GetComponent<UnitView>();
             if (unitScript)
             {
-                unitScript.Init(unit);
+                //unitScript.Init(unit);
             }
         }
         stage.ForceMoveUnit(unit, 0);

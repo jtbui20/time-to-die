@@ -8,8 +8,12 @@ public class BombPrebuilt : BombView
         if (bombDef != null)
         {
             FreeBomb bomb = new FreeBomb(bombDef);
-            BombManager.Instance.Add(bomb);
             base.Init(bomb);
+
+            if (BombManager.Instance != null)
+            {
+                BombManager.Instance.Add(bomb);
+            }
         }
     }
 }

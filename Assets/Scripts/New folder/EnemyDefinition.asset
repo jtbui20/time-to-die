@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbde16c5455675e47915cad208beebb1, type: 3}
   m_Name: EnemyDefinition
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
-  health: 0
-  speed: 0
-  description: 
+  health: 3
+  speed: 2
+  description: HA! Grunt!

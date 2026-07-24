@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager1 : MonoBehaviour
 {
-    public static EnemyManager Instance;
+    public static EnemyManager1 Instance;
 
     private List<Enemy1> enemies = new();
 
@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void AddEnemy(Enemy1 enemy)
+    public void Add(Enemy1 enemy)
     {
         if (!enemies.Contains(enemy))
         {
@@ -29,7 +29,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void RemoveEnemy(Enemy1 enemy)
+    public void Remove(Enemy1 enemy)
     {
         if (enemies.Contains(enemy))
         {

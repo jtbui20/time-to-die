@@ -3,13 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(Waypoint))]
 public class AgentSpawner: MonoBehaviour
 {
-    private EnemyManager enemyManager;
+    private EnemyManager1 enemyManager;
     private Waypoint waypoint;
     [SerializeField] private GameObject agentPrefab;
 
     private void Start()
     {
-        enemyManager = EnemyManager.Instance;
+        enemyManager = EnemyManager1.Instance;
         waypoint = GetComponent<Waypoint>();
         if (agentPrefab != null)
         {
@@ -25,7 +25,7 @@ public class AgentSpawner: MonoBehaviour
 
         if (enemyManager != null)
         {
-            enemyManager.AddEnemy(agent.GetComponent<Enemy1>());
+            enemyManager.Add(agent.GetComponent<Enemy1>());
         }
     }
 }
