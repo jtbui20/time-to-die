@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using static System.Math;
 using UnityEngine;
-using System.Numerics;
 
-public class Bomb : Unit
+[System.Serializable]
+public class FreeBomb : FreeUnit
 {
     private BombType bombType;
     private int range;
@@ -18,7 +18,7 @@ public class Bomb : Unit
     public int ChainTick { get { return chainTick; } }
     public int Damage { get { return damage; } }
 
-    public Bomb(IUnitDefinition unit) : base(unit)
+    public FreeBomb(IUnitDefinition unit) : base(unit)
     {
         bombDef = unit as BombDefinition;
         if (bombDef == null)
@@ -41,18 +41,20 @@ public class Bomb : Unit
         base.AdjustStatus();
     }
 
-    private List<Bomb> Explode()
+    public List<FreeBomb> Explode()
     {
-        List<Bomb> targets = new();
+        List<FreeBomb> targets = new();
 
-        /*
-        foreach (Bomb bomb in BombManager.Instance.Bombs)
+        foreach (FreeBomb bomb in BombManager.Instance.Bombs)
         {
-            if (Helper.FlattenedDistance(Position, bomb.Position));
+            if (bomb == this) { continue; }
+
+            if (Helper.FlattenedDistance(Position, bomb.Position) <= (float)range)
+            {
+                targets.Add(bomb);
+            }
         }
-        */
 
         return targets;
     }
-
 }

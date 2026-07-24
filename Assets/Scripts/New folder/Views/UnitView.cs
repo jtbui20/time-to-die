@@ -12,7 +12,7 @@ public class UnitView : MonoBehaviour
         Unit.OnPositionChanged += UpdatePosition;
     }
 
-    private void OnDisableI()
+    private void OnDisable()
     {
         if (Unit != null)
         {
