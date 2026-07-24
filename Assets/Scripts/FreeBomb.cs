@@ -41,19 +41,33 @@ public class FreeBomb : FreeUnit
         base.AdjustStatus();
     }
 
-    public List<FreeBomb> Explode()
+    public List<IDamageable> Explode(int destructibleMask)
     {
-        List<FreeBomb> targets = new();
+        List<IDamageable> targets = new();
 
+        Collider[] hitColliders = Physics.OverlapSphere(position, range, destructibleMask);
+        foreach (Collider collider in hitColliders)
+        {
+            IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                if (damageable.Source == this) { continue; }
+                targets.Add(damageable.Source);
+            }
+        }
+
+        /*
         foreach (FreeBomb bomb in BombManager.Instance.Bombs)
         {
             if (bomb == this) { continue; }
 
+            
             if (Helper.FlattenedDistance(Position, bomb.Position) <= (float)range)
             {
                 targets.Add(bomb);
             }
         }
+        */
 
         return targets;
     }

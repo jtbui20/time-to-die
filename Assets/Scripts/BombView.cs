@@ -1,10 +1,11 @@
 using UnityEngine;
 using TMPro;
 
-public class BombView : MonoBehaviour
+public class BombView : MonoBehaviour, IDamageable
 {
     [SerializeField] Vector3 countdownTextOffset;
     public FreeBomb Bomb { get; private set; }
+    public IDamageable Source { get { return Bomb; } }
     private TextMeshPro countdownText;
     private GameObject countdownObject;
     private Camera mainCam;
@@ -69,5 +70,10 @@ public class BombView : MonoBehaviour
     {
         Bomb.OnCleanup -= Cleanup;
         Destroy(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Bomb.TakeDamage(damage);
     }
 }

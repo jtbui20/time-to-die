@@ -2,7 +2,7 @@ using System;
 using static System.Math;
 using UnityEngine;
 
-public abstract class FreeUnit
+public abstract class FreeUnit : IDamageable
 {
     public event Action OnStatusChanged;
     public event Action OnPositionChanged;
@@ -15,6 +15,7 @@ public abstract class FreeUnit
     public int Health { get { return health; } }
     public string Description { get { return unitDef != null ? unitDef.Description : ""; } }
     public Vector3 Position { get { return position; } set { position = value; OnPositionChanged?.Invoke(); } }
+    public IDamageable Source { get { return this; } }
     public FreeUnit(IUnitDefinition unit)
     {
         if (unit == null)
@@ -56,5 +57,10 @@ public abstract class FreeUnit
     {
         health = Mathf.Clamp(value, 0, 999);
         OnStatusChanged?.Invoke();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        ChangeHealth(-damage);
     }
 }

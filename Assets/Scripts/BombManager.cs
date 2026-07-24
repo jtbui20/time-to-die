@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class BombManager : MonoBehaviour
 {
+    [SerializeField] private LayerMask destructibleMask;
     [SerializeField] private float explodeDelay = 0.5f;
     public static BombManager Instance;
     private List<FreeBomb> bombs = new();
@@ -67,26 +68,33 @@ public class BombManager : MonoBehaviour
         bombs.Remove(currentBomb);
         Debug.Log($"Exploding {currentBomb}");
 
-        List<FreeBomb> additionalTargets = currentBomb.Explode();
+        List<IDamageable> additionalTargets = currentBomb.Explode(destructibleMask);
 
-        foreach (FreeBomb target in additionalTargets)
+        foreach (IDamageable target in additionalTargets)
         {
-            // KB
-            Vector3 direction = target.Position - currentBomb.Position;
-            direction.y = 0f;
-            direction.Normalize();
-            Vector3 newPos = target.Position + direction * currentBomb.ChainDistance;
-            target.Position = newPos;
-
-            // Tick
-            target.ChangeHealth(-currentBomb.ChainTick);
-            if (target.Health <= 0)
+            if (target is FreeBomb bomb)
             {
-                if (explodeQueue.Contains(target))
+                // KB
+                Vector3 direction = bomb.Position - currentBomb.Position;
+                direction.y = 0f;
+                direction.Normalize();
+                Vector3 newPos = bomb.Position + direction * currentBomb.ChainDistance;
+                bomb.Position = newPos;
+
+                // Tick
+                bomb.TakeDamage(currentBomb.ChainTick);
+                if (bomb.Health <= 0)
                 {
-                    explodeQueue.Remove(target);
+                    if (explodeQueue.Contains(bomb))
+                    {
+                        explodeQueue.Remove(bomb);
+                    }
+                    explodeQueue.Insert(0, bomb);
                 }
-                explodeQueue.Insert(0, target);
+            }
+            else
+            {
+                target.TakeDamage(currentBomb.Damage);
             }
         }
 
