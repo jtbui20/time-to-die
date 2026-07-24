@@ -48,13 +48,13 @@ public abstract class FreeUnit
 
     public void ChangeHealth(int value)
     {
-        health += value;
+        health = Mathf.Clamp(health + value, 0, 999);
         OnStatusChanged?.Invoke();
     }
 
     public void SetHealth(int value)
     {
-        health = value;
+        health = Mathf.Clamp(value, 0, 999);
         OnStatusChanged?.Invoke();
     }
 }

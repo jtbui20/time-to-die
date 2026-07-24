@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b30f5d912b34ee48af1a3985c375f3d, type: 3}
-  m_Name: BombDefinition
+  m_Name: TestBombDefinition
   m_EditorClassIdentifier: Assembly-CSharp::BombDefinition
   bombType: 0
   health: 1

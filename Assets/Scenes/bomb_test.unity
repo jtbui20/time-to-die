@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  countdownTextOffset: {x: 0, y: 1, z: 0}
   bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &146218554
 GameObject:
@@ -566,6 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  countdownTextOffset: {x: 0, y: 1, z: 0}
   bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &500936314
 GameObject:
@@ -771,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  countdownTextOffset: {x: 0, y: 1, z: 0}
   bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &556834435
 GameObject:
@@ -897,6 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  countdownTextOffset: {x: 0, y: 1, z: 0}
   bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &951778152
 GameObject:
@@ -1269,6 +1273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  countdownTextOffset: {x: 0, y: 1, z: 0}
   bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &1279185049
 GameObject:
@@ -1661,6 +1666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2786d0553782724e8ccd0e13bcbd363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BombPrebuilt
+  countdownTextOffset: {x: 0, y: 1, z: 0}
   bombDef: {fileID: 11400000, guid: 91b1f01e862874b478cabd1e5f497085, type: 2}
 --- !u!1 &1851995294
 GameObject:

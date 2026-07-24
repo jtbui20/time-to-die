@@ -27,6 +27,11 @@ public class BombManager : MonoBehaviour
     private void Start()
     {
         GameClock.Instance.OnTick += Tick;
+
+        foreach (var bomb in bombs)
+        {
+            bomb.ChangeHealth(Random.Range(0, 5));
+        }
     }
 
     public void Add(FreeBomb bomb)
