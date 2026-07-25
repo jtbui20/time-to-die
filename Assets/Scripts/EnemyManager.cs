@@ -1,15 +1,20 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class EnemyManager : MonoBehaviour
 {
+    [SerializeField] private SpawnerSchedule spawnSchedule;
+    [SerializeField] private List<GameObject> spawners;
+    [SerializeField] private float spawnDelay = 1f;
     public static EnemyManager Instance;
 
     private List<FreeEnemy> enemies = new();
+    private Coroutine[] spawnCoroutines;
 
     public List<FreeEnemy> EnemyList { get { return enemies; } }
 
-    public void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -19,6 +24,18 @@ public class EnemyManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        spawnCoroutines = new Coroutine[spawners.Count];
+    }
+
+    private void Start()
+    {
+        GameClock.Instance.OnTick += Tick;
+    }
+
+    public void Tick(int turnNumber)
+    {
+        SpawnWave(turnNumber);
     }
 
     public void Add(FreeEnemy enemy)
@@ -40,5 +57,48 @@ public class EnemyManager : MonoBehaviour
     public void SpawnWave(int waveNumber)
     {
         // Placeholder
+        if (spawnSchedule == null) { return; }
+
+        for (int i = 0; i < spawners.Count; i++)
+        {
+            Queue<SpawnTiming> spawnQueue = new();
+            foreach (var spawn in spawnSchedule.Schedule)
+            {
+                if (spawn.TurnNumber == waveNumber && spawn.SpawnPointIndex == i)
+                {
+                    spawnQueue.Enqueue(spawn);
+                }
+            }
+
+            if (spawnQueue.Count > 0)
+            {
+                if (spawnCoroutines[i] == null)
+                {
+                    spawnCoroutines[i] = StartCoroutine(SpawnWithDelay(spawnDelay, spawnQueue));
+                }
+            }
+        }
+    }
+
+    private IEnumerator SpawnWithDelay(float delay, Queue<SpawnTiming> queue)
+    {
+        int spawnerIndex = queue.Peek().SpawnPointIndex;
+        while (queue.Count > 0)
+        {
+            var spawns = queue.Dequeue();
+            for (int i = 0; i < spawns.EnemyCount; i++)
+            {
+                var enemy = new FreeEnemy(spawns.Enemy);
+                var enemyView = GameObject.Instantiate(spawns.Enemy.EnemyPrefab).GetComponent<EnemyView>();
+
+                enemyView.Init(enemy);
+                enemy.Position = spawners[spawnerIndex].transform.position;
+                Add(enemy);
+
+                yield return new WaitForSeconds(delay);
+            }
+        }
+
+        spawnCoroutines[spawnerIndex] = null;
     }
 }

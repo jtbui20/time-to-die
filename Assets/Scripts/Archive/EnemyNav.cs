@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Enemy1))]
+[RequireComponent(typeof(Enemy))]
 public class EnemyNav: MonoBehaviour
 {
     [SerializeField] private NavAgentConfig navAgentConfig;
-    private Enemy1 enemyController;
+    private Enemy enemyController;
     private NavMeshAgent agent;
     [SerializeField] private Waypoint waypoint;
     [SerializeField] private Vector3 destination;
@@ -14,7 +14,7 @@ public class EnemyNav: MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        enemyController = GetComponent<Enemy1>();
+        enemyController = GetComponent<Enemy>();
 
         //agent.speed = enemyController.Data.Speed;
 

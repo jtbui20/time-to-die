@@ -40,6 +40,11 @@ public class BombManager : MonoBehaviour
         bombs.Add(bomb);
     }
 
+    public void Tick(int turnNumber)
+    {
+        Tick();
+    }
+
     public void Tick()
     {
         List<FreeBomb> additionalTargets;
