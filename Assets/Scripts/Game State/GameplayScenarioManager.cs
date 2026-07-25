@@ -92,7 +92,7 @@ public class GameplayScenarioManager : MonoBehaviour
     void LinkUI()
     {
         _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
-        _uiPresenter.OnEndGameConfirmButtonPressed += GameEndButtonPressed;
+        _uiPresenter.OnEndGameConfirmButtonPressed += () => EndGameWithReason(GameEndingBecause.Lose);
         _uiPresenter.OnLeaveGameRequested += OnGameLeave;
         _uiPresenter.OnForceWin += () => EndGameWithReason(GameEndingBecause.Win);
     }
@@ -101,11 +101,6 @@ public class GameplayScenarioManager : MonoBehaviour
     {
         // Only do this if 
         SwitchToState(GameplayStates.PlayerExit);
-    }
-
-    void GameEndButtonPressed()
-    {
-        SwitchToState(GameplayStates.GameEnd);
     }
     
     void EndGameWithReason(GameEndingBecause reason)

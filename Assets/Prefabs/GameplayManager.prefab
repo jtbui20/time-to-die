@@ -358,7 +358,7 @@ PlayableDirector:
   m_GameObject: {fileID: 6679833182816059212}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 43e340ef3df8c72a08449642ae9ceb59, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: f052b90bb6db3b69d8e74452c27117d3, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 2
@@ -377,6 +377,8 @@ PlayableDirector:
   - key: {fileID: 4326309007782712006, guid: 57359970ff25091bdafe8c223d94ecad, type: 2}
     value: {fileID: 3603244167159871618}
   - key: {fileID: -1883392524339622971, guid: 43e340ef3df8c72a08449642ae9ceb59, type: 2}
+    value: {fileID: 2535875232439134955}
+  - key: {fileID: -6695853932373368267, guid: f052b90bb6db3b69d8e74452c27117d3, type: 2}
     value: {fileID: 2535875232439134955}
   m_ExposedReferences:
     m_References: []
@@ -399,7 +401,7 @@ MonoBehaviour:
   detonationTimeline: {fileID: 11400000, guid: 6003d1a86e5c32aa8861a03e7f0f940f, type: 2}
   enemyTurnTimeline: {fileID: 11400000, guid: 4a50dbb4da3dc4cf4bc40aa86054ecb5, type: 2}
   gameWinTimeline: {fileID: 11400000, guid: 43e340ef3df8c72a08449642ae9ceb59, type: 2}
-  gameLoseTimeline: {fileID: 0}
+  gameLoseTimeline: {fileID: 11400000, guid: f052b90bb6db3b69d8e74452c27117d3, type: 2}
 --- !u!1001 &7752607267358705015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -408,6 +410,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7137973332251502900}
     m_Modifications:
+    - target: {fileID: 3303085567706494207, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3818555483951574759, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_IsActive
       value: 1

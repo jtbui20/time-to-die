@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,6 @@ namespace DefaultNamespace
                 SetupNextStage();
             }
         }
-        
 
         public void NewRun(PlayerData player)
         {
@@ -80,12 +80,6 @@ namespace DefaultNamespace
                 gameplayManager.Deconstruct();
                 Destroy(gameplayManager.gameObject);
             }
-            
-            if (currentScene.IsValid())
-            {
-                SceneManager.UnloadSceneAsync(currentScene);
-            }
-            
         }
     }
 }

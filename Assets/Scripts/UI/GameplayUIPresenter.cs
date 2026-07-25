@@ -22,6 +22,8 @@ namespace DefaultNamespace.UI
         [Header("Win Screen Panel")] public GameObject winScreen;
         public Button goNextButton;
 
+        public LoseOverlayController loseScreenPanel;
+
         [Header("Turn State Texts")]
         public TextMeshProUGUI statePlayerTurnText;
         public TextMeshProUGUI stateEnemyTurnText;
@@ -53,6 +55,7 @@ namespace DefaultNamespace.UI
                 }));
             goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
             forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
+            loseScreenPanel.OnReturnToMenuPressed += () => OnLeaveGameRequested?.Invoke(GameLeavingReason.ReturnToMenu);
         }
 
         void ShowPopup(string message, Action callback)
