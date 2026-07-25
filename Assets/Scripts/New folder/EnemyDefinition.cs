@@ -4,10 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDefinition", menuName = "Scriptable Objects/Enemy/EnemyDefinition")]
 public class EnemyDefinition : ScriptableObject, IUnitDefinition
 {
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int health;
     [SerializeField] private int speed;
     [SerializeField] private string description;
 
+    public GameObject EnemyPrefab { get { return enemyPrefab; } }
     public int Health { get { return health; } }
     public int Speed { get { return speed; } }
     public string Description { get { return description; } }

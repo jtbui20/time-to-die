@@ -51,7 +51,12 @@ public class BombManager : MonoBehaviour
         bombs.Add(bomb);
     }
 
-    public void CountdownBombs()
+    public void Tick(int turnNumber)
+    {
+        Tick();
+    }
+
+    public void Tick()
     {
         foreach (FreeBomb bomb in bombs)
         {
