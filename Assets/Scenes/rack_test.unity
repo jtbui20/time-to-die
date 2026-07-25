@@ -707,7 +707,7 @@ MonoBehaviour:
     m_Bits: 128
   explodeDelay: 0.5
   explodeQueue: []
-  BombPrebuiltPrefab: {fileID: 0}
+  bombPrefabBindings: {fileID: 0}
   bombMoveConfig: {fileID: 0}
   animationQueue: {fileID: 0}
 --- !u!1 &1134606396
@@ -790,7 +790,7 @@ MonoBehaviour:
     m_Bits: 0
   explodeDelay: 0.5
   explodeQueue: []
-  BombPrebuiltPrefab: {fileID: 0}
+  bombPrefabBindings: {fileID: 11400000, guid: 8dc3a6f4f550c7d27870aa47438a78bc, type: 2}
   bombMoveConfig: {fileID: 11400000, guid: 1dbf021d6de6118a7bfb951123b6ea8f, type: 2}
   animationQueue: {fileID: 1134606399}
 --- !u!4 &1134606401
@@ -1452,6 +1452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rack Overlay Set
       objectReference: {fileID: 0}
+    - target: {fileID: 6299909426156600634, guid: 5c99ee7ffdc5308f7bb7316498aba06a, type: 3}
+      propertyPath: _bombManager
+      value: 
+      objectReference: {fileID: 1134606400}
     - target: {fileID: 7624577997792898915, guid: 5c99ee7ffdc5308f7bb7316498aba06a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.61

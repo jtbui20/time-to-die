@@ -31,6 +31,8 @@ namespace Tests
                 bombs.Add(new FreeBomb(bombDef));
             }
             BombDeck.LoadDeck(bombs);
+            
+            BombDeck.PileDeck.Shuffle();
         }
 
         public void DrawHand()
