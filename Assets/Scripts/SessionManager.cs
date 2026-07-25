@@ -11,7 +11,6 @@ namespace DefaultNamespace
 
         public bool ImmediateStart = false;
         
-        private GameplayPlayerInstance playerInstance;
         private GameplayScenarioManager gameplayManager;
         
         private Scene currentScene;
@@ -19,13 +18,17 @@ namespace DefaultNamespace
         void Start()
         {
             DontDestroyOnLoad(this);
-            if (!ImmediateStart) return;
-            SetupNextStage();
+            if (ImmediateStart)
+            {
+                SetupNextStage();
+            }
         }
+        
 
-        public void InjectData(PlayerData player)
+        public void NewRun(PlayerData player)
         {
             this.player = player;
+            SetupNextStage();
         }
 
         async Awaitable SetupNextStage()
@@ -38,22 +41,15 @@ namespace DefaultNamespace
             
             currentScene = SceneManager.GetSceneByBuildIndex(buildIndex);
             // SceneManager.SetActiveScene(currentScene);
-
-            playerInstance = FindAnyObjectByType<GameplayPlayerInstance>();
             
-            if (playerInstance == null)
+            gameplayManager = FindAnyObjectByType<GameplayScenarioManager>();
+            if (gameplayManager == null)
             {
-                playerInstance = Instantiate(GameplayManagerPrefab).GetComponent<GameplayPlayerInstance>();
+                gameplayManager = Instantiate(GameplayManagerPrefab).GetComponent<GameplayScenarioManager>();
             }
+            gameplayManager.Inject(player);
             
-            playerInstance.Inject(player);
-            playerInstance.InitializePlayer();
-            
-            gameplayManager = playerInstance.GetComponent<GameplayScenarioManager>();
-            gameplayManager.SetupGameplay(playerInstance);
-            
-            
-            // When everything is done we start
+            // The gameplay manager will start when it's ready
         }
 
         void DeconstructCurrentScene()
@@ -62,11 +58,6 @@ namespace DefaultNamespace
             {
                 gameplayManager.Deconstruct();
                 Destroy(gameplayManager.gameObject);
-            }
-            
-            if (playerInstance != null)
-            {
-                Destroy(playerInstance.gameObject);
             }
             
             if (currentScene.IsValid())

@@ -10,6 +10,7 @@ public class BombManager : MonoBehaviour
     private List<FreeBomb> bombs = new();
     [SerializeField] private List<FreeBomb> explodeQueue = new();
     public List<FreeBomb> Bombs { get { return bombs; } }
+    public GameObject BombPrebuiltPrefab;
 
     private Coroutine explosionRoutine;
 
