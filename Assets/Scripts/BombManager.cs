@@ -69,6 +69,7 @@ public class BombManager : MonoBehaviour
             {
                 actionQueue.EnqueueTask(new ActionQueueRequest(
                     ActionQueueType.Explode, 
+                    0,
                     async (cancellationToken) =>
                 {
                     ProcessSingleExplosion(freeBomb);
@@ -125,6 +126,7 @@ public class BombManager : MonoBehaviour
             // I need to actually enqueue this task to a choreographer instead, might be the action queue
             actionQueue.EnqueueTask(new ActionQueueRequest(
                 ActionQueueType.Explode,
+                0,
                 async (cancellationToken) =>
                 {
                     ProcessSingleExplosion(bomb);

@@ -16,9 +16,10 @@ public struct ActionQueueRequest
     public int ChainNumber;
     public Func<CancellationToken, UniTask> Task;
 
-    public ActionQueueRequest(ActionQueueType type, Func<CancellationToken, UniTask> task)
+    public ActionQueueRequest(ActionQueueType type, int chainNumber, Func<CancellationToken, UniTask> task)
     {
         Type = type;
+        ChainNumber = chainNumber;
         Task = task;
     }
 }
@@ -61,11 +62,11 @@ public class ActionQueueManager : MonoBehaviour
             {
                 // Run and completely await the task before continuing the loop
                 // Depending on the type of task we have here, we need to send it to the right places
-
+                
                 switch (nextRequest.Type)
                 {
                     case ActionQueueType.Explode:
-                        case ActionQueueType.Move:
+                    case ActionQueueType.Move:
                         // Send this to the animator
                         break;
                     default:
