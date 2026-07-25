@@ -31,6 +31,13 @@ public class FreeBomb : FreeUnit
         AdjustStatus();
     }
 
+    public FreeBomb(FreeBomb original) : this(original.bombDef)
+    {
+        // Clone over any upgrades or states not originating from BombDefinition
+
+        //health = original.health;
+    }
+
     protected override void AdjustStatus()
     {
         bombType = bombDef.BombType;
@@ -45,7 +52,7 @@ public class FreeBomb : FreeUnit
     {
         List<IDamageable> targets = new();
 
-        Collider[] hitColliders = Physics.OverlapSphere(position, range, destructibleMask);
+        Collider[] hitColliders = Physics.OverlapSphere(position, range, destructibleMask, QueryTriggerInteraction.Collide);
         foreach (Collider collider in hitColliders)
         {
             IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();

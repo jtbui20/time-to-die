@@ -24,6 +24,7 @@ public class UnitView : MonoBehaviour, IDamageable
         if (Unit != null)
         {
             Unit.OnPositionChanged -= UpdatePosition;
+            Unit.OnStatusChanged -= UpdateView;
         }
     }
 

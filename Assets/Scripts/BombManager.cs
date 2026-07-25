@@ -47,10 +47,12 @@ public class BombManager : MonoBehaviour
     {
         var GameObject = bombPrefabBindings.GetPrefab(bomb.BombType);
         var bombObject = Instantiate(GameObject, targetPosition, Quaternion.identity);
-        BombPrebuilt prebuilt = bombObject.GetComponent<BombPrebuilt>();
-        
-        prebuilt.ExternalSetup(bomb);
-        bombs.Add(bomb);
+        BombView bombView = bombObject.GetComponent<BombView>();
+
+        var clonedBomb = new FreeBomb(bomb);
+
+        bombView.Init(clonedBomb);
+        bombs.Add(clonedBomb);
     }
 
     public void Add(FreeBomb bomb)
