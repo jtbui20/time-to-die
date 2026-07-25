@@ -18,13 +18,24 @@ namespace DefaultNamespace.Game_State
         public PlayableAsset playerTurnExitTimeline;
         public PlayableAsset detonationTimeline;
         public PlayableAsset enemyTurnTimeline;
+        
+        [Header("Game End Timelines")]
+        public PlayableAsset gameWinTimeline;
+        public PlayableAsset gameLoseTimeline;
 
         public event Action<GameplayStates> OnTimelineCompleted ;
+        
+        private GameEndingBecause _endGameReason = GameEndingBecause.None;
 
         private void Awake()
         {
             _director = GetComponent<PlayableDirector>();
             _receiver = GetComponent<SignalReceiver>();
+        }
+
+        public void SetGameEndReason(GameEndingBecause endGameReason)
+        {
+            _endGameReason = endGameReason;
         }
 
         public void PlayState(GameplayStates state)
@@ -50,6 +61,22 @@ namespace DefaultNamespace.Game_State
                     break;
                 case GameplayStates.EnemyTurn:
                     _director.Play(enemyTurnTimeline);
+                    break;
+                case GameplayStates.GameEnd:
+                    if (_endGameReason != GameEndingBecause.None)
+                    {
+                        // Play the appropriate end game timeline based on the reason
+                        switch (_endGameReason)
+                        {
+                            case GameEndingBecause.Win:
+                                _director.Play(gameWinTimeline);
+                                break;
+                            case GameEndingBecause.Lose:
+                                _director.Play(gameLoseTimeline);
+                                break;
+                        }
+                    }
+
                     break;
                 default:
                     Debug.LogWarning($"No timeline defined for state {state}");

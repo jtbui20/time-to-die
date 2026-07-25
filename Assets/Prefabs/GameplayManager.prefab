@@ -117,6 +117,7 @@ MonoBehaviour:
   CurrentState: 0
   MapData: {fileID: 0}
   ImmediateStart: 1
+  EndGameReason: 0
 --- !u!114 &7478572414069500231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +358,7 @@ PlayableDirector:
   m_GameObject: {fileID: 6679833182816059212}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 57359970ff25091bdafe8c223d94ecad, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 43e340ef3df8c72a08449642ae9ceb59, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 2
@@ -375,6 +376,8 @@ PlayableDirector:
     value: {fileID: 3603244167159871618}
   - key: {fileID: 4326309007782712006, guid: 57359970ff25091bdafe8c223d94ecad, type: 2}
     value: {fileID: 3603244167159871618}
+  - key: {fileID: -1883392524339622971, guid: 43e340ef3df8c72a08449642ae9ceb59, type: 2}
+    value: {fileID: 2535875232439134955}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &542243628856831502
@@ -395,6 +398,8 @@ MonoBehaviour:
   playerTurnExitTimeline: {fileID: 11400000, guid: 3efef4eafe8b3f9ee9a646c4c51e15d8, type: 2}
   detonationTimeline: {fileID: 11400000, guid: 6003d1a86e5c32aa8861a03e7f0f940f, type: 2}
   enemyTurnTimeline: {fileID: 11400000, guid: 4a50dbb4da3dc4cf4bc40aa86054ecb5, type: 2}
+  gameWinTimeline: {fileID: 11400000, guid: 43e340ef3df8c72a08449642ae9ceb59, type: 2}
+  gameLoseTimeline: {fileID: 0}
 --- !u!1001 &7752607267358705015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -403,6 +408,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7137973332251502900}
     m_Modifications:
+    - target: {fileID: 3818555483951574759, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -452,6 +461,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+--- !u!95 &2535875232439134955 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5235423754610929564, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+  m_PrefabInstance: {fileID: 7752607267358705015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3459396144749633730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}

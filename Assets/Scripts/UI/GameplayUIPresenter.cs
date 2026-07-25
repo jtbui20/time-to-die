@@ -13,11 +13,25 @@ namespace DefaultNamespace.UI
         public Button endTurnButton;
         public Button settingsButton;
 
+        [Header("Menu Panel")] public GameObject menuPanel;
+        public Button optionsButton;
+        public Button endGameButton;
+        public Button closeButton;
+        public Button forceWin;
+
+        [Header("Win Screen Panel")] public GameObject winScreen;
+        public Button goNextButton;
+
         [Header("Turn State Texts")]
         public TextMeshProUGUI statePlayerTurnText;
         public TextMeshProUGUI stateEnemyTurnText;
 
+        [Header("UI Prefabs")] public GameObject PopupPrefab;
+        
         public event Action OnEndTurnButtonPressed;
+        public event Action OnEndGameConfirmButtonPressed;
+        public event Action<GameLeavingReason> OnLeaveGameRequested;
+        public event Action OnForceWin;
 
         private Animator UIAnimator;
 
@@ -29,6 +43,23 @@ namespace DefaultNamespace.UI
         void Start()
         {
             endTurnButton.onClick.AddListener(() => OnEndTurnButtonPressed?.Invoke());
+            closeButton.onClick.AddListener(HideMenu);
+            settingsButton.onClick.AddListener(ShowMenu);
+            endGameButton.onClick.AddListener(() => ShowPopup("Are you sure you want to end the game?",
+                () =>
+                {
+                    HideMenu();
+                    OnEndGameConfirmButtonPressed?.Invoke();
+                }));
+            goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
+            forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
+        }
+
+        void ShowPopup(string message, Action callback)
+        {
+            var popup = Instantiate(PopupPrefab, transform);
+            var popupComponent = popup.GetComponent<PopupWithConfirmCancel>();
+            popupComponent.Setup(message, callback);
         }
         
         public void UpdateStageText(GameplayStates stage)
@@ -50,7 +81,16 @@ namespace DefaultNamespace.UI
         {
             enemiesLeftText.text = $"Enemies Left: {enemiesLeft}";
         }
-        
+
+        public void ShowMenu()
+        {
+            menuPanel.SetActive(true);
+        }
+
+        public void HideMenu()
+        {
+            menuPanel.SetActive(false);
+        }
         
         public void HideUI()
         {
