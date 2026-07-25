@@ -1,5 +1,6 @@
 using System;
 using DefaultNamespace.VFX;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -20,6 +21,7 @@ namespace DefaultNamespace.CustomAnimations
         public void ComputePosition(double currentTime);
         public void SetTotalDuration(double totalDuration);
         public event Action OnComplete;
+        public void InjectVFX(VFXDispatcher vfx);
     }
     
     [Serializable]
@@ -32,15 +34,15 @@ namespace DefaultNamespace.CustomAnimations
         public double startTime;
         public double totalDuration;
         
-        public GameObject obj;
+        public FreeBomb obj;
 
         public event Action OnComplete;
 
-        public AnimBombMove(GameObject obj, Vector3 targetPosition, double totalDuration,
+        public AnimBombMove(FreeBomb obj, Vector3 targetPosition, double totalDuration,
             AnimBombMoveConfig config)
         {
             this.obj = obj;
-            originalPosition = obj.transform.position;
+            originalPosition = obj.Position;
             this.targetPosition = targetPosition;
             this.totalDuration = totalDuration;
             this.config = config;
@@ -63,7 +65,7 @@ namespace DefaultNamespace.CustomAnimations
 
         public void ComputePosition(double currentTime)
         {
-            if (!obj) return;
+            if (obj == null) return;
             if (IsComplete) return;
             
             float normalizedTime = (float)((currentTime - startTime) / totalDuration);
@@ -76,21 +78,26 @@ namespace DefaultNamespace.CustomAnimations
             
             float y = Mathf.Lerp(originalPosition.y, yMax, config.yMoveGraph.Evaluate(normalizedTime));
             
-            obj.transform.position = new Vector3(x, y, z);
+            obj.Position = new Vector3(x, y, z);
             
             if (normalizedTime >= 1.0f)
             {
-                obj.transform.position = targetPosition;
+                obj.Position = targetPosition;
                 OnComplete?.Invoke();
                 IsComplete = true;
             }
+        }
+
+        public void InjectVFX(VFXDispatcher vfx)
+        {
+            return;
         }
     }
 
     [Serializable]
     public class AnimBombExplode : ICustomAnimation
     {
-        public GameObject obj;
+        public FreeBomb obj;
 
         public double startTime;
         public double totalDuration;
@@ -106,11 +113,10 @@ namespace DefaultNamespace.CustomAnimations
 
         private VFXDispatcher _vfxDispatcher;
 
-        public AnimBombExplode(GameObject obj, VFXDispatcher vfx, double totalDuration)
+        public AnimBombExplode(FreeBomb obj, double totalDuration)
         {
             this.obj = obj;
             this.totalDuration = totalDuration;
-            this._vfxDispatcher = vfx;
             IsComplete = false;
         }
 
@@ -125,13 +131,13 @@ namespace DefaultNamespace.CustomAnimations
 
         public void ComputePosition(double currentTime)
         {
-            if (!obj) return;
+            if (obj == null) return;
             if (IsComplete) return;
 
             if (!HasPlayed)
             {
                 // Play the vfx 
-                _vfxDispatcher.RequestVFX(obj.transform, VFXMainTypes.BombExplode);
+                _vfxDispatcher.RequestVFX(obj.Position, VFXMainTypes.BombExplode);
                 HasPlayed = true;
             }
             
@@ -142,6 +148,11 @@ namespace DefaultNamespace.CustomAnimations
                 OnComplete?.Invoke();
                 IsComplete = true;
             }
+        }
+        
+        public void InjectVFX(VFXDispatcher vfx)
+        {
+            _vfxDispatcher = vfx;
         }
     }
 }

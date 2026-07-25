@@ -148,7 +148,7 @@ public class GameplayScenarioManager : MonoBehaviour
         CurrentTurn++;
         player.BombDeck.Draw(player.MaxHandSize);
         
-        _bombManager.Tick();
+        _bombManager.CountdownBombs();
     }
 
     void PlayerTurn()
@@ -182,6 +182,8 @@ public class GameplayScenarioManager : MonoBehaviour
     async Awaitable EnemyTurn()
     {
         // _enemyManager.ProcessStep();
+        
+        // _enemyManager.SpawnEnemies();
     }
 
     async Awaitable GameEnd()

@@ -35,6 +35,23 @@ namespace DefaultNamespace.VFX
             return vfx;
         }
 
+        public void RequestVFX(Vector3 position, VFXMainTypes type)
+        {
+            VisualEffectAsset selectedAsset = type switch
+            {
+                VFXMainTypes.BombExplode => BombExplode,
+                VFXMainTypes.BombPlace => BombPlace,
+                VFXMainTypes.BombTrail => BombTrail,
+                _ => null
+            };
+            if (!selectedAsset)
+            {
+                throw new NullReferenceException($"VFX asset for type {type} is not assigned.");
+            }
+            
+            CreateVFX(selectedAsset, transform.position, transform.rotation);
+        }
+
         public void RequestVFX(Transform transform, VFXMainTypes type)
         {
             VisualEffectAsset selectedAsset = type switch

@@ -40,7 +40,7 @@ public class FreeBomb : FreeUnit
         base.AdjustStatus();
     }
 
-    public List<IDamageable> Explode(int destructibleMask)
+    public List<IDamageable> GetDamageableInExplosionRadius(int destructibleMask)
     {
         List<IDamageable> targets = new();
 
@@ -69,5 +69,17 @@ public class FreeBomb : FreeUnit
         */
 
         return targets;
+    }
+
+    /// <summary>
+    /// This doesn't check the component, we expect it to have it
+    /// </summary>
+    /// <param name="destructibleMask"></param>
+    /// <returns></returns>
+    public RaycastHit[] GetDamageableInexplosionRadiusRaycast(int destructibleMask)
+    {
+        RaycastHit[] results = new RaycastHit[10];
+        var size = Physics.SphereCastNonAlloc(position, range, Vector3.up, results, 0f, destructibleMask);
+        return results;
     }
 }

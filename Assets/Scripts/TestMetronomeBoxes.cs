@@ -42,49 +42,44 @@ namespace DefaultNamespace.UI
                 boxes.Add(box);
             }
             
-            SetupAnims();
+            // SetupAnims();
             animationQueue.Setup(() => synchronizer.ProvideNextDurationUntilTick());
             
             synchronizer.OnBeatTick += OnTick;
             synchronizer.PlayAsset();
         }
 
-        private void SetupAnims()
-        {
-            var thing = new AnimBombMove(
-                bombReference, targetPosition.position, 1.0, bombMoveConfig);
-            var bombExplode = new AnimBombExplode(bombReference, _vfx, 0.2f);
-            var thing2 = new AnimBombMove(
-                bombReference2, targetPosition.position, 1.0, bombMoveConfig);
-            var bombExplode2 = new AnimBombExplode(bombReference2, _vfx, 0.2f);
-
-            thing.OnComplete += () =>
-            {
-                animationQueue.Enqueue(bombExplode);
-            };
-            
-            bombExplode.OnComplete += () =>
-            {
-                animationQueue.Enqueue(thing2);
-            };
-
-            thing2.OnComplete += () =>
-            {
-                animationQueue.Enqueue(bombExplode2);
-            };
-            
-            bombExplode2.OnComplete += () =>
-            {
-                Debug.Log("Done");
-            };
-            
-            animationQueue.Enqueue(thing);
-        }
-
-        private void Update()
-        {
-            animationQueue.Update();
-        }
+        // private void SetupAnims()
+        // {
+        //     var thing = new AnimBombMove(
+        //         bombReference, targetPosition.position, 1.0, bombMoveConfig);
+        //     var bombExplode = new AnimBombExplode(bombReference, _vfx, 0.2f);
+        //     var thing2 = new AnimBombMove(
+        //         bombReference2, targetPosition.position, 1.0, bombMoveConfig);
+        //     var bombExplode2 = new AnimBombExplode(bombReference2, _vfx, 0.2f);
+        //
+        //     thing.OnComplete += () =>
+        //     {
+        //         animationQueue.Enqueue(bombExplode);
+        //     };
+        //     
+        //     bombExplode.OnComplete += () =>
+        //     {
+        //         animationQueue.Enqueue(thing2);
+        //     };
+        //
+        //     thing2.OnComplete += () =>
+        //     {
+        //         animationQueue.Enqueue(bombExplode2);
+        //     };
+        //     
+        //     bombExplode2.OnComplete += () =>
+        //     {
+        //         Debug.Log("Done");
+        //     };
+        //     
+        //     animationQueue.Enqueue(thing);
+        // }
 
         private void OnTick()
         {
