@@ -83,7 +83,7 @@ Transform:
   - {fileID: 6705690433155061076}
   - {fileID: 5291084863077592970}
   - {fileID: 1276634514460552470}
-  - {fileID: 5854166229968540525}
+  - {fileID: 3459396144749633730}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1252536215250652221
@@ -134,9 +134,9 @@ MonoBehaviour:
     m_Bits: 0
   explodeDelay: 0.5
   explodeQueue: []
-  BombPrebuiltPrefab: {fileID: 0}
-  bombMoveConfig: {fileID: 0}
-  animationQueue: {fileID: 0}
+  bombPrefabBindings: {fileID: 11400000, guid: 8dc3a6f4f550c7d27870aa47438a78bc, type: 2}
+  bombMoveConfig: {fileID: 11400000, guid: 1dbf021d6de6118a7bfb951123b6ea8f, type: 2}
+  animationQueue: {fileID: 5663447213730556852}
 --- !u!114 &4707347596401551632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d0029ddb544b3a85f838022bfc5e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.BPMActionSynchronizer
-  bpm: 95
+  bpm: 50
   deadzone: 0.009999999776482582
 --- !u!1 &6297052988811472395
 GameObject:
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 10840191747580824}
   - component: {fileID: 542243628856831502}
   m_Layer: 0
-  m_Name: Director
+  m_Name: State Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,7 +395,7 @@ MonoBehaviour:
   playerTurnExitTimeline: {fileID: 11400000, guid: 3efef4eafe8b3f9ee9a646c4c51e15d8, type: 2}
   detonationTimeline: {fileID: 11400000, guid: 6003d1a86e5c32aa8861a03e7f0f940f, type: 2}
   enemyTurnTimeline: {fileID: 11400000, guid: 4a50dbb4da3dc4cf4bc40aa86054ecb5, type: 2}
---- !u!1001 &768664594967410392
+--- !u!1001 &7752607267358705015
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -405,7 +405,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -413,7 +413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -452,8 +452,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
---- !u!4 &5854166229968540525 stripped
+--- !u!4 &3459396144749633730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
-  m_PrefabInstance: {fileID: 768664594967410392}
+  m_PrefabInstance: {fileID: 7752607267358705015}
   m_PrefabAsset: {fileID: 0}

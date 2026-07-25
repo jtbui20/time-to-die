@@ -11,6 +11,8 @@ public class BombView : UnitView
     private TextMeshPro countdownText;
     [SerializeField]
     private GameObject countdownObject;
+    [SerializeField]
+    private GameObject AOEArea;
     private Camera mainCam;
 
     public void Awake()
@@ -41,5 +43,8 @@ public class BombView : UnitView
         {
             countdownText.text = Bomb.Health.ToString();
         }
+
+        float rootScale = 0.55f;
+        AOEArea.transform.localScale = new Vector3(Bomb.Range * 1 * rootScale, 0.1f, Bomb.Range * 1 * rootScale);
     }
 }

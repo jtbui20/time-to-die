@@ -14,6 +14,8 @@ namespace DefaultNamespace
         public void Awake()
         {
             BombDeck = new ThreePileTemplateCardManager<FreeBomb>();
+            BombDeck.PullExcessive = true;
+            BombDeck.ShouldDeckShuffleAfterChange = true;
         }
 
         public void Inject(PlayerData playerData)
@@ -34,6 +36,7 @@ namespace DefaultNamespace
             }
             
             BombDeck.LoadDeck(bombs);
+            BombDeck.PileDeck.Shuffle();
             Debug.Log($"Player initialized with {bombs.Count} bombs.");
         }
     }

@@ -140,7 +140,9 @@ namespace DefaultNamespace.UI
             RaycastHit hit = GetViableLocationForBomb();
             if (hit.collider != null)
             {
-                currentBomb.transform.DOMove(hit.point + verticalOffset, 0.3f).SetEase(Ease.OutSine);
+                Vector3 targetPosition = hit.point + verticalOffset;
+                currentBomb.transform.position = targetPosition;
+                // currentBomb.transform.DOMove(hit.point + verticalOffset, 0.3f).SetEase(Ease.OutSine);
             }
         }
 
@@ -176,7 +178,8 @@ namespace DefaultNamespace.UI
                 // Return this bomb to the end of the tray position
                 if (bombPositionsOnTray.Count > 0)
                 {
-                    currentBomb.transform.DOMove(GetLastPositionOnTray(), 0.5f);
+                    currentBomb.transform.position = GetLastPositionOnTray();
+                    // currentBomb.transform.DOMove(GetLastPositionOnTray(), 0.5f);
                 }
             }
             

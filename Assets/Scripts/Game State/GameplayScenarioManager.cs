@@ -1,3 +1,4 @@
+using System.Linq;
 using DefaultNamespace;
 using DefaultNamespace.Game_State;
 using DefaultNamespace.UI;
@@ -30,6 +31,8 @@ public class GameplayScenarioManager : MonoBehaviour
 
     private GameScenarioDirector _director;
     private GameplayUIPresenter _uiPresenter;
+    private RackController _rackController;
+    private BPMActionSynchronizer _bpmSynchronizer;
 
     public bool ImmediateStart = false;
 
@@ -40,6 +43,8 @@ public class GameplayScenarioManager : MonoBehaviour
         _enemyManager = GetComponent<EnemyManager>();
         _director = GetComponentInChildren<GameScenarioDirector>();
         _uiPresenter = GetComponentInChildren<GameplayUIPresenter>();
+        _rackController = GetComponentInChildren<RackController>();
+        _bpmSynchronizer = GetComponentInChildren<BPMActionSynchronizer>();
     }
     
     void Start()
@@ -60,8 +65,9 @@ public class GameplayScenarioManager : MonoBehaviour
     {
         player.InitializePlayer();
         // Spawn in the UI prefab
-        _uiPresenter.OnEndTurnButtonPressed += OnPlayerEndTurn;
+        _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
         _director.OnTimelineCompleted += OnTimelineCompleted;
+        _rackController._bombManager = _bombManager;
     }
 
     public void GeneralUpdateUI()
@@ -79,6 +85,7 @@ public class GameplayScenarioManager : MonoBehaviour
     {
         CurrentState = state;
         Debug.Log($"Switching to state: {state}");
+        _uiPresenter.UpdateStageText(CurrentState);
         switch (CurrentState)
         {
             case GameplayStates.GameStart:
@@ -140,13 +147,17 @@ public class GameplayScenarioManager : MonoBehaviour
         // _enemyManager.SpawnEnemies()
         
         // Then we transition to turn start
+        _bpmSynchronizer.StartTimer();
     }
 
     void TurnStart()
     {
         // Show turn start
         CurrentTurn++;
+        int drawCount = player.MaxHandSize - player.BombDeck.PileHand.Count;
         player.BombDeck.Draw(player.MaxHandSize);
+        
+        _rackController.LoadInNewBombs(player.BombDeck.PileHand.ViewPile().ToList());
         
         _bombManager.CountdownBombs();
     }
@@ -156,7 +167,7 @@ public class GameplayScenarioManager : MonoBehaviour
         // Enable inputs and such
     }
 
-    void OnPlayerEndTurn()
+    void PlayerTurnButtonPressed()
     {
         SwitchToState(GameplayStates.PlayerExit);
     }
@@ -165,10 +176,13 @@ public class GameplayScenarioManager : MonoBehaviour
     {
         // Gather Information
         // _bombManager.Tick();
+        player.BombDeck.DiscardAllHand();
+        _rackController.HandleDiscard();
     }
 
     async Awaitable DetonationStep()
     {
+        _bombManager.GenerateBombActionQueue();
         // This should be a "detonate & tick" function
         // await
         

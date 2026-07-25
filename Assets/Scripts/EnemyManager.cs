@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        GameClock.Instance.OnTick += Tick;
+        // GameClock.Instance.OnTick += Tick;
     }
 
     public void Tick(int turnNumber)
