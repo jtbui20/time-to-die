@@ -27,7 +27,7 @@ public class UnitView : MonoBehaviour, IDamageable
         }
     }
 
-    protected void UpdatePosition()
+    protected virtual void UpdatePosition()
     {
         transform.position = Unit.Position;
     }

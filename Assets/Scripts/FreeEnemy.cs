@@ -6,13 +6,16 @@ using UnityEngine;
 [System.Serializable]
 public class FreeEnemy : FreeUnit
 {
-    [SerializeField] private int speed;
+    [SerializeField] private float speed;
 
     private EnemyDefinition enemyDef;
+    private Waypoint nextWaypoint;
+    private AgentPath agentPath = new();
 
-    public int Speed { get { return speed; } }
+    public float Speed { get { return speed; } }
+    public AgentPath AgentPath { get { return agentPath; } }
 
-    public FreeEnemy(IUnitDefinition unit) : base(unit)
+    public FreeEnemy(IUnitDefinition unit, Waypoint? waypoint) : base(unit)
     {
         enemyDef = unit as EnemyDefinition;
         if (enemyDef == null)
@@ -21,6 +24,7 @@ public class FreeEnemy : FreeUnit
             return; 
         }
 
+        nextWaypoint = waypoint;
         AdjustStatus();
     }
 
@@ -28,5 +32,20 @@ public class FreeEnemy : FreeUnit
     {
         speed = enemyDef.Speed;
         base.AdjustStatus();
+    }
+
+    public void MoveForTurn()
+    {
+        agentPath = NavMeshUtility.CalculateMoveForTurn(speed, position, nextWaypoint);
+        if (agentPath.DestinationPoints.Count > 0)
+        {
+            nextWaypoint = agentPath.NextWaypoint;
+        }
+        base.Position = agentPath.DestinationPoints[^1];
+    }
+
+    public void ClearPathPoints()
+    {
+        agentPath.DestinationPoints.Clear();
     }
 }

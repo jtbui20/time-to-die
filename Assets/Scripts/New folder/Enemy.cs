@@ -22,7 +22,7 @@ public class Enemy : Unit
 
     protected override void AdjustStatus()
     {
-        speed = enemyDef.Speed;
+        speed = (int)enemyDef.Speed;
         base.AdjustStatus();
     }
 }
