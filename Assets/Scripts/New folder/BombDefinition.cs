@@ -41,5 +41,10 @@ public class BombDefinition : ScriptableObject, IUnitDefinition
 
 public enum BombType
 {
-    Standard
+    Standard,
+    Ice,
+    Chain,
+    Instant,
+    Molotov,
+    TNT
 }

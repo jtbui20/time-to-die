@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5804597873775476839}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36163798, y: 0.6076331, z: -0.36163807, w: 0.60763305}
-  m_LocalPosition: {x: -1.58778, y: -1.2396498, z: 13.058229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.16, y: 2.16, z: 2.16}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d379645355c4cc9e4a6a2275571295dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,3 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TrayBomb
   rigidBody: {fileID: 0}
   collider: {fileID: 0}
+  BombOffset: {x: 0, y: -0.312, z: 0}
+  BombScale: {x: 0.4, y: 0.4, z: 0.4}

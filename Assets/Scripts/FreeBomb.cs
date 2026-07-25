@@ -17,6 +17,7 @@ public class FreeBomb : FreeUnit
     public int ChainDistance { get { return chainDistance; } }
     public int ChainTick { get { return chainTick; } }
     public int Damage { get { return damage; } }
+    public BombType BombType { get { return bombType; } }
 
     public FreeBomb(IUnitDefinition unit) : base(unit)
     {

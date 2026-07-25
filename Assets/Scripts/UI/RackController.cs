@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using DefaultNamespace.Data;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -37,6 +39,8 @@ namespace DefaultNamespace.UI
         private bool FollowingMouse;
         private TrayBomb currentBomb;
         private List<TrayBomb> bombsOnRack;
+
+        public BombBindings bombBindingsPrefab;
         
 
         public event Action<FreeBomb, Vector3> OnValidBombSpawnPosition;
@@ -93,6 +97,17 @@ namespace DefaultNamespace.UI
             foreach (TrayBomb bomb in bombsOnRack)
             {
                 BindEvents(bomb);
+            }
+        }
+
+        public void HandleDiscard()
+        {
+            // Unregister all tracked bombs
+            while (bombsOnRack.Count > 0)
+            {
+                TrayBomb bomb = bombsOnRack[0];
+                UnregisterBomb(bomb);
+                Destroy(bomb.gameObject);
             }
         }
 
@@ -180,7 +195,9 @@ namespace DefaultNamespace.UI
         {
             var TrayBomb = Instantiate(trayBombPrefab, GetLastPositionOnTray(),  Quaternion.identity, this.transform)
                 .GetComponent<TrayBomb>();
-            TrayBomb.actualBomb = bomb;
+            
+            GameObject prefab = bombBindingsPrefab.GetPrefab(bomb.BombType);
+            TrayBomb.Setup(bomb, prefab);
             BindEvents(TrayBomb);
             bombsOnRack.Add(TrayBomb);
         }
