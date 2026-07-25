@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8275258794200766757}
   - component: {fileID: 6221655876176278096}
+  - component: {fileID: 1560761953754377240}
   m_Layer: 0
   m_Name: PersistentApplicationDataManager
   m_TagString: Untagged
@@ -47,3 +48,18 @@ MonoBehaviour:
   player: {fileID: 11400000, guid: 8f7b003cffdc48cff92af3f7f3cb9615, type: 2}
   GameplayManagerPrefab: {fileID: 2043260073283946676, guid: 860f944fb69fb5b90b0df6169664d15f, type: 3}
   ImmediateStart: 1
+--- !u!114 &1560761953754377240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9063111910531066533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4c86bf3f6645dd9be902af886ab3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.VFX.VFXDispatcher
+  BombExplode: {fileID: 8926484042661614526, guid: d15eb4a438485ede982cd455cbd60b43, type: 3}
+  BombPlace: {fileID: 0}
+  BombTrail: {fileID: 0}

@@ -178,31 +178,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9063111910531066533, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1466064552414993871}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
---- !u!1 &1466064552414993870 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9063111910531066533, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
-  m_PrefabInstance: {fileID: 1466064552414993869}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1466064552414993871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1466064552414993870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4c86bf3f6645dd9be902af886ab3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.VFX.VFXDispatcher
-  BombExplode: {fileID: 8926484042661614526, guid: d15eb4a438485ede982cd455cbd60b43, type: 3}
-  BombPlace: {fileID: 0}
-  BombTrail: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
