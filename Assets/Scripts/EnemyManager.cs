@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Instance;
 
     private List<FreeEnemy> enemies = new();
-    private Coroutine[] spawnCoroutines;
+    [SerializeField] private Coroutine[] spawnCoroutines;
 
     public List<FreeEnemy> EnemyList { get { return enemies; } }
 
@@ -24,14 +24,27 @@ public class EnemyManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        spawnCoroutines = new Coroutine[spawners.Count];
     }
 
     private void Start()
     {
+        var waypoints = FindObjectsByType<Waypoint>(FindObjectsSortMode.None);
+        foreach (var waypoint in waypoints)
+        {
+            if (waypoint.IsSpawnPoint)
+            {
+                spawners.Add(waypoint);
+            }
+        }
+        spawnCoroutines = new Coroutine[spawners.Count];
+
         GameClock clock = GameClock.Instance;
         if (clock != null) { GameClock.Instance.OnTick += Tick; }
+    }
+
+    public void SetupSpawner(SpawnerSchedule spawns)
+    {
+        spawnSchedule = spawns;
     }
 
     public void Tick(int turnNumber)
@@ -60,15 +73,28 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public void ProcessStep()
+    {
+        foreach (var enemy in enemies)
+        {
+            Debug.Log($"{enemy} is moving");
+            enemy.MoveForTurn();
+        }
+    }
+
     public void SpawnWave(int waveNumber)
     {
+        Debug.Log($"Spawning wave {waveNumber}");
         if (spawnSchedule == null) { return; }
 
+        Debug.Log($"A");
         for (int i = 0; i < spawners.Count; i++)
         {
+            Debug.Log($"B");
             Queue<SpawnTiming> spawnQueue = new();
             foreach (var spawn in spawnSchedule.Schedule)
             {
+                Debug.Log($"C");
                 if (spawn.TurnNumber == waveNumber && spawn.SpawnPointIndex == i)
                 {
                     spawnQueue.Enqueue(spawn);
@@ -77,8 +103,11 @@ public class EnemyManager : MonoBehaviour
 
             if (spawnQueue.Count > 0)
             {
+                Debug.Log($"D");
+                Debug.Log($"D : {spawnCoroutines[i]}, {spawnCoroutines[i] == null}");
                 if (spawnCoroutines[i] == null)
                 {
+                    Debug.Log($"E");
                     spawnCoroutines[i] = StartCoroutine(SpawnWithDelay(spawnDelay, spawnQueue));
                 }
             }
@@ -87,6 +116,7 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnWithDelay(float delay, Queue<SpawnTiming> queue)
     {
+        Debug.Log($"Spawning on delay");
         int spawnerIndex = queue.Peek().SpawnPointIndex;
         while (queue.Count > 0)
         {
@@ -99,7 +129,7 @@ public class EnemyManager : MonoBehaviour
                 enemyView.Init(enemy);
                 enemy.Position = spawners[spawnerIndex].gameObject.transform.position;
                 Add(enemy);
-
+                Debug.Log($"Spawned {enemyView.gameObject.name}");
                 yield return new WaitForSeconds(delay);
                 enemy.MoveForTurn();
             }

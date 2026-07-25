@@ -17,7 +17,4 @@ MonoBehaviour:
     asset: {fileID: 102900000, guid: f6bccaab6a35e527b97eb8886ec25a7e, type: 3}
     guid: f6bccaab6a35e527b97eb8886ec25a7e
   StartingLives: 5
-  MaxTurns: 0
-  MaxHandSize: 5
-  SpawningPatterns: {fileID: 0}
-  LevelVariantArrangement: {fileID: 0}
+  SpawnerSchedule: {fileID: 11400000, guid: 1ba629480c30cb244aa39a848a627d11, type: 2}

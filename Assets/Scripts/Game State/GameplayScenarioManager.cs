@@ -59,6 +59,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public void Inject(PlayerData player)
     {
         GetComponent<GameplayPlayerInstance>().Inject(player);
+        _enemyManager.SetupSpawner(player.CurrentLevel.SpawnerSchedule);
     }
 
     void Setup()
@@ -68,6 +69,9 @@ public class GameplayScenarioManager : MonoBehaviour
         _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
+
+        //_enemyManager.SetupSpawner(player.LevelData.SpawnerSchedule);
+        // need to get playerdata from somewhere
     }
 
     public void GeneralUpdateUI()
@@ -195,9 +199,9 @@ public class GameplayScenarioManager : MonoBehaviour
 
     async Awaitable EnemyTurn()
     {
-        // _enemyManager.ProcessStep();
+        _enemyManager.ProcessStep();
         
-        // _enemyManager.SpawnEnemies();
+        _enemyManager.SpawnWave(CurrentTurn);
     }
 
     async Awaitable GameEnd()

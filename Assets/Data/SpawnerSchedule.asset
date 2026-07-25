@@ -21,3 +21,11 @@ MonoBehaviour:
     SpawnPointIndex: 0
     Enemy: {fileID: 11400000, guid: 8c6aad15662728d41843e84f3b67c92d, type: 2}
     EnemyCount: 1
+  - TurnNumber: 2
+    SpawnPointIndex: 0
+    Enemy: {fileID: 11400000, guid: 8c6aad15662728d41843e84f3b67c92d, type: 2}
+    EnemyCount: 1
+  - TurnNumber: 3
+    SpawnPointIndex: 0
+    Enemy: {fileID: 11400000, guid: 8c6aad15662728d41843e84f3b67c92d, type: 2}
+    EnemyCount: 1
