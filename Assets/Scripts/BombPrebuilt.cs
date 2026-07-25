@@ -16,4 +16,9 @@ public class BombPrebuilt : BombView
             }
         }
     }
+
+    public void ExternalSetup(FreeBomb bomb)
+    {
+        base.Init(bomb);
+    }
 }

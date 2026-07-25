@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using DefaultNamespace.CustomAnimations;
+using DefaultNamespace.Data;
 using DefaultNamespace.VFX;
 
 public class BombManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class BombManager : MonoBehaviour
     private List<FreeBomb> bombs = new();
     [SerializeField] private List<FreeBomb> explodeQueue = new();
     public List<FreeBomb> Bombs { get { return bombs; } }
-    public GameObject BombPrebuiltPrefab;
+    public BombBindings bombPrefabBindings;
     
     [SerializeField]
     private AnimBombMoveConfig bombMoveConfig;
@@ -40,6 +41,16 @@ public class BombManager : MonoBehaviour
         {
             bomb.ChangeHealth(Random.Range(0, 5));
         }
+    }
+
+    public void SpawnBomb(FreeBomb bomb, Vector3 targetPosition)
+    {
+        var GameObject = bombPrefabBindings.GetPrefab(bomb.BombType);
+        var bombObject = Instantiate(GameObject, targetPosition, Quaternion.identity);
+        BombPrebuilt prebuilt = bombObject.GetComponent<BombPrebuilt>();
+        
+        prebuilt.ExternalSetup(bomb);
+        bombs.Add(bomb);
     }
 
     public void Add(FreeBomb bomb)

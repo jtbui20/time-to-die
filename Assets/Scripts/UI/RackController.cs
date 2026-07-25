@@ -34,6 +34,8 @@ namespace DefaultNamespace.UI
         public float TimeDelayBetweenBombs = 0.2f;
 
         [Header("Prefabs")] public GameObject trayBombPrefab;
+
+        public BombManager _bombManager;
         
         
         private bool FollowingMouse;
@@ -162,7 +164,9 @@ namespace DefaultNamespace.UI
                 Debug.Log($"Bomb {currentBomb.actualBomb} placed at {hit.point}");
                 // Unmanage this bomb from the tray
                 UnregisterBomb(currentBomb);
-                OnValidBombSpawnPosition?.Invoke(currentBomb.actualBomb, hit.point);
+                
+                // OnValidBombSpawnPosition?.Invoke(currentBomb.actualBomb, hit.point);
+                _bombManager.SpawnBomb(currentBomb.actualBomb, hit.point);
                 Destroy(currentBomb.gameObject);
             }
             else

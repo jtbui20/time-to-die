@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e69d22460c3e487b8f16228e49e3b414, type: 3}
-  m_Name: BombBindings
+  m_Name: bombMeshBindings
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Data.BombBindings
   BasicBomb: {fileID: 919132149155446097, guid: c497cbc58f4f78312aeee8746a36332a, type: 3}
   ChainBomb: {fileID: 919132149155446097, guid: 5b81afd16cf06f134ac0d3106717a283, type: 3}

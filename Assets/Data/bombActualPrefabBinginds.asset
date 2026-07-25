@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69d22460c3e487b8f16228e49e3b414, type: 3}
+  m_Name: bombActualPrefabBinginds
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Data.BombBindings
+  BasicBomb: {fileID: 4192648312499691988, guid: 11afa63eabd336784b5eb54c4d2956b3, type: 3}
+  ChainBomb: {fileID: 5995305061265201668, guid: cd6e0f9e53f32e19cafe107a42dad8bd, type: 3}
+  Molotov: {fileID: 323716014985982403, guid: 489a50027070065b0b0f377231789287, type: 3}
+  IceBomb: {fileID: 4852493793552191131, guid: a6753003124c90d659aa19d1127d2449, type: 3}
+  TNT: {fileID: 513468189339273943, guid: 5dc5aa641920e9cc0aeedeeb81e62f44, type: 3}
+  Instant: {fileID: 0}
