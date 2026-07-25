@@ -36,6 +36,8 @@ public class FreeEnemy : FreeUnit
 
     public void MoveForTurn()
     {
+        if (nextWaypoint == null) { return; }
+        
         agentPath = NavMeshUtility.CalculateMoveForTurn(speed, position, nextWaypoint);
         if (agentPath.DestinationPoints.Count > 0)
         {

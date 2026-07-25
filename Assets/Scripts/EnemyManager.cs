@@ -30,7 +30,8 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        GameClock.Instance.OnTick += Tick;
+        GameClock clock = GameClock.Instance;
+        if (clock != null) { GameClock.Instance.OnTick += Tick; }
     }
 
     public void Tick(int turnNumber)
@@ -61,7 +62,6 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnWave(int waveNumber)
     {
-        // Placeholder
         if (spawnSchedule == null) { return; }
 
         for (int i = 0; i < spawners.Count; i++)
@@ -99,9 +99,9 @@ public class EnemyManager : MonoBehaviour
                 enemyView.Init(enemy);
                 enemy.Position = spawners[spawnerIndex].gameObject.transform.position;
                 Add(enemy);
-                enemy.MoveForTurn();
 
                 yield return new WaitForSeconds(delay);
+                enemy.MoveForTurn();
             }
         }
 
