@@ -1,13 +1,18 @@
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class BombView : UnitView
 {
     [SerializeField] Vector3 countdownTextOffset;
     public FreeBomb Bomb { get; private set; }
     public override IDamageable Source { get { return Bomb; } }
+    [SerializeField]
     private TextMeshPro countdownText;
+    [SerializeField]
     private GameObject countdownObject;
+    [SerializeField]
+    private GameObject AOEArea;
     private Camera mainCam;
 
     public void Awake()
@@ -20,15 +25,6 @@ public class BombView : UnitView
         if (bomb == null) { return; }
 
         Bomb = bomb;
-
-        countdownObject = new GameObject("Countdown Text");
-        countdownObject.transform.parent = transform;
-        countdownObject.transform.localPosition = countdownTextOffset;
-
-        countdownText = countdownObject.AddComponent<TextMeshPro>();
-        countdownText.fontSize = 12;
-        countdownText.alignment = TextAlignmentOptions.Center;
-        countdownText.color = Color.white;
 
         base.Init(bomb);
     }
@@ -47,5 +43,8 @@ public class BombView : UnitView
         {
             countdownText.text = Bomb.Health.ToString();
         }
+
+        float rootScale = 0.55f;
+        AOEArea.transform.localScale = new Vector3(Bomb.Range * 1 * rootScale, 0.1f, Bomb.Range * 1 * rootScale);
     }
 }

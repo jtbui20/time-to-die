@@ -33,7 +33,17 @@ namespace DefaultNamespace.UI
         
         public void UpdateStageText(GameplayStates stage)
         {
-            stageText.text = stage.ToString();
+            stageText.text = stage switch
+            {
+                GameplayStates.GameStart => "Game Start",
+                GameplayStates.TurnStart => "Turn Start",
+                GameplayStates.PlayerTurn => "Player Turn",
+                GameplayStates.PlayerExit => "Player Exit",
+                GameplayStates.Detonation => "Detonation",
+                GameplayStates.EnemyTurn => "Enemy Turn",
+                GameplayStates.GameEnd => "Game End",
+                _ => "Unknown"
+            };
         }
 
         public void UpdateEnemiesLeftText(int enemiesLeft)

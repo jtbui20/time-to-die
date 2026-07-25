@@ -34,6 +34,11 @@ namespace DefaultNamespace
             else StartFrameTimer();
         }
 
+        public void StopTimer()
+        {
+            running = false;
+        }
+
         private void StartDSPTimer()
         {
             double sampleRate = AudioSettings.outputSampleRate;

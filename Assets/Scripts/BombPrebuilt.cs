@@ -3,9 +3,13 @@ using UnityEngine;
 public class BombPrebuilt : BombView
 {
     [SerializeField] private BombDefinition bombDef;
+    private FreeBomb targetReference;
     public void Start()
     {
-        if (bombDef != null)
+        if (targetReference != null)
+        {
+            base.Init(targetReference);
+        } else if (bombDef != null)
         {
             FreeBomb bomb = new FreeBomb(bombDef);
             base.Init(bomb);
@@ -19,6 +23,6 @@ public class BombPrebuilt : BombView
 
     public void ExternalSetup(FreeBomb bomb)
     {
-        base.Init(bomb);
+        targetReference = bomb;
     }
 }
