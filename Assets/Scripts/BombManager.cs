@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
-using DefaultNamespace;
 
 public class BombManager : MonoBehaviour
 {
@@ -11,18 +9,10 @@ public class BombManager : MonoBehaviour
     public static BombManager Instance;
     private List<FreeBomb> bombs = new();
     [SerializeField] private List<FreeBomb> explodeQueue = new();
-    public int CountInQueue => explodeQueue.Count;
-
-    public List<FreeBomb> Bombs
-    {
-        get { return bombs; }
-    }
-
+    public List<FreeBomb> Bombs { get { return bombs; } }
     public GameObject BombPrebuiltPrefab;
 
     private Coroutine explosionRoutine;
-
-    private ActionQueueManager actionQueue;
 
     private void Awake()
     {
@@ -34,12 +24,12 @@ public class BombManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        actionQueue = GetComponent<ActionQueueManager>();
     }
 
     private void Start()
     {
+        GameClock.Instance.OnTick += Tick;
+
         foreach (var bomb in bombs)
         {
             bomb.ChangeHealth(Random.Range(0, 5));
@@ -58,85 +48,68 @@ public class BombManager : MonoBehaviour
 
     public void Tick()
     {
+        List<FreeBomb> additionalTargets;
+        explodeQueue.Clear();
         foreach (FreeBomb bomb in bombs)
         {
             bomb.ChangeHealth(-1);
-        }
-    }
-
-    // We "pre generate" based on the data that we have
-    public void PrepareQueue()
-    {
-        
-        foreach (var freeBomb in bombs)
-        {
-            if (freeBomb.Health <= 0)
+            if (bomb.Health <= 0)
             {
-                actionQueue.EnqueueTask(new ActionQueueRequest(
-                    ActionQueueType.Explode, 
-                    0,
-                    async (cancellationToken) =>
-                {
-                    ProcessSingleExplosion(freeBomb);
-                    await UniTask.Delay((int)(explodeDelay * 1000), cancellationToken: cancellationToken);
-                }));
-
-                // We can try do some simulations here to
-                // increase number of bombs to get exactly the combo count
+                explodeQueue.Add(bomb);
             }
         }
+
+        if (explodeQueue.Count > 0 && explosionRoutine == null)
+        {
+            explosionRoutine = StartCoroutine(ProcessExplosions());
+        }
     }
 
-    private void ProcessSingleExplosion(FreeBomb bomb)
+    private IEnumerator ProcessExplosions()
+{
+    while (explodeQueue.Count > 0)
     {
-        List<IDamageable> additionalTargets = bomb.GetExplodeHits(destructibleMask);
+        FreeBomb currentBomb = explodeQueue[0];
+        explodeQueue.RemoveAt(0);
+        bombs.Remove(currentBomb);
+        Debug.Log($"Exploding {currentBomb}");
+
+        List<IDamageable> additionalTargets = currentBomb.Explode(destructibleMask);
 
         foreach (IDamageable target in additionalTargets)
         {
-            if (target is FreeBomb newBomb)
+            if (target is FreeBomb bomb)
             {
                 // KB
-                Vector3 direction = newBomb.Position - bomb.Position;
+                Vector3 direction = bomb.Position - currentBomb.Position;
                 direction.y = 0f;
                 direction.Normalize();
-                Vector3 newPos = newBomb.Position + direction * bomb.ChainDistance;
-                newBomb.Position = newPos;
+                Vector3 newPos = bomb.Position + direction * currentBomb.ChainDistance;
+                bomb.Position = newPos;
 
                 // Tick
-                newBomb.TakeDamage(bomb.ChainTick);
-                if (newBomb.Health <= 0)
+                bomb.TakeDamage(currentBomb.ChainTick);
+                if (bomb.Health <= 0)
                 {
-                    if (explodeQueue.Contains(newBomb))
+                    if (explodeQueue.Contains(bomb))
                     {
-                        explodeQueue.Remove(newBomb);
+                        explodeQueue.Remove(bomb);
                     }
-
-                    explodeQueue.Insert(0, newBomb);
+                    explodeQueue.Insert(0, bomb);
                 }
             }
             else
             {
-                target.TakeDamage(bomb.Damage);
+                target.TakeDamage(currentBomb.Damage);
             }
         }
 
-        bomb.Cleanup();
+        currentBomb.Cleanup();
+
+        yield return new WaitForSeconds(explodeDelay);
     }
 
-    // The action sequencer will manage all this for us
-    private void QueueAllCurrentExplosions()
-    {
-        foreach (FreeBomb bomb in explodeQueue)
-        {
-            // I need to actually enqueue this task to a choreographer instead, might be the action queue
-            actionQueue.EnqueueTask(new ActionQueueRequest(
-                ActionQueueType.Explode,
-                0,
-                async (cancellationToken) =>
-                {
-                    ProcessSingleExplosion(bomb);
-                    await UniTask.Delay((int)(explodeDelay * 1000), cancellationToken: cancellationToken);
-                }));
-        }
-    }
+    explosionRoutine = null;
+}
+
 }
