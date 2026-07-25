@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
+using DefaultNamespace.CustomAnimations;
+using DefaultNamespace.VFX;
 
 public class BombManager : MonoBehaviour
 {
@@ -11,8 +14,13 @@ public class BombManager : MonoBehaviour
     [SerializeField] private List<FreeBomb> explodeQueue = new();
     public List<FreeBomb> Bombs { get { return bombs; } }
     public GameObject BombPrebuiltPrefab;
+    
+    [SerializeField]
+    private AnimBombMoveConfig bombMoveConfig;
 
     private Coroutine explosionRoutine;
+
+    public AnimationQueue animationQueue;
 
     private void Awake()
     {
@@ -28,8 +36,6 @@ public class BombManager : MonoBehaviour
 
     private void Start()
     {
-        GameClock.Instance.OnTick += Tick;
-
         foreach (var bomb in bombs)
         {
             bomb.ChangeHealth(Random.Range(0, 5));
@@ -43,13 +49,11 @@ public class BombManager : MonoBehaviour
 
     public void Tick(int turnNumber)
     {
-        Tick();
+        CountdownBombs();
     }
 
-    public void Tick()
+    public void CountdownBombs()
     {
-        List<FreeBomb> additionalTargets;
-        explodeQueue.Clear();
         foreach (FreeBomb bomb in bombs)
         {
             bomb.ChangeHealth(-1);
@@ -58,58 +62,76 @@ public class BombManager : MonoBehaviour
                 explodeQueue.Add(bomb);
             }
         }
-
-        if (explodeQueue.Count > 0 && explosionRoutine == null)
-        {
-            explosionRoutine = StartCoroutine(ProcessExplosions());
-        }
     }
 
-    private IEnumerator ProcessExplosions()
-{
-    while (explodeQueue.Count > 0)
+    public void GenerateBombActionQueue()
     {
-        FreeBomb currentBomb = explodeQueue[0];
-        explodeQueue.RemoveAt(0);
-        bombs.Remove(currentBomb);
-        Debug.Log($"Exploding {currentBomb}");
-
-        List<IDamageable> additionalTargets = currentBomb.Explode(destructibleMask);
-
-        foreach (IDamageable target in additionalTargets)
+        foreach (FreeBomb bomb in explodeQueue)
         {
-            if (target is FreeBomb bomb)
+            GenerateExplodeAction(bomb);
+        }
+        
+        explodeQueue.Clear();
+    }
+
+    public void GenerateExplodeAction(FreeBomb currentBomb, int currentChain = 0, bool isHead = false)
+    {
+        var ExplodeAction = new AnimBombExplode(currentBomb, 0.2f);
+        ExplodeAction.OnComplete += () =>
+        {
+            CalculateNextExplosions(currentBomb, currentChain + 1);
+        };
+        
+        animationQueue.RemoveDuplicateExplode(currentBomb);
+        if (isHead)
+        {
+            animationQueue.EnqueueHead(ExplodeAction);
+        }
+        else
+        {
+            animationQueue.Enqueue(ExplodeAction);
+        }
+    }
+    
+    public void GenerateMoveAction(FreeBomb currentBomb, Vector3 targetPosition)
+    {
+        var MoveAction = new AnimBombMove(currentBomb, targetPosition, 0.2f, bombMoveConfig);
+        animationQueue.EnqueueHead(MoveAction);
+    }
+
+    public void CalculateNextExplosions(FreeBomb currentBomb, int currentChain)
+    {
+        List<IDamageable> targets = currentBomb.GetDamageableInExplosionRadius(destructibleMask);
+
+        foreach (IDamageable target in targets)
+        {
+            if (target == null)
             {
-                // KB
-                Vector3 direction = bomb.Position - currentBomb.Position;
+                return;
+            }
+
+            if (target is FreeBomb chainedBomb)
+            {
+                var direction = (chainedBomb.Position - currentBomb.Position);
                 direction.y = 0f;
                 direction.Normalize();
-                Vector3 newPos = bomb.Position + direction * currentBomb.ChainDistance;
-                bomb.Position = newPos;
+                Vector3 newPos = chainedBomb.Position + direction * currentBomb.ChainDistance;
+                
+                // Substitute with damage formula
+                chainedBomb.TakeDamage(currentBomb.ChainTick);
 
-                // Tick
-                bomb.TakeDamage(currentBomb.ChainTick);
-                if (bomb.Health <= 0)
+                if (chainedBomb.Health <= 0)
                 {
-                    if (explodeQueue.Contains(bomb))
-                    {
-                        explodeQueue.Remove(bomb);
-                    }
-                    explodeQueue.Insert(0, bomb);
+                    GenerateExplodeAction(chainedBomb, currentChain + 1, true);
                 }
+                
+                GenerateMoveAction(chainedBomb, newPos);
             }
             else
             {
                 target.TakeDamage(currentBomb.Damage);
             }
         }
-
         currentBomb.Cleanup();
-
-        yield return new WaitForSeconds(explodeDelay);
     }
-
-    explosionRoutine = null;
-}
-
 }
