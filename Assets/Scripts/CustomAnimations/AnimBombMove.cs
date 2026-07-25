@@ -106,11 +106,10 @@ namespace DefaultNamespace.CustomAnimations
 
         private VFXDispatcher _vfxDispatcher;
 
-        public AnimBombExplode(GameObject obj, VFXDispatcher vfx, double totalDuration, Action onExplode)
+        public AnimBombExplode(GameObject obj, VFXDispatcher vfx, double totalDuration)
         {
             this.obj = obj;
             this.totalDuration = totalDuration;
-            this.OnComplete = onExplode;
             this._vfxDispatcher = vfx;
             IsComplete = false;
         }

@@ -119,6 +119,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &112796271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 112796274}
+  - component: {fileID: 112796273}
+  - component: {fileID: 112796272}
+  m_Layer: 0
+  m_Name: Test Metromone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &112796272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112796271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44ba25ac6b64566a4e46d2040568ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.UI.TestMetronomeBoxes
+  boxPrefab: {fileID: 1738105225}
+  numberOfBoxes: 4
+  spacing: 1
+  bombReference: {fileID: 429313538}
+  bombReference2: {fileID: 648876331}
+  targetPosition: {fileID: 620905791}
+  bombMoveConfig: {fileID: 11400000, guid: 1dbf021d6de6118a7bfb951123b6ea8f, type: 2}
+  synchronizer: {fileID: 1287415918}
+--- !u!114 &112796273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112796271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4c86bf3f6645dd9be902af886ab3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.VFX.VFXDispatcher
+  BombExplode: {fileID: 8926484042661614526, guid: d15eb4a438485ede982cd455cbd60b43, type: 3}
+  BombPlace: {fileID: 0}
+  BombTrail: {fileID: 0}
+--- !u!4 &112796274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112796271}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.27539, y: 0, z: 1.39348}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &129592511
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,7 +440,7 @@ GameObject:
   - component: {fileID: 429313541}
   - component: {fileID: 429313540}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Bomb Ref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,53 +539,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &431620123
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 431620125}
-  - component: {fileID: 431620124}
-  m_Layer: 0
-  m_Name: GameObject (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &431620124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431620123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a44ba25ac6b64566a4e46d2040568ca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.UI.TestMetronomeBoxes
-  boxPrefab: {fileID: 1738105225}
-  numberOfBoxes: 4
-  spacing: 1
---- !u!4 &431620125
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431620123}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.27539, y: 0, z: 1.39348}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &620905790
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 620905791}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: Target location
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -562,7 +583,7 @@ GameObject:
   - component: {fileID: 648876333}
   - component: {fileID: 648876332}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Bomb Ref 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -810,6 +831,104 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1287415913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1287415917}
+  - component: {fileID: 1287415915}
+  - component: {fileID: 1287415914}
+  - component: {fileID: 1287415918}
+  m_Layer: 0
+  m_Name: Timeline Synchronizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1287415914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287415913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 0c9c5c5fd857703508356882c4a064f1, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1287415918}
+          m_TargetAssemblyTypeName: Synchronizers.TimelineActionSynchronizer, Assembly-CSharp
+          m_MethodName: OnSignalReceived
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!320 &1287415915
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287415913}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 72e707529aea587c9b7130b1417c5429, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: -6154282108934847124, guid: 72e707529aea587c9b7130b1417c5429, type: 2}
+    value: {fileID: 1287415914}
+  - key: {fileID: -3707072270920736119, guid: 72e707529aea587c9b7130b1417c5429, type: 2}
+    value: {fileID: 0}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &1287415917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287415913}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.27539, y: 0, z: 1.39348}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1287415918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287415913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e016ed02ff84b5b8a75718410dc54e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Synchronizers.TimelineActionSynchronizer
+  intervalSignalReference: {fileID: 11400000, guid: 0c9c5c5fd857703508356882c4a064f1, type: 2}
 --- !u!1 &1398263268
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,14 +939,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1398263270}
   - component: {fileID: 1398263269}
-  - component: {fileID: 1398263271}
   m_Layer: 0
   m_Name: Synchronizer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1398263269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,17 +953,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398263268}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1d0029ddb544b3a85f838022bfc5e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.PlayableSynchronizer
-  bpm: 50
+  bpm: 95
   deadzone: 0.009999999776482582
-  bombReference: {fileID: 429313538}
-  bombReference2: {fileID: 648876331}
-  targetPosition: {fileID: 620905791}
-  bombMoveConfig: {fileID: 11400000, guid: 1dbf021d6de6118a7bfb951123b6ea8f, type: 2}
 --- !u!4 &1398263270
 Transform:
   m_ObjectHideFlags: 0
@@ -861,21 +975,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1398263271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1398263268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4c86bf3f6645dd9be902af886ab3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.VFX.VFXDispatcher
-  BombExplode: {fileID: 8926484042661614526, guid: d15eb4a438485ede982cd455cbd60b43, type: 3}
-  BombPlace: {fileID: 0}
-  BombTrail: {fileID: 0}
 --- !u!1 &1623117780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,5 +1414,6 @@ SceneRoots:
   - {fileID: 648876335}
   - {fileID: 1398263270}
   - {fileID: 620905791}
-  - {fileID: 431620125}
   - {fileID: 1738105229}
+  - {fileID: 1287415917}
+  - {fileID: 112796274}
