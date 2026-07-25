@@ -1,13 +1,18 @@
+using System;
 using System.Collections.Generic;
 using DefaultNamespace.Data;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace DefaultNamespace.UI
 {
     public class MainMenuController : MonoBehaviour
     {
-        [Header("References")]
-        public GameObject LoadoutSelection;
+        [Header("References")] 
+        public Button NewRunButton;
+        public Button OptionsButton;
+        public LoadoutViewController LoadoutSelection;
 
         [Header("Loadouts")]
         public LoadoutScriptableObject BasicBoyLoadout;
@@ -16,21 +21,19 @@ namespace DefaultNamespace.UI
         
         private LoadoutScriptableObject selectedLoadout;
 
+        private void Start()
+        {
+            LoadoutSelection.OnSetLoadout += (loadout) => selectedLoadout = loadout;
+        }
+
         public void OnNewRunPressed()
         {
-            LoadoutSelection.SetActive(true);
+            LoadoutSelection.gameObject.SetActive(true);
         }
 
         public void OnBackButtonPressed()
         {
-            LoadoutSelection.SetActive(false);
-        }
-
-
-        public void OnBasicBoyPressed()
-        {
-            selectedLoadout = BasicBoyLoadout;
-            Debug.Log(selectedLoadout.Name);
+            LoadoutSelection.gameObject.SetActive(false);
         }
 
 
