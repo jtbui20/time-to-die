@@ -14,7 +14,7 @@ public abstract class FreeUnit : IDamageable
 
     public int Health { get { return health; } }
     public string Description { get { return unitDef != null ? unitDef.Description : ""; } }
-    public Vector3 Position { get { return position; } set { position = value; OnPositionChanged?.Invoke(); } }
+    public virtual Vector3 Position { get { return position; } set { position = value; OnPositionChanged?.Invoke(); } }
     public IDamageable Source { get { return this; } }
     public FreeUnit(IUnitDefinition unit)
     {

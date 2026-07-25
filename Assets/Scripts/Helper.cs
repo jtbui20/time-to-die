@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public static class Helper
 {
@@ -33,6 +34,94 @@ public static class IListExtensions {
             ts[r] = tmp;
         }
     }
+}
+
+public static class NavMeshUtility
+{
+    public static float GetPathLength(NavMeshPath path)
+    {
+        float length = 0f;
+        for (int i = 1; i < path.corners.Length; i++)
+        {
+            length += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+        }
+        return length;
+    }
+
+    public static Vector3 GetPointOnPath(NavMeshPath path, float distance)
+    {
+        if (path.corners.Length == 0) { return Vector3.zero; }
+
+        Vector3 current = path.corners[0];
+        for (int i = 1; i < path.corners.Length; i++)
+        {
+            Vector3 next = path.corners[i];
+            float segment = Vector3.Distance(current, next);
+            if (distance <= segment)
+            {
+                return Vector3.MoveTowards(current, next, distance);
+            }
+
+            distance -= segment;
+            current = next;
+        }
+        return path.corners[^1];
+    }
+
+    public static bool CalculatePath(Vector3 start, Vector3 end, NavMeshPath path)
+    {
+        // might need to use area mask later
+        int NavmeshArea = NavMesh.AllAreas;
+        return NavMesh.CalculatePath(start, end, NavmeshArea, path);
+    }
+
+    public static AgentPath CalculateMoveForTurn(float speed, Vector3 start, Waypoint end)
+    {
+        AgentPath agentPath = new() { NextWaypoint = end };
+        float remainingDistance = speed;
+        NavMeshPath path = new();
+
+        // End point is not vector3 because it needs to be extended if unit is too close to destination
+        Waypoint currentWaypoint = end; 
+        Vector3 currentStart = start;
+        Vector3 currentEnd = currentWaypoint.transform.position;
+        
+        
+        while (remainingDistance > 0f && currentWaypoint != null)
+        {
+            path.ClearCorners();
+            if (!CalculatePath(currentStart, currentEnd, path)) { break; } 
+
+            float pathLength = GetPathLength(path);
+            if (remainingDistance <= pathLength)
+            {
+                agentPath.DestinationPoints.Add(GetPointOnPath(path, remainingDistance));
+                remainingDistance = 0f;
+            }
+            else
+            {
+                agentPath.DestinationPoints.Add(currentEnd);
+                remainingDistance -= pathLength;
+                currentWaypoint = currentWaypoint.Next();
+                agentPath.NextWaypoint = currentWaypoint;
+
+                if (currentWaypoint == null) 
+                {
+                    break; 
+                }
+            
+                currentStart = currentEnd;
+                currentEnd = currentWaypoint.transform.position;
+            }
+        }
+        return agentPath;
+    }
+}
+
+public class AgentPath
+{
+    public List<Vector3> DestinationPoints = new();
+    public Waypoint NextWaypoint = null;
 }
 
 public struct ProjectileStats
