@@ -36,6 +36,8 @@ namespace DefaultNamespace.UI
         [Header("Prefabs")] public GameObject trayBombPrefab;
 
         public BombManager _bombManager;
+
+        private bool canInteract = true;
         
         
         private bool FollowingMouse;
@@ -47,6 +49,11 @@ namespace DefaultNamespace.UI
 
         public event Action<FreeBomb, Vector3> OnValidBombSpawnPosition;
 
+        
+        public void SetInteraction(bool canInteract)
+        {
+            this.canInteract = canInteract;
+        }
 
         public async Awaitable LoadInNewBombs(List<FreeBomb> bombs)
         {
@@ -148,6 +155,8 @@ namespace DefaultNamespace.UI
 
         private void OnBombMouseDown(TrayBomb bomb)
         {
+            if (!canInteract) return;
+
             Debug.Log("clicked");
             bomb.rigidBody.isKinematic = true;
             bomb.collider.excludeLayers = OverlayLayers;
@@ -157,6 +166,8 @@ namespace DefaultNamespace.UI
 
         private void OnBombMouseUp(TrayBomb bomb)
         {
+            if (!canInteract) return;
+
             Debug.Log("released");
             
             // Check if it's a valid spot

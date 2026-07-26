@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DefaultNamespace.VFX;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace DefaultNamespace.CustomAnimations
 {
@@ -15,6 +16,13 @@ namespace DefaultNamespace.CustomAnimations
         private Func<double> AskForDuration;
 
         public BPMActionSynchronizer synchronizer;
+
+        public UniTask GetCompletionToken()
+        {
+            return UniTask.WaitUntil(() =>
+                animationQueue.Count == 0 && currentAnimation == null
+                );
+        }
 
         private void Awake()
         {

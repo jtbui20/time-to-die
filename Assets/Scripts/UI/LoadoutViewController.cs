@@ -25,6 +25,7 @@ namespace DefaultNamespace.UI
 
         public event Action<LoadoutScriptableObject> OnSetLoadout;
         
+        [SerializeField]
         private LoadoutScriptableObject currentlySelectedLoadout;
 
         private void Start()
@@ -32,17 +33,25 @@ namespace DefaultNamespace.UI
             basicBoyButton.onClick.AddListener(() => SetLoadout(BasicBoyLoadout));
             chainCrazyButton.onClick.AddListener(() => SetLoadout(ChainCrazyLoadout));
             PureRandomButton.onClick.AddListener(() => SetLoadout(PureRandomLoadout));
+            if (currentlySelectedLoadout)
+            {
+                UpdateView();
+            }
         }
-        
+
         void SetLoadout(LoadoutScriptableObject loadout)
         {
             OnSetLoadout?.Invoke(loadout);
             if (currentlySelectedLoadout == loadout) return;
             currentlySelectedLoadout = loadout;
-            
+            UpdateView();
+        }
+
+        void UpdateView()
+        {
             // Update view then animate ig
-            loadoutNameText.text = loadout.name;
-            loadoutDescriptionText.text = loadout.Description;
+            loadoutNameText.text = currentlySelectedLoadout.LoadoutName;
+            loadoutDescriptionText.text = currentlySelectedLoadout.Description;
         }
     }
 }

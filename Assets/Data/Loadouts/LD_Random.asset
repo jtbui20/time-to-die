@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e810ba9ef445a3a0be5ac503245c94, type: 3}
   m_Name: LD_Random
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Data.LoadoutScriptableObject
-  Name: ......
+  LoadoutName: Pure Random
   bombsInLoadout: []
   Description: One must yolo to yeet

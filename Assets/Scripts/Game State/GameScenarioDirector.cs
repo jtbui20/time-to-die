@@ -56,9 +56,9 @@ namespace DefaultNamespace.Game_State
                 case GameplayStates.PlayerExit:
                     _director.Play(playerTurnExitTimeline);
                     break;
-                case GameplayStates.Detonation:
-                    _director.Play(detonationTimeline);
-                    break;
+                // case GameplayStates.Detonation:
+                //     _director.Play(detonationTimeline);
+                //     break;
                 case GameplayStates.EnemyTurn:
                     _director.Play(enemyTurnTimeline);
                     break;

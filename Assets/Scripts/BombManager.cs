@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DefaultNamespace;
 using DefaultNamespace.CustomAnimations;
 using DefaultNamespace.Data;
@@ -85,6 +86,11 @@ public class BombManager : MonoBehaviour
         }
         
         explodeQueue.Clear();
+    }
+
+    public UniTask WaitForBombsToComplete()
+    {
+        return animationQueue.GetCompletionToken();
     }
 
     public void GenerateExplodeAction(FreeBomb currentBomb, int currentChain = 0, bool isHead = false)
