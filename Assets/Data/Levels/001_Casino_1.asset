@@ -18,3 +18,4 @@ MonoBehaviour:
     guid: f6bccaab6a35e527b97eb8886ec25a7e
   StartingLives: 5
   SpawnerSchedule: {fileID: 11400000, guid: 1ba629480c30cb244aa39a848a627d11, type: 2}
+  LevelNavigation: {fileID: 11400000, guid: 8a8703134176f5343a37d8ea81312570, type: 2}

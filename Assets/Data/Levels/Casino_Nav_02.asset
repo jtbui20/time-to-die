@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a6011ee52135c4d9cf53b801b76464, type: 3}
+  m_Name: Casino_Nav_02
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Data.NavigationScriptableObject
+  NavigationPrefab: {fileID: 4573439471240518391, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  Waypoints:
+  - {fileID: 9152024163735456620, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 4964196140742896523, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 2981310761267984344, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 3525431892415392660, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 8167981066128759107, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 8774897485233763619, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 3709624427267059488, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  - {fileID: 7458501174915733148, guid: b3b902b8c1792c44bb7f62db0babf55e, type: 3}
+  NavMeshData: {fileID: 23800000, guid: 0414a95ecff1bb645b765ad47e398245, type: 2}

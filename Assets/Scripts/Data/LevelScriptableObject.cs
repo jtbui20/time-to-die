@@ -12,6 +12,6 @@ namespace DefaultNamespace.Data
         
         // Need to add types
         public SpawnerSchedule SpawnerSchedule;
-        private Object LevelVariantArrangement;
+        public NavigationScriptableObject LevelNavigation;
     }
 }

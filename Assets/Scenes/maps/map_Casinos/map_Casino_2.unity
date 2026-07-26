@@ -2896,7 +2896,7 @@ GameObject:
   - component: {fileID: 873209312}
   - component: {fileID: 873209311}
   - component: {fileID: 873209310}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3313,7 +3313,7 @@ GameObject:
   - component: {fileID: 922652427}
   - component: {fileID: 922652426}
   - component: {fileID: 922652425}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

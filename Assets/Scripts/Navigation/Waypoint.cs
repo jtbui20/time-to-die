@@ -14,6 +14,7 @@ public class Waypoint : MonoBehaviour
 
     public Waypoint? Next()
     {
+        if (waypointSelector == null) { waypointSelector = GetComponent<IWaypointSelector>(); }
         return waypointSelector.Next();
     }
 }

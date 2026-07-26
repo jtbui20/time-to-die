@@ -3,6 +3,7 @@ using DefaultNamespace;
 using DefaultNamespace.Game_State;
 using DefaultNamespace.UI;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Playables;
 
 public enum GameplayStates
@@ -24,6 +25,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public GameplayStates CurrentState;
 
     public Object MapData;
+    public NavMeshDataInstance NavMeshData;
 
     private GameplayPlayerInstance player;
     private BombManager _bombManager;
@@ -59,11 +61,16 @@ public class GameplayScenarioManager : MonoBehaviour
     public void Inject(PlayerData player)
     {
         GetComponent<GameplayPlayerInstance>().Inject(player);
-        _enemyManager.SetupSpawner(player.CurrentLevel.SpawnerSchedule);
     }
 
     void Setup()
     {
+        // Safety check to pinpoint the exact null reference
+        if (player.PlayerData == null) Debug.LogError("PlayerData asset is missing!");
+        else if (player.PlayerData.CurrentLevel == null) Debug.LogError("CurrentLevel is not assigned on PlayerData!");
+        else if (player.PlayerData.CurrentLevel.LevelNavigation == null) Debug.LogError("LevelNavigation is not assigned on the CurrentLevel asset!");
+        else if (player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData == null) Debug.LogError("NavMeshData is missing from your Navigation Scriptable Object!");
+        
         player.InitializePlayer();
         // Spawn in the UI prefab
         _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
@@ -71,6 +78,8 @@ public class GameplayScenarioManager : MonoBehaviour
         _rackController._bombManager = _bombManager;
 
         //_enemyManager.SetupSpawner(player.LevelData.SpawnerSchedule);
+        this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
+        _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
         // need to get playerdata from somewhere
     }
 
@@ -82,6 +91,7 @@ public class GameplayScenarioManager : MonoBehaviour
 
     public void Deconstruct()
     {
+        NavMesh.RemoveNavMeshData(this.NavMeshData);
         Destroy(gameObject);
     }
 
