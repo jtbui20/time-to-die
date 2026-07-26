@@ -36,6 +36,13 @@ namespace DefaultNamespace.UI
         public event Action OnForceWin;
 
         private Animator UIAnimator;
+        
+        private bool canInteract;
+
+        public void SetInteraction(bool value)
+        {
+            canInteract = value;
+        }
 
         private void Awake()
         {
@@ -44,7 +51,10 @@ namespace DefaultNamespace.UI
 
         void Start()
         {
-            endTurnButton.onClick.AddListener(() => OnEndTurnButtonPressed?.Invoke());
+            endTurnButton.onClick.AddListener(() =>
+            {
+                if (canInteract) OnEndTurnButtonPressed?.Invoke();
+            });
             closeButton.onClick.AddListener(HideMenu);
             settingsButton.onClick.AddListener(ShowMenu);
             endGameButton.onClick.AddListener(() => ShowPopup("Are you sure you want to end the game?",
@@ -67,6 +77,7 @@ namespace DefaultNamespace.UI
         
         public void UpdateStageText(GameplayStates stage)
         {
+            return;
             stageText.text = stage switch
             {
                 GameplayStates.GameStart => "Game Start",

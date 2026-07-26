@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using DefaultNamespace;
 using DefaultNamespace.Game_State;
 using DefaultNamespace.UI;
@@ -47,6 +48,7 @@ public class GameplayScenarioManager : MonoBehaviour
 
     private GameScenarioDirector _director;
     private GameplayUIPresenter _uiPresenter;
+    
     private RackController _rackController;
     private BPMActionSynchronizer _bpmSynchronizer;
 
@@ -87,6 +89,7 @@ public class GameplayScenarioManager : MonoBehaviour
         LinkUI();
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
+        _rackController.SetInteraction(false);
     }
 
     void LinkUI()
@@ -150,7 +153,7 @@ public class GameplayScenarioManager : MonoBehaviour
                 PlayerEndTurn();
                 break;
             case GameplayStates.Detonation:
-                DetonationStep();
+                DetonationStep().Forget();
                 break;
             case GameplayStates.EnemyTurn:
                 EnemyTurn();
@@ -214,6 +217,8 @@ public class GameplayScenarioManager : MonoBehaviour
     void PlayerTurn()
     {
         // Enable inputs and such
+        _rackController.SetInteraction(true);
+        _uiPresenter.SetInteraction(true);
     }
 
     void PlayerEndTurn()
@@ -224,27 +229,29 @@ public class GameplayScenarioManager : MonoBehaviour
         _rackController.HandleDiscard();
     }
 
-    async Awaitable DetonationStep()
+    async UniTask DetonationStep()
     {
+        _rackController.SetInteraction(false);
+        _uiPresenter.SetInteraction(false);
         _bombManager.GenerateBombActionQueue();
-        // This should be a "detonate & tick" function
-        // await
         
-        // This will eventually tick multiple times by a separate function
-        // _bombManager
+        await _bombManager.WaitForBombsToComplete();
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
         // _enemyManager.ProcessDamage();
         // _enemyManager.ProcessDeathChains();
+        
+        SwitchToState(GameplayStates.EnemyTurn);
     }
 
-    async Awaitable EnemyTurn()
+    void EnemyTurn()
     {
         // _enemyManager.ProcessStep();
         
         // _enemyManager.SpawnEnemies();
     }
 
-    async Awaitable GameEnd()
+    void GameEnd()
     {
         // Configure which end screen to show
         _director.SetGameEndReason(EndGameReason);

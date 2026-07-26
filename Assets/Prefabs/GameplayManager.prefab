@@ -358,9 +358,9 @@ PlayableDirector:
   m_GameObject: {fileID: 6679833182816059212}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: f052b90bb6db3b69d8e74452c27117d3, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 4a50dbb4da3dc4cf4bc40aa86054ecb5, type: 2}
   m_InitialState: 0
-  m_WrapMode: 2
+  m_WrapMode: 0
   m_DirectorUpdateMode: 2
   m_InitialTime: 0
   m_SceneBindings:
@@ -380,6 +380,10 @@ PlayableDirector:
     value: {fileID: 2535875232439134955}
   - key: {fileID: -6695853932373368267, guid: f052b90bb6db3b69d8e74452c27117d3, type: 2}
     value: {fileID: 2535875232439134955}
+  - key: {fileID: -3523457370902636639, guid: 7ff6996e173d439d2ba11b1b4b6a0bcb, type: 2}
+    value: {fileID: 3247197914183846510}
+  - key: {fileID: -3705823501095631835, guid: 4a50dbb4da3dc4cf4bc40aa86054ecb5, type: 2}
+    value: {fileID: 3247197914183846510}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &542243628856831502
@@ -414,6 +418,10 @@ PrefabInstance:
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 44777f138aff962a2b750e07da003709, type: 2}
+    - target: {fileID: 1282120435112435965, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 333174688464296878, guid: 44777f138aff962a2b750e07da003709, type: 2}
     - target: {fileID: 1282120435112435965, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -487,6 +495,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 44777f138aff962a2b750e07da003709, type: 2}
     - target: {fileID: 5053818385166831527, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 333174688464296878, guid: 44777f138aff962a2b750e07da003709, type: 2}
+    - target: {fileID: 5053818385166831527, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
@@ -502,6 +514,10 @@ PrefabInstance:
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 44777f138aff962a2b750e07da003709, type: 2}
+    - target: {fileID: 5427690958335409970, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 333174688464296878, guid: 44777f138aff962a2b750e07da003709, type: 2}
     - target: {fileID: 5427690958335409970, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -591,6 +607,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 44777f138aff962a2b750e07da003709, type: 2}
     - target: {fileID: 7930066877165269319, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 333174688464296878, guid: 44777f138aff962a2b750e07da003709, type: 2}
+    - target: {fileID: 7930066877165269319, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
@@ -634,6 +654,10 @@ PrefabInstance:
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 44777f138aff962a2b750e07da003709, type: 2}
+    - target: {fileID: 9142390356664250800, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 333174688464296878, guid: 44777f138aff962a2b750e07da003709, type: 2}
     - target: {fileID: 9142390356664250800, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -662,6 +686,11 @@ PrefabInstance:
 --- !u!95 &2535875232439134955 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5235423754610929564, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+  m_PrefabInstance: {fileID: 7752607267358705015}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3247197914183846510 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5081914638930956057, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
   m_PrefabInstance: {fileID: 7752607267358705015}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3459396144749633730 stripped
