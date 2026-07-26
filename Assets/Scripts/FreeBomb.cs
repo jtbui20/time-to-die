@@ -12,12 +12,18 @@ public class FreeBomb : FreeUnit
     private int chainTick;
     private int damage;
     private BombDefinition bombDef;
+    private float currentDamageMult;
+    private float currentRangeMult;
 
     public int Range { get { return range; } }
     public int ChainDistance { get { return chainDistance; } }
     public int ChainTick { get { return chainTick; } }
     public int Damage { get { return damage; } }
     public BombType BombType { get { return bombType; } }
+    public float CurrentDamageMult { get { return currentDamageMult; } }
+    public float DamageMult { get { return bombDef.ChainDamageMult;}}
+    public float CurrentRangeMult { get { return currentRangeMult; } }
+    public float RangeMult { get { return bombDef.ChainRangeMult; } }
 
     public FreeBomb(IUnitDefinition unit) : base(unit)
     {
@@ -27,6 +33,8 @@ public class FreeBomb : FreeUnit
             Debug.LogError($"Unit \"{this}\" attempted to initialise with null definition \"{unit}\"");
             return; 
         }
+        currentDamageMult = 0f;
+        currentRangeMult = 0f;
 
         AdjustStatus();
     }
@@ -36,6 +44,17 @@ public class FreeBomb : FreeUnit
         // Clone over any upgrades or states not originating from BombDefinition
 
         //health = original.health;
+        currentDamageMult = original.CurrentDamageMult;
+        currentRangeMult = original.CurrentRangeMult;
+    }
+
+    public void ApplyChainScaling(FreeBomb chainBomb)
+    {
+        float combinedDamage = chainBomb.CurrentDamageMult + currentDamageMult;
+        currentDamageMult = (1f + combinedDamage) * (1f + chainBomb.DamageMult) - 1f;
+
+        float combinedRange = chainBomb.CurrentRangeMult + currentRangeMult;
+        currentRangeMult = (1f + combinedRange) * (1f + chainBomb.RangeMult) - 1f;
     }
 
     protected override void AdjustStatus()
@@ -52,7 +71,10 @@ public class FreeBomb : FreeUnit
     {
         List<IDamageable> targets = new();
 
-        Collider[] hitColliders = Physics.OverlapSphere(position, range, destructibleMask, QueryTriggerInteraction.Collide);
+        Collider[] hitColliders = Physics.OverlapSphere(position, range * (1f + CurrentRangeMult), destructibleMask, QueryTriggerInteraction.Collide);
+        
+        //DebugExplosion(position, range * (1f + CurrentRangeMult));
+
         foreach (Collider collider in hitColliders)
         {
             IDamageable damageable = collider.gameObject.GetComponent<IDamageable>();
@@ -77,6 +99,15 @@ public class FreeBomb : FreeUnit
         */
 
         return targets;
+    }
+
+    private void DebugExplosion(Vector3 position, float radius)
+    {
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = position;
+        sphere.transform.localScale = Vector3.one * radius * 2f;
+
+        GameObject.Destroy(sphere, 3f);
     }
 
     /// <summary>

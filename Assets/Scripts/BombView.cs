@@ -44,7 +44,7 @@ public class BombView : UnitView
             countdownText.text = Bomb.Health.ToString();
         }
 
-        float rootScale = 0.55f;
+        float rootScale = 1f;
         AOEArea.transform.localScale = new Vector3(Bomb.Range * 1 * rootScale, 0.1f, Bomb.Range * 1 * rootScale);
     }
 }

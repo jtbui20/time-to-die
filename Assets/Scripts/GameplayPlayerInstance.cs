@@ -9,6 +9,8 @@ namespace DefaultNamespace
         public ThreePileTemplateCardManager<FreeBomb> BombDeck;
 
         [SerializeField] private PlayerData _playerDataReference;
+
+        public PlayerData PlayerData { get { return _playerDataReference; } }
         public int MaxHandSize = 5;
 
         public PlayerData GetPlayerSessionData()

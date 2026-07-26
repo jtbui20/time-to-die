@@ -5,6 +5,7 @@ using DefaultNamespace;
 using DefaultNamespace.Game_State;
 using DefaultNamespace.UI;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Playables;
 using Object = UnityEngine.Object;
 
@@ -41,6 +42,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public GameplayStates CurrentState;
 
     public Object MapData;
+    public NavMeshDataInstance NavMeshData;
 
     private GameplayPlayerInstance player;
     private BombManager _bombManager;
@@ -85,14 +87,25 @@ public class GameplayScenarioManager : MonoBehaviour
     void Setup()
     {
         player.InitializePlayer();
+        Lives = player.PlayerData.CurrentLevel.StartingLives;
         // Spawn in the UI prefab
         LinkUI();
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
+
+        this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
+        _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
+
+        _enemyManager.OnEnemyCountChanged += GeneralUpdateUI;
+        _enemyManager.OnEnemyEscape += LoseLife;
+        _enemyManager.OnEnemiesDefeated += EnemyDefeat;
+        
         _rackController.SetInteraction(false);
         // Lazy just rip from the session
         
         _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
+
+        EnemyTurn();
     }
 
     void LinkUI()
@@ -118,7 +131,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public void GeneralUpdateUI()
     {
         _uiPresenter.UpdateStageText(CurrentState);
-        _uiPresenter.UpdateEnemiesLeftText(15);
+        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemyCount);
     }
 
     public void GoNextStage()
@@ -133,6 +146,10 @@ public class GameplayScenarioManager : MonoBehaviour
 
     public void Deconstruct()
     {
+        _enemyManager.OnEnemyCountChanged -= GeneralUpdateUI;
+        _enemyManager.OnEnemyEscape -= LoseLife;
+        _enemyManager.OnEnemiesDefeated -= EnemyDefeat;
+        NavMesh.RemoveNavMeshData(this.NavMeshData);
         Destroy(gameObject);
     }
 
@@ -242,21 +259,38 @@ public class GameplayScenarioManager : MonoBehaviour
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
         // _enemyManager.ProcessDamage();
-        // _enemyManager.ProcessDeathChains();
+        _enemyManager.ProcessDeathChains();
         
         SwitchToState(GameplayStates.EnemyTurn);
     }
 
     void EnemyTurn()
     {
-        // _enemyManager.ProcessStep();
+        _enemyManager.ProcessStep();
         
-        // _enemyManager.SpawnEnemies();
+        _enemyManager.SpawnWave(CurrentTurn);
     }
 
     void GameEnd()
     {
+
         // Configure which end screen to show
         _director.SetGameEndReason(EndGameReason);
+    }
+
+    public void LoseLife()
+    {
+        Lives -= 1;
+        if (Lives <= 0)
+        {
+            EndGameReason = GameEndingBecause.Lose;
+            SwitchToState(GameplayStates.GameEnd);
+        }
+    }
+
+    public void EnemyDefeat()
+    {
+        EndGameReason = GameEndingBecause.Win;
+        SwitchToState(GameplayStates.GameEnd);
     }
 }

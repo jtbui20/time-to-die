@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BombManager
   destructibleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   explodeDelay: 0.5
   explodeQueue: []
   bombPrefabBindings: {fileID: 11400000, guid: 8dc3a6f4f550c7d27870aa47438a78bc, type: 2}
@@ -153,6 +153,7 @@ MonoBehaviour:
   spawnSchedule: {fileID: 0}
   spawners: []
   spawnDelay: 1
+  enemyCount: 0
 --- !u!1 &5004276056562143001
 GameObject:
   m_ObjectHideFlags: 0

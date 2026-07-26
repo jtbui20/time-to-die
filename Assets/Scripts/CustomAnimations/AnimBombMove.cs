@@ -63,15 +63,21 @@ namespace DefaultNamespace.CustomAnimations
 
         public bool IsComplete { get; private set; }
 
+        public bool debuged = true;
+
         public void ComputePosition(double currentTime)
         {
             if (obj == null) return;
             if (IsComplete) return;
             
             float normalizedTime = (float)((currentTime - startTime) / totalDuration);
+            if (debuged)
+            {
+                debuged = false;
+            }
             
             float x = Mathf.Lerp(originalPosition.x, targetPosition.x, config.xzMoveGraph.Evaluate(normalizedTime));
-            float z = Mathf.Lerp(originalPosition.y, targetPosition.y, config.xzMoveGraph.Evaluate(normalizedTime));
+            float z = Mathf.Lerp(originalPosition.z, targetPosition.z, config.xzMoveGraph.Evaluate(normalizedTime));
             
             
             float yMax = Mathf.Max(originalPosition.y, targetPosition.y) + config.MaximumHeight;

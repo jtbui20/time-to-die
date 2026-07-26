@@ -1021,7 +1021,7 @@ GameObject:
   - component: {fileID: 281550612}
   - component: {fileID: 281550611}
   - component: {fileID: 281550610}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1135,7 +1135,7 @@ GameObject:
   - component: {fileID: 329512525}
   - component: {fileID: 329512524}
   - component: {fileID: 329512523}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5583,7 +5583,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1706643818
 Transform:
   m_ObjectHideFlags: 0

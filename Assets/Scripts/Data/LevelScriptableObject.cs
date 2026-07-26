@@ -11,7 +11,7 @@ namespace DefaultNamespace.Data
         public int StartingLives;
         
         // Need to add types
-        private Object SpawningPatterns;
-        private Object LevelVariantArrangement;
+        public SpawnerSchedule SpawnerSchedule;
+        public NavigationScriptableObject LevelNavigation;
     }
 }
