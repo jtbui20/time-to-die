@@ -38,6 +38,11 @@ namespace DefaultNamespace.CustomAnimations
 
         public event Action OnComplete;
 
+        public CameraReference cam;
+
+        public Vector3 startingPosition;
+
+        private bool HasPlayed = false;
         public AnimBombMove(FreeBomb obj, Vector3 targetPosition, double totalDuration,
             AnimBombMoveConfig config)
         {
@@ -47,7 +52,10 @@ namespace DefaultNamespace.CustomAnimations
             this.totalDuration = totalDuration;
             this.config = config;
             IsComplete = false;
+            cam = Camera.main.gameObject.GetComponent<CameraReference>();
         }
+        
+        
 
         public ICustomAnimationTimeType timeType => ICustomAnimationTimeType.fill;
 
@@ -75,6 +83,12 @@ namespace DefaultNamespace.CustomAnimations
             {
                 debuged = false;
             }
+
+            if (!HasPlayed)
+            {
+                startingPosition = cam.MoveToSafeStartingPosition(obj.Position);
+                HasPlayed = true;
+            }
             
             float x = Mathf.Lerp(originalPosition.x, targetPosition.x, config.xzMoveGraph.Evaluate(normalizedTime));
             float z = Mathf.Lerp(originalPosition.z, targetPosition.z, config.xzMoveGraph.Evaluate(normalizedTime));
@@ -86,8 +100,12 @@ namespace DefaultNamespace.CustomAnimations
             
             obj.Position = new Vector3(x, y, z);
             
+            // cam.ZoomToTarget(obj.Position, config.CameraZoomGraph.Evaluate(normalizedTime), false);
+            cam.FixedFollowDistance(obj.Position, 8f);
+            
             if (normalizedTime >= 1.0f)
             {
+                // cam.Reset();
                 obj.Position = targetPosition;
                 OnComplete?.Invoke();
                 IsComplete = true;
@@ -118,12 +136,14 @@ namespace DefaultNamespace.CustomAnimations
         public bool HasPlayed = false;
 
         private VFXDispatcher _vfxDispatcher;
+        private CameraReference cam;
 
         public AnimBombExplode(FreeBomb obj, double totalDuration)
         {
             this.obj = obj;
             this.totalDuration = totalDuration;
             IsComplete = false;
+            cam = Camera.main.gameObject.GetComponent<CameraReference>();
         }
 
         public ICustomAnimationTimeType timeType => ICustomAnimationTimeType.fix;
@@ -145,6 +165,8 @@ namespace DefaultNamespace.CustomAnimations
                 // Play the vfx 
                 _vfxDispatcher.RequestVFX(obj.Position, VFXMainTypes.BombExplode);
                 HasPlayed = true;
+                // cam.ZoomToTarget(obj.Position, 0.6f);
+                cam.FixedFollowDistance(obj.Position, 12f);
             }
             
             float normalizedTime = (float)((currentTime - startTime) / totalDuration);
@@ -152,6 +174,7 @@ namespace DefaultNamespace.CustomAnimations
             if (normalizedTime >= 1.0f)
             {
                 OnComplete?.Invoke();
+                // cam.Reset();
                 IsComplete = true;
             }
         }

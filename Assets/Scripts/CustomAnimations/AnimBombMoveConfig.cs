@@ -8,5 +8,6 @@ namespace DefaultNamespace.CustomAnimations
         public AnimationCurve xzMoveGraph;
         public AnimationCurve yMoveGraph;
         public float MaximumHeight;
+        public AnimationCurve CameraZoomGraph;
     }
 }

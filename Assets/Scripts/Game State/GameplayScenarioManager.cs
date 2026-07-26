@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DefaultNamespace;
+using DefaultNamespace.CustomAnimations;
 using DefaultNamespace.Game_State;
 using DefaultNamespace.UI;
 using UnityEngine;
@@ -272,6 +273,8 @@ public class GameplayScenarioManager : MonoBehaviour
         
         await _bombManager.WaitForBombsToComplete();
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        
+        Camera.main.GetComponent<CameraReference>().Reset();
 
         // _enemyManager.ProcessDamage();
         _enemyManager.ProcessDeathChains();

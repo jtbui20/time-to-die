@@ -17,6 +17,8 @@ namespace DefaultNamespace.CustomAnimations
 
         public BPMActionSynchronizer synchronizer;
 
+        public AnimBombMoveConfig bombMoveConfig;
+
         public UniTask GetCompletionToken()
         {
             return UniTask.WaitUntil(() =>
@@ -39,6 +41,13 @@ namespace DefaultNamespace.CustomAnimations
         public void Setup(Func<double> askForDuration)
         {
             this.AskForDuration = askForDuration;
+
+            Camera mainCamera = Camera.main;
+
+            if (mainCamera)
+            {
+                mainCamera.gameObject.AddComponent<CameraReference>();
+            }
         }
 
         private void Update()
