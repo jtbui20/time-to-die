@@ -15,7 +15,7 @@ MonoBehaviour:
   bombType: 4
   health: 2
   range: 5
-  chainDistance: 3
+  chainDistance: 5
   chainTick: 1
   chainDamageMult: 1
   chainRangeMult: 0
