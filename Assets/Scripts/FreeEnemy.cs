@@ -11,8 +11,10 @@ public class FreeEnemy : FreeUnit
     private EnemyDefinition enemyDef;
     private Waypoint nextWaypoint;
     private AgentPath agentPath = new();
+    private int maxHealth;
 
     public float Speed { get { return speed; } }
+    public int MaxHealth { get { return maxHealth; } }
     public AgentPath AgentPath { get { return agentPath; } }
 
     public FreeEnemy(IUnitDefinition unit, Waypoint? waypoint) : base(unit)
@@ -23,7 +25,7 @@ public class FreeEnemy : FreeUnit
             Debug.LogError($"Unit \"{this}\" attempted to initialise with null definition \"{unit}\"");
             return; 
         }
-
+        maxHealth = health;
         nextWaypoint = waypoint;
         AdjustStatus();
     }

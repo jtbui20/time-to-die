@@ -7,9 +7,12 @@ public class EnemyView : UnitView
 {
     public FreeEnemy Enemy { get; private set; }
     public override IDamageable Source { get { return Enemy; } }
+    [SerializeField] private Transform hpBar;
+    [SerializeField] private GameObject healthCanvas;
 
     private NavMeshAgent agent;
     private bool isMoving = false;
+    private Camera camera;
 
     public void Init(FreeEnemy enemy)
     {
@@ -24,6 +27,15 @@ public class EnemyView : UnitView
     {
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(Enemy.Position);
+        camera = Camera.main;
+    }
+
+    private void Update()
+    {
+        if (camera != null && healthCanvas != null)
+        {
+            healthCanvas.transform.LookAt(transform.position + camera.transform.rotation * Vector3.forward, camera.transform.rotation * Vector3.up);
+        }
     }
 
     protected override void UpdatePosition()
@@ -58,5 +70,12 @@ public class EnemyView : UnitView
     protected override void UpdateView()
     {
         // health view goes here
+        if (hpBar != null)
+        {
+            Vector3 scale = hpBar.localScale;
+            scale.x = Mathf.Clamp01((float)Enemy.Health/Enemy.MaxHealth);
+            hpBar.localScale = scale;
+        }
+        base.UpdateView();
     }
 }
