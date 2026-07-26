@@ -45,7 +45,6 @@ namespace DefaultNamespace.UI
         private List<TrayBomb> bombsOnRack;
 
         public BombBindings bombBindingsPrefab;
-        
 
         public event Action<FreeBomb, Vector3> OnValidBombSpawnPosition;
 
