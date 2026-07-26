@@ -90,6 +90,9 @@ public class GameplayScenarioManager : MonoBehaviour
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
         _rackController.SetInteraction(false);
+        // Lazy just rip from the session
+        
+        _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
     }
 
     void LinkUI()
