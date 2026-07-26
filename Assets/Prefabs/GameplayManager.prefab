@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d0029ddb544b3a85f838022bfc5e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.BPMActionSynchronizer
-  bpm: 50
+  bpm: 95
   deadzone: 0.009999999776482582
 --- !u!1 &6297052988811472395
 GameObject:
