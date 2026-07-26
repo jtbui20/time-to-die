@@ -64,7 +64,7 @@ namespace DefaultNamespace.UI
                     OnEndGameConfirmButtonPressed?.Invoke();
                 }));
             goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
-            forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
+            // forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
             loseScreenPanel.OnReturnToMenuPressed += () => OnLeaveGameRequested?.Invoke(GameLeavingReason.ReturnToMenu);
         }
 
