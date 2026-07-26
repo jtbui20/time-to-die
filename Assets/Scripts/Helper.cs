@@ -28,7 +28,7 @@ public static class Helper
     var bomb = ScriptableObject.CreateInstance<BombDefinition>();
 
     bomb.Initialize(
-        (BombType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(BombType)).Length),
+        (BombType)UnityEngine.Random.Range(0, 3),//Enum.GetValues(typeof(BombType)).Length),
         UnityEngine.Random.Range(1, 3),          // Health
         UnityEngine.Random.Range(5, 5),          // Range
         UnityEngine.Random.Range(5, 5),          // Chain Distance
