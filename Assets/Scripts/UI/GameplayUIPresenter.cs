@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ namespace DefaultNamespace.UI
         public Button endGameButton;
         public Button closeButton;
         public Button forceWin;
+        public BombBagView bombBagView;
 
         [Header("Win Screen Panel")] public GameObject winScreen;
         public Button goNextButton;
@@ -73,6 +75,11 @@ namespace DefaultNamespace.UI
             var popup = Instantiate(PopupPrefab, transform);
             var popupComponent = popup.GetComponent<PopupWithConfirmCancel>();
             popupComponent.Setup(message, callback);
+        }
+
+        public void SetupBagView(List<BombDefinition> bombs)
+        {
+            bombBagView.LoadBombs(bombs);
         }
         
         public void UpdateStageText(GameplayStates stage)

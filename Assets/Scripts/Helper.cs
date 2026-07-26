@@ -237,3 +237,20 @@ public static class AnimatorExtensions
         }
     }
 }
+
+
+public static class BombHelpers
+{
+    public static string BombTypeToString (BombType type)
+    {
+        return type switch
+        {
+            BombType.Standard => "Standard",
+            BombType.Chain => "Chain",
+            BombType.Ice => "Ice",
+            BombType.TNT => "TNT",
+            
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
+    }
+}
