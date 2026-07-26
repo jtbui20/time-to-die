@@ -36,7 +36,16 @@ public class FreeEnemy : FreeUnit
 
     public void MoveForTurn()
     {
-        if (nextWaypoint == null) { return; }
+        if (nextWaypoint == null) 
+        {
+            var enemyManger = EnemyManager.Instance;
+            if (enemyManger != null)
+            {
+                enemyManger.Escape(this);
+                enemyManger.Remove(this); 
+            }
+            return; 
+        }
         
         agentPath = NavMeshUtility.CalculateMoveForTurn(speed, position, nextWaypoint);
         if (agentPath.DestinationPoints.Count > 0)
@@ -49,5 +58,14 @@ public class FreeEnemy : FreeUnit
     public void ClearPathPoints()
     {
         agentPath.DestinationPoints.Clear();
+    }
+
+    public override void Cleanup()
+    {
+        EnemyManager.Instance.Remove(this);
+
+        base.Cleanup();
+
+        // any destroys
     }
 }

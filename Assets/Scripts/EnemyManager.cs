@@ -11,8 +11,12 @@ public class EnemyManager : MonoBehaviour
 
     private List<FreeEnemy> enemies = new();
     private Coroutine[] spawnCoroutines;
+    private int finalWave = -1;
+    private int currentWave = 0;
+    [SerializeField] private int enemyCount;
 
     public List<FreeEnemy> EnemyList { get { return enemies; } }
+    public int EnemyCount { get { return enemyCount; } }
 
     private void Awake()
     {
@@ -35,6 +39,15 @@ public class EnemyManager : MonoBehaviour
     public void SetupSpawner(SpawnerSchedule spawns, List<Waypoint> waypoints)
     {
         spawnSchedule = spawns;
+        int highestWave = 0;
+        foreach (var spawn in spawns.Schedule)
+        {
+            if (spawn.TurnNumber > highestWave)
+            {
+                highestWave = spawn.TurnNumber;
+            }
+        }
+        finalWave = highestWave;
         
         foreach (var waypoint in waypoints)
         {
@@ -52,11 +65,20 @@ public class EnemyManager : MonoBehaviour
         {
             enemy.MoveForTurn();
         }
-
+        currentWave = turnNumber;
         SpawnWave(turnNumber);
     }
 
     public void Add(FreeEnemy enemy)
+    {
+        if (!enemies.Contains(enemy))
+        {
+            enemies.Add(enemy);
+            enemyCount++;
+        }
+    }
+
+    private void AddWithoutCount(FreeEnemy enemy)
     {
         if (!enemies.Contains(enemy))
         {
@@ -69,7 +91,18 @@ public class EnemyManager : MonoBehaviour
         if (enemies.Contains(enemy))
         {
             enemies.Remove(enemy);
+            enemyCount--;
         }
+
+        if (currentWave >= finalWave && enemies.Count <= 0)
+        {
+            // all enemies dead
+        }
+    }
+
+    public void Escape(FreeEnemy enemy)
+    {
+        // trigger lose life
     }
 
     public void ProcessStep()
@@ -80,8 +113,20 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public void ProcessDeathChains()
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy.Health <= 0)
+            {
+                enemy.Cleanup();
+            }
+        }
+    }
+
     public void SpawnWave(int waveNumber)
     {
+        currentWave = waveNumber;
         if (spawnSchedule == null) { return; }
 
         for (int i = 0; i < spawners.Count; i++)
@@ -99,6 +144,12 @@ public class EnemyManager : MonoBehaviour
             {
                 if (spawnCoroutines[i] == null)
                 {
+                    int newEnemies = 0;
+                    foreach (var group in spawnQueue)
+                    {
+                        newEnemies += group.EnemyCount;
+                    }
+                    enemyCount += newEnemies;
                     spawnCoroutines[i] = StartCoroutine(SpawnWithDelay(spawnDelay, spawnQueue));
                 }
             }
@@ -118,7 +169,7 @@ public class EnemyManager : MonoBehaviour
 
                 enemyView.Init(enemy);
                 enemy.Position = spawners[spawnerIndex].gameObject.transform.position;
-                Add(enemy);
+                AddWithoutCount(enemy);
                 yield return new WaitForSeconds(delay);
                 enemy.MoveForTurn();
             }

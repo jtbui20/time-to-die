@@ -64,23 +64,15 @@ public class GameplayScenarioManager : MonoBehaviour
     }
 
     void Setup()
-    {
-        // Safety check to pinpoint the exact null reference
-        if (player.PlayerData == null) Debug.LogError("PlayerData asset is missing!");
-        else if (player.PlayerData.CurrentLevel == null) Debug.LogError("CurrentLevel is not assigned on PlayerData!");
-        else if (player.PlayerData.CurrentLevel.LevelNavigation == null) Debug.LogError("LevelNavigation is not assigned on the CurrentLevel asset!");
-        else if (player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData == null) Debug.LogError("NavMeshData is missing from your Navigation Scriptable Object!");
-        
+    {      
         player.InitializePlayer();
         // Spawn in the UI prefab
         _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
 
-        //_enemyManager.SetupSpawner(player.LevelData.SpawnerSchedule);
         this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
         _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
-        // need to get playerdata from somewhere
     }
 
     public void GeneralUpdateUI()
@@ -204,7 +196,7 @@ public class GameplayScenarioManager : MonoBehaviour
         // _bombManager
 
         // _enemyManager.ProcessDamage();
-        // _enemyManager.ProcessDeathChains();
+        _enemyManager.ProcessDeathChains();
     }
 
     async Awaitable EnemyTurn()
