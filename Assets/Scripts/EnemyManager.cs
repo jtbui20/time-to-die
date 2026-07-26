@@ -19,13 +19,14 @@ public class EnemyManager : MonoBehaviour
     private int currentWave = 0;
     [SerializeField] private int enemyCount;
     private int totalEnemyCount;
+    private int enemiesKilled;
     
 
     public List<FreeEnemy> EnemyList { get { return enemies; } }
     public int EnemyCount { get { return enemyCount; } }
 
     public int TotalEnemyCount { get { return totalEnemyCount; } }
-    public int EnemiesLeft { get { return totalEnemyCount - enemyCount; } }
+    public int EnemiesLeft { get { return totalEnemyCount - enemiesKilled; } }
     
     private void Awake()
     {
@@ -104,10 +105,12 @@ public class EnemyManager : MonoBehaviour
         {
             enemies.Remove(enemy);
             enemyCount--;
+            enemiesKilled++;
             OnEnemyCountChanged?.Invoke();
         }
 
-        if (currentWave >= finalWave && enemies.Count <= 0)
+        Debug.Log($"Wave: {currentWave}, Remaining: {EnemiesLeft}");
+        if (currentWave >= finalWave && EnemiesLeft <= 0)
         {
             // all enemies dead
             OnEnemiesDefeated?.Invoke();

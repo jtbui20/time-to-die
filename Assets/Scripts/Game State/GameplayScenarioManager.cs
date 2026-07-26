@@ -255,8 +255,11 @@ public class GameplayScenarioManager : MonoBehaviour
 
         // _enemyManager.ProcessDamage();
         _enemyManager.ProcessDeathChains();
-        
-        SwitchToState(GameplayStates.EnemyTurn);
+
+        if (CurrentState != GameplayStates.GameEnd)
+        {
+            SwitchToState(GameplayStates.EnemyTurn);
+        }
     }
 
     void EnemyTurn()
@@ -278,14 +281,12 @@ public class GameplayScenarioManager : MonoBehaviour
         Lives -= 1;
         if (Lives <= 0)
         {
-            EndGameReason = GameEndingBecause.Lose;
-            SwitchToState(GameplayStates.GameEnd);
+            EndGameWithReason(GameEndingBecause.Lose);
         }
     }
 
     public void EnemyDefeat()
     {
-        EndGameReason = GameEndingBecause.Win;
-        SwitchToState(GameplayStates.GameEnd);
+        EndGameWithReason(GameEndingBecause.Win);
     }
 }

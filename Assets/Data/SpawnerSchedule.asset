@@ -33,11 +33,19 @@ MonoBehaviour:
     SpawnPointIndex: 0
     Enemy: {fileID: 11400000, guid: 86d6dfd210d83004fa578b0c0cef97ad, type: 2}
     EnemyCount: 1
+  - TurnNumber: 3
+    SpawnPointIndex: 0
+    Enemy: {fileID: 11400000, guid: 8c6aad15662728d41843e84f3b67c92d, type: 2}
+    EnemyCount: 1
   - TurnNumber: 4
     SpawnPointIndex: 0
     Enemy: {fileID: 11400000, guid: 8c6aad15662728d41843e84f3b67c92d, type: 2}
     EnemyCount: 1
-  - TurnNumber: 6
+  - TurnNumber: 4
     SpawnPointIndex: 0
     Enemy: {fileID: 11400000, guid: 86d6dfd210d83004fa578b0c0cef97ad, type: 2}
+    EnemyCount: 1
+  - TurnNumber: 5
+    SpawnPointIndex: 0
+    Enemy: {fileID: 11400000, guid: 1ee94914c4ded0042a2f3d39cc30548c, type: 2}
     EnemyCount: 1

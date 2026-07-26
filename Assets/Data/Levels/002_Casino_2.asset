@@ -16,6 +16,6 @@ MonoBehaviour:
   SceneToLoad:
     asset: {fileID: 102900000, guid: 3f1e7c4e49e8f09a3aaba4b1c73d6590, type: 3}
     guid: 3f1e7c4e49e8f09a3aaba4b1c73d6590
-  StartingLives: 5
+  StartingLives: 3
   SpawnerSchedule: {fileID: 11400000, guid: 1ba629480c30cb244aa39a848a627d11, type: 2}
   LevelNavigation: {fileID: 11400000, guid: 66fa8b066ec84ba4f835df1f8bafe2ba, type: 2}

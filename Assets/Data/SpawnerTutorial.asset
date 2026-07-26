@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23aa39d8d9627084997ba0f762eefc65, type: 3}
+  m_Name: SpawnerTutorial
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnerSchedule
+  schedule:
+  - TurnNumber: 0
+    SpawnPointIndex: 0
+    Enemy: {fileID: 11400000, guid: ddf1a3c3dd125e547924d419c469f4c3, type: 2}
+    EnemyCount: 1
+  - TurnNumber: 2
+    SpawnPointIndex: 0
+    Enemy: {fileID: 11400000, guid: ddf1a3c3dd125e547924d419c469f4c3, type: 2}
+    EnemyCount: 1
