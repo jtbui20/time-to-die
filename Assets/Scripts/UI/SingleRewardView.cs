@@ -1,38 +1,56 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace DefaultNamespace.UI
 {
-    public class SingleRewardView : MonoBehaviour
+    public class SingleRewardView : MonoBehaviour, IPointerClickHandler
     {
-        public Button selfSelect;
-        public Reward reward;
+        // public Button selfSelect;
+        public BombDefinition bombDefinition;
         
         [SerializeField]
-        private TextMeshProUGUI rewardNameText;
-        [SerializeField]
-        private TextMeshProUGUI rewardDescriptionText;
+        private BombItemInventoryView bombItemInventoryView;
 
+        public Image Background;
+
+        public Color selectedBackground;
+        public Color unselectedBackground;
+        
+        private bool IsSelected = false;
+
+        public void SetSelected(bool isSelected)
+        {
+            IsSelected = isSelected;
+            
+            if (IsSelected)
+            {
+                Background.color = selectedBackground;
+            }
+            else
+            {
+                Background.color = unselectedBackground;
+            }
+        }
         private event Action OnRewardSelected;
 
         private void Start()
         {
-            selfSelect.onClick.AddListener(() => OnRewardSelected?.Invoke());
+            // selfSelect.onClick.AddListener(() => OnRewardSelected?.Invoke());
         }
         
-        public void SetReward(Reward reward, Action OnRewardSelected)
+        public void SetReward(BombDefinition bombDefinition, Action OnRewardSelected)
         {
-            this.reward = reward;
+            this.bombDefinition = bombDefinition;
             this.OnRewardSelected = OnRewardSelected;
-            UpdateView();
+            bombItemInventoryView.SetBombTarget(bombDefinition);
         }
 
-        void UpdateView()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            rewardNameText.text = reward.rewardType.ToString();
-            rewardDescriptionText.text = $"Level {((int)reward.rewardLevel + 1)} {reward.rewardType}";
+            OnRewardSelected?.Invoke();
         }
     }
 }

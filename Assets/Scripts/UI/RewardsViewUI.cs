@@ -1,49 +1,47 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace DefaultNamespace.UI
 {
-    public enum RewardType
-    {
-        Bomb,
-        Upgrade
-    }
-
-    public enum RewardLevel
-    {
-        Common, // Level 1
-        Rare, // Level 2
-        Epic // Level 3
-    }
-    
-    public class Reward
-    {
-        public RewardType rewardType;   
-        public RewardLevel rewardLevel;
-    }
     
     public class RewardsViewUI : MonoBehaviour
     {
-        public event Action<Reward> OnRewardSelected;
-        public List<SingleRewardView> rewardViews = new List<SingleRewardView>();
+        public event Action<BombDefinition> OnRewardSelected;
+        public List<SingleRewardView> rewardViews = new();
         
         // Tell the actual controller that we've selected
 
-        public void SetRewards(List<Reward> reward)
+        public void SetRewards(List<BombDefinition> bombDefinitions)
         {
-            ConfigureViews();
+            ConfigureViews(bombDefinitions);
+            
+
+        }
+        
+        public void SetSelectedReward(BombDefinition bombDefinition)
+        {
+            foreach (var rewardView in rewardViews)
+            {
+                if (rewardView.bombDefinition == bombDefinition)
+                {
+                    rewardView.SetSelected(true);
+                }
+                else
+                {
+                    rewardView.SetSelected(false);
+                }
+            }
+
+            OnRewardSelected?.Invoke(bombDefinition);
         }
 
-        void ConfigureViews()
+        void ConfigureViews(List<BombDefinition> bombDefinitions)
         {
             for (int i = 0; i < rewardViews.Count; i++)
             {
                 var rewardView = rewardViews[i];
-                rewardView.SetReward(rewardView.reward, () => OnRewardSelected?.Invoke(rewardView.reward));
+                rewardView.SetReward(bombDefinitions[i], () => OnRewardSelected?.Invoke(rewardView.bombDefinition));
             }
         }
     }

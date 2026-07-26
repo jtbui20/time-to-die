@@ -20,6 +20,7 @@ namespace DefaultNamespace.UI
         public Button closeButton;
         public Button forceWin;
         public BombBagView bombBagView;
+        public Button forceQuitButton;
 
         [Header("Win Screen Panel")] public GameObject winScreen;
         public Button goNextButton;
@@ -35,7 +36,11 @@ namespace DefaultNamespace.UI
         public event Action OnEndTurnButtonPressed;
         public event Action OnEndGameConfirmButtonPressed;
         public event Action<GameLeavingReason> OnLeaveGameRequested;
+        public event Action<BombDefinition> OnRewardSelected;
         public event Action OnForceWin;
+        
+        public WinOverlayView winOverlayView;
+        public LoseOverlayController loseOverlayView;
 
         private Animator UIAnimator;
         
@@ -66,8 +71,14 @@ namespace DefaultNamespace.UI
                     OnEndGameConfirmButtonPressed?.Invoke();
                 }));
             goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
-            // forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
+            forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
             loseScreenPanel.OnReturnToMenuPressed += () => OnLeaveGameRequested?.Invoke(GameLeavingReason.ReturnToMenu);
+            winOverlayView.OnGoNextPressed += HandleGoNextMap;
+            forceQuitButton.onClick.AddListener(() =>
+                ShowPopup("Return back to the desktop?", () =>
+                {
+                    Application.Quit();
+                }));
         }
 
         void ShowPopup(string message, Action callback)
@@ -121,10 +132,33 @@ namespace DefaultNamespace.UI
             stateEnemyTurnText.gameObject.SetActive(false);
         }
 
+        public void SetCurrentSelectedReward(BombDefinition bombDefinition)
+        {
+            OnRewardSelected?.Invoke(bombDefinition);
+        }
+        
+        public void SetOutcomeScreen(GameEndingBecause reason, GameScenarioStats stats, List<BombDefinition> reward)
+        {
+            if (reason == GameEndingBecause.Win)
+            {
+                winOverlayView.ShowStats(stats, reward);
+                winOverlayView.OnRewardSelected += (bomb) => OnRewardSelected?.Invoke(bomb);
+            }
+            else
+            {
+                loseOverlayView.SetStats(stats);
+            }
+        }
+
         public void ShowUI()
         {
             stageText.gameObject.SetActive(true);
             enemiesLeftText.gameObject.SetActive(true);
+        }
+
+        public void HandleGoNextMap()
+        {
+            OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel);
         }
         
         public void ShowStateText(GameplayStates state)
