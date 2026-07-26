@@ -49,7 +49,7 @@ namespace DefaultNamespace.VFX
                 throw new NullReferenceException($"VFX asset for type {type} is not assigned.");
             }
             
-            CreateVFX(selectedAsset, transform.position, transform.rotation);
+            CreateVFX(selectedAsset, position, Quaternion.identity);
         }
 
         public void RequestVFX(Transform transform, VFXMainTypes type)
