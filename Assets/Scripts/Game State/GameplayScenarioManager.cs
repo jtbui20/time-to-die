@@ -104,8 +104,6 @@ public class GameplayScenarioManager : MonoBehaviour
         // Lazy just rip from the session
         
         _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
-
-        EnemyTurn();
     }
 
     void LinkUI()
@@ -131,7 +129,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public void GeneralUpdateUI()
     {
         _uiPresenter.UpdateStageText(CurrentState);
-        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemyCount);
+        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemiesLeft);
     }
 
     public void GoNextStage()
@@ -217,6 +215,8 @@ public class GameplayScenarioManager : MonoBehaviour
     {
         // Start with enemy turn spawning
         // _enemyManager.SpawnEnemies()
+        
+        _enemyManager.SpawnWave(CurrentTurn);
         
         // Then we transition to turn start
         _bpmSynchronizer.StartTimer();
