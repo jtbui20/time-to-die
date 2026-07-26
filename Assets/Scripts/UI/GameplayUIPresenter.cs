@@ -20,6 +20,7 @@ namespace DefaultNamespace.UI
         public Button closeButton;
         public Button forceWin;
         public BombBagView bombBagView;
+        public Button forceQuitButton;
 
         [Header("Win Screen Panel")] public GameObject winScreen;
         public Button goNextButton;
@@ -73,6 +74,11 @@ namespace DefaultNamespace.UI
             forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
             loseScreenPanel.OnReturnToMenuPressed += () => OnLeaveGameRequested?.Invoke(GameLeavingReason.ReturnToMenu);
             winOverlayView.OnGoNextPressed += HandleGoNextMap;
+            forceQuitButton.onClick.AddListener(() =>
+                ShowPopup("Return back to the desktop?", () =>
+                {
+                    Application.Quit();
+                }));
         }
 
         void ShowPopup(string message, Action callback)

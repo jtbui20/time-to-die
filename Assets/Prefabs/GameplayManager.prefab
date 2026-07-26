@@ -416,6 +416,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7137973332251502900}
     m_Modifications:
+    - target: {fileID: 371294572285327015, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+      propertyPath: forceQuitButton
+      value: 
+      objectReference: {fileID: 4124172531748141513}
     - target: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -480,3 +484,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6599169056596518325, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
   m_PrefabInstance: {fileID: 7752607267358705015}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4124172531748141513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5956795752129920190, guid: a6ed46e1f400549adb6a388430c9bca9, type: 3}
+  m_PrefabInstance: {fileID: 7752607267358705015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
