@@ -295,6 +295,12 @@ public class GameplayScenarioManager : MonoBehaviour
         GameScenarioStats stats = GenerateStats();
         
         List<BombDefinition> reward = new List<BombDefinition>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            reward.Add(Helper.GenerateRandomBombDefinition());
+        }
+
         _uiPresenter.SetOutcomeScreen(EndGameReason, stats, reward);
         _director.SetGameEndReason(EndGameReason);
     }
