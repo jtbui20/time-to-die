@@ -51,8 +51,8 @@ public class FreeEnemy : FreeUnit
         if (agentPath.DestinationPoints.Count > 0)
         {
             nextWaypoint = agentPath.NextWaypoint;
+            base.Position = agentPath.DestinationPoints[^1];
         }
-        base.Position = agentPath.DestinationPoints[^1];
     }
 
     public void ClearPathPoints()
