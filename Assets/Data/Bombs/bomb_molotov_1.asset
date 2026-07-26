@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: bomb_molotov_1
   m_EditorClassIdentifier: Assembly-CSharp::BombDefinition
   bombType: 4
-  health: 1
+  health: 2
   range: 5
   chainDistance: 3
   chainTick: 1
   chainDamageMult: 1
   chainRangeMult: 0
-  damage: 1
+  damage: 5
   description: 

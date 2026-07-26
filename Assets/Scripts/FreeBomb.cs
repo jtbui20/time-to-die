@@ -67,6 +67,12 @@ public class FreeBomb : FreeUnit
         base.AdjustStatus();
     }
 
+    public override void Cleanup()
+    {
+        BombManager.Instance.Remove(this);
+        base.Cleanup();
+    }
+
     public List<IDamageable> GetDamageableInExplosionRadius(int destructibleMask)
     {
         List<IDamageable> targets = new();

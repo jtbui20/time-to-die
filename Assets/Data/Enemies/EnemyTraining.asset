@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbde16c5455675e47915cad208beebb1, type: 3}
-  m_Name: EnemyDefinition 1
+  m_Name: EnemyTraining
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
   enemyPrefab: {fileID: 5035190084511586992, guid: 346462f0a2af9f248a03decdebbce10e, type: 3}
-  health: 5
-  speed: 3
+  health: 15
+  speed: 6
   description: HEUHHH

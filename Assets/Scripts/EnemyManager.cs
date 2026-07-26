@@ -123,19 +123,19 @@ public class EnemyManager : MonoBehaviour
 
     public void ProcessStep()
     {
-        foreach (var enemy in enemies)
+        for (int i = enemies.Count - 1; i >= 0; i--)
         {
-            enemy.MoveForTurn();
+            enemies[i].MoveForTurn();
         }
     }
 
     public void ProcessDeathChains()
     {
-        foreach (var enemy in enemies)
+        for (var i = enemies.Count - 1; i >= 0; i--)
         {
-            if (enemy.Health <= 0)
+            if (enemies[i].Health <= 0)
             {
-                enemy.Cleanup();
+                enemies[i].Cleanup();
             }
         }
     }

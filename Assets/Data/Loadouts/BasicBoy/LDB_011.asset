@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: LDB_011
   m_EditorClassIdentifier: Assembly-CSharp::BombDefinition
   bombType: 0
-  health: 3
-  range: 2
+  health: 2
+  range: 3
   chainDistance: 2
   chainTick: 1
+  chainDamageMult: 1
+  chainRangeMult: 0.2
   damage: 2
   description: Basic Boi

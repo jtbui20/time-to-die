@@ -50,7 +50,6 @@ public class GameplayScenarioManager : MonoBehaviour
 
     private GameScenarioDirector _director;
     private GameplayUIPresenter _uiPresenter;
-    
     private RackController _rackController;
     private BPMActionSynchronizer _bpmSynchronizer;
 
@@ -92,6 +91,9 @@ public class GameplayScenarioManager : MonoBehaviour
         LinkUI();
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
+        _rackController.SetInteraction(false);
+        // Lazy just rip from the session
+        _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
 
         this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
         _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
@@ -99,11 +101,6 @@ public class GameplayScenarioManager : MonoBehaviour
         _enemyManager.OnEnemyCountChanged += GeneralUpdateUI;
         _enemyManager.OnEnemyEscape += LoseLife;
         _enemyManager.OnEnemiesDefeated += EnemyDefeat;
-        
-        _rackController.SetInteraction(false);
-        // Lazy just rip from the session
-        
-        _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
     }
 
     void LinkUI()
@@ -214,8 +211,6 @@ public class GameplayScenarioManager : MonoBehaviour
     void StartScenario()
     {
         // Start with enemy turn spawning
-        // _enemyManager.SpawnEnemies()
-        
         _enemyManager.SpawnWave(CurrentTurn);
         
         // Then we transition to turn start

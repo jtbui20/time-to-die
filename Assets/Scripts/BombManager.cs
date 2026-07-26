@@ -61,6 +61,11 @@ public class BombManager : MonoBehaviour
         bombs.Add(bomb);
     }
 
+    public void Remove(FreeBomb bomb)
+    {
+        bombs.Remove(bomb);
+    }
+
     public void Tick(int turnNumber)
     {
         CountdownBombs();

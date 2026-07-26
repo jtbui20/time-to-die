@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a6011ee52135c4d9cf53b801b76464, type: 3}
+  m_Name: Casino_Nav_00
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Data.NavigationScriptableObject
+  NavigationPrefab: {fileID: 4573439471240518391, guid: 56070f2f2b62778428a7e332b5b02d77, type: 3}
+  Waypoints:
+  - {fileID: 9152024163735456620, guid: 56070f2f2b62778428a7e332b5b02d77, type: 3}
+  - {fileID: 4964196140742896523, guid: 56070f2f2b62778428a7e332b5b02d77, type: 3}
+  - {fileID: 2981310761267984344, guid: 56070f2f2b62778428a7e332b5b02d77, type: 3}
+  NavMeshData: {fileID: 23800000, guid: f11f551aae9ef6e4d9c8c4dd01dc8e06, type: 2}
