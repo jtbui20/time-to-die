@@ -153,10 +153,10 @@ RectTransform:
   - {fileID: 624172696}
   m_Father: {fileID: 342902095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.56695, y: -118.2}
-  m_SizeDelta: {x: 181.1339, y: 50.91333}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9204614
 MonoBehaviour:
@@ -339,6 +339,7 @@ MonoBehaviour:
   loadoutNameText: {fileID: 1480091124}
   loadoutDescriptionText: {fileID: 946208116}
   loadoutBombsText: {fileID: 0}
+  loadoutVisuals: {fileID: 1547702923}
   BasicBoyLoadout: {fileID: 11400000, guid: f90de09f1f2244a7e86d82b8ea7975a1, type: 2}
   ChainCrazyLoadout: {fileID: 11400000, guid: e159eef51d0a0ecc2ba326a274b81615, type: 2}
   PureRandomLoadout: {fileID: 11400000, guid: ae447b94c0b4b2c258a26677c29b0271, type: 2}
@@ -927,10 +928,10 @@ RectTransform:
   - {fileID: 214786977}
   m_Father: {fileID: 342902095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.56695, y: -210.94333}
-  m_SizeDelta: {x: 181.1339, y: 50.91333}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479697626
 MonoBehaviour:
@@ -1123,10 +1124,10 @@ RectTransform:
   - {fileID: 1117764090}
   m_Father: {fileID: 342902095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 90.56695, y: -25.456665}
-  m_SizeDelta: {x: 181.1339, y: 50.91333}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560783999
 MonoBehaviour:
@@ -1280,6 +1281,7 @@ MonoBehaviour:
   loadoutNameText: {fileID: 0}
   loadoutDescriptionText: {fileID: 0}
   loadoutBombsText: {fileID: 0}
+  loadoutVisuals: {fileID: 0}
   BasicBoyLoadout: {fileID: 11400000, guid: f90de09f1f2244a7e86d82b8ea7975a1, type: 2}
   ChainCrazyLoadout: {fileID: 11400000, guid: e159eef51d0a0ecc2ba326a274b81615, type: 2}
   PureRandomLoadout: {fileID: 11400000, guid: ae447b94c0b4b2c258a26677c29b0271, type: 2}
@@ -2777,9 +2779,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 18433ec6174ab6511b9a7345c04a7896, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

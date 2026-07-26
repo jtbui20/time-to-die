@@ -17,6 +17,7 @@ namespace DefaultNamespace.UI
         public TextMeshProUGUI loadoutDescriptionText;
         
         public TextMeshProUGUI loadoutBombsText;
+        public Image loadoutVisuals;
         
         [Header("Loadouts")]
         public LoadoutScriptableObject BasicBoyLoadout;
@@ -52,6 +53,7 @@ namespace DefaultNamespace.UI
             // Update view then animate ig
             loadoutNameText.text = currentlySelectedLoadout.LoadoutName;
             loadoutDescriptionText.text = currentlySelectedLoadout.Description;
+            loadoutVisuals.sprite = currentlySelectedLoadout.loadoutVisual;
         }
     }
 }

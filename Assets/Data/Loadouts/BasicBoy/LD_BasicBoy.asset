@@ -26,3 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c0422d7b14e6f3e6eb49852eeca96d66, type: 2}
   - {fileID: 11400000, guid: c0422d7b14e6f3e6eb49852eeca96d66, type: 2}
   Description: A good variety to get used to the game
+  loadoutVisual: {fileID: 21300000, guid: 18433ec6174ab6511b9a7345c04a7896, type: 3}

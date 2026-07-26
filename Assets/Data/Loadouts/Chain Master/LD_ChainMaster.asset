@@ -13,5 +13,20 @@ MonoBehaviour:
   m_Name: LD_ChainMaster
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Data.LoadoutScriptableObject
   LoadoutName: Chain Master
-  bombsInLoadout: []
+  bombsInLoadout:
+  - {fileID: 11400000, guid: af5f2e52cfad03ab9970f348b4cfcfda, type: 2}
+  - {fileID: 11400000, guid: 18cf2ca41c55d864ca9afb8d75489549, type: 2}
+  - {fileID: 11400000, guid: 3fdaada58b515bef7a46b5848f6480db, type: 2}
+  - {fileID: 11400000, guid: a0d3e5f58e92433e2b9705ea67c9565b, type: 2}
+  - {fileID: 11400000, guid: f03888648aa189735be13e089b1003e9, type: 2}
+  - {fileID: 11400000, guid: 460274d0fe9fdb831b2b3430f3553b8d, type: 2}
+  - {fileID: 11400000, guid: 99ea87df3e23c82629992976eef440be, type: 2}
+  - {fileID: 11400000, guid: 8d5abe9aa5d0e362d9533834ed2179f8, type: 2}
+  - {fileID: 11400000, guid: e6ccfdafd59c6c68182019f02e59cc64, type: 2}
+  - {fileID: 11400000, guid: 2badae01281e207f19497b181dddb18f, type: 2}
+  - {fileID: 11400000, guid: 35b6a664abeb2ec0481a7bc1fa09cf22, type: 2}
+  - {fileID: 11400000, guid: 322e80ecc4f59658c88cb83e6dc4da3e, type: 2}
+  - {fileID: 11400000, guid: fb894946cd375f17fa9e6c2378779eab, type: 2}
+  - {fileID: 11400000, guid: 065dc4b64462522d88faba984d46fc17, type: 2}
   Description: Start counting several turns ahead...
+  loadoutVisual: {fileID: 21300000, guid: ab0d4237dfe65c6ccb3ef9a8ae37e761, type: 3}

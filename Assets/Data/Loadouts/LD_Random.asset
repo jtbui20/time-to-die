@@ -15,3 +15,4 @@ MonoBehaviour:
   LoadoutName: Pure Random
   bombsInLoadout: []
   Description: One must yolo to yeet
+  loadoutVisual: {fileID: 21300000, guid: cc4e3791e4fa34464b11193ddd64649e, type: 3}

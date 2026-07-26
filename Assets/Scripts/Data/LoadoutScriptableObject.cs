@@ -9,5 +9,6 @@ namespace DefaultNamespace.Data
         public string LoadoutName;
         public List<BombDefinition> bombsInLoadout;
         public string Description;
+        public Sprite loadoutVisual;
     }
 }
