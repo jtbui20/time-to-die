@@ -2037,7 +2037,7 @@ MonoBehaviour:
   LoadoutSelection: {fileID: 152965131}
   BasicBoyLoadout: {fileID: 11400000, guid: f90de09f1f2244a7e86d82b8ea7975a1, type: 2}
   FirstMaps:
-  - {fileID: 11400000, guid: 40a38d9be6854385ea9d350856326ebb, type: 2}
+  - {fileID: 11400000, guid: 0bfd1a215e075e941a5a120449431560, type: 2}
 --- !u!1001 &1056938464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2046,10 +2046,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6221655876176278096, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
-      propertyPath: ImmediateStart
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8275258794200766757, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 559.874
@@ -2093,10 +2089,6 @@ PrefabInstance:
     - target: {fileID: 9063111910531066533, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
       propertyPath: m_Name
       value: PersistentApplicationDataManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 9063111910531066533, guid: 73d65aabfbcb78b7e8bfa01d57e365a9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

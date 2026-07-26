@@ -1,11 +1,14 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using DefaultNamespace.Data;
 
 namespace DefaultNamespace
 {
     public class SessionManager : MonoBehaviour
     {
+        [SerializeField] List<LevelScriptableObject> Levels = new();
         public PlayerData player;
 
         public GameObject GameplayManagerPrefab;
@@ -15,6 +18,8 @@ namespace DefaultNamespace
         private GameplayScenarioManager gameplayManager;
         
         private Scene currentScene;
+
+        private bool isFirstRun = true;
 
         void Start()
         {
@@ -33,6 +38,10 @@ namespace DefaultNamespace
 
         async Awaitable SetupNextStage()
         {
+            if (!isFirstRun) { player.CurrentLevel = GetNextLevel(); }
+            Debug.Log($" LOADING PLAYER INTO LEVEL {player.CurrentLevel}");
+            isFirstRun = false; 
+
             player.StageNumber++;
             player.StageHistory.Add(player.CurrentLevel.LevelName);
             int buildIndex = player.CurrentLevel.SceneToLoad.BuildIndex;
@@ -82,6 +91,21 @@ namespace DefaultNamespace
             {
                 gameplayManager.Deconstruct();
                 Destroy(gameplayManager.gameObject);
+            }
+        }
+
+        public LevelScriptableObject GetNextLevel()
+        {
+            int level = Levels.IndexOf(player.CurrentLevel);
+            if (level == -1) { level = 0; } 
+            if (level < Levels.Count - 1)
+            {
+                 return Levels[level + 1];
+            }
+            else
+            {
+                // Loop back to 1st (not tutorial) level if at end
+                return Levels[1];
             }
         }
     }

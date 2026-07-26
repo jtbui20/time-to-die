@@ -45,9 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c9e942a28947cd914b14fe2a1032cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.SessionManager
+  Levels:
+  - {fileID: 11400000, guid: 0bfd1a215e075e941a5a120449431560, type: 2}
+  - {fileID: 11400000, guid: 40a38d9be6854385ea9d350856326ebb, type: 2}
+  - {fileID: 11400000, guid: 1cbf7f23480de35f2b653570cbf5875e, type: 2}
   player: {fileID: 11400000, guid: 8f7b003cffdc48cff92af3f7f3cb9615, type: 2}
   GameplayManagerPrefab: {fileID: 2043260073283946676, guid: 860f944fb69fb5b90b0df6169664d15f, type: 3}
-  ImmediateStart: 1
+  ImmediateStart: 0
 --- !u!114 &1560761953754377240
 MonoBehaviour:
   m_ObjectHideFlags: 0

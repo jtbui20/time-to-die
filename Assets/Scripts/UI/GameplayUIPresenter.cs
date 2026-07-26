@@ -70,7 +70,7 @@ namespace DefaultNamespace.UI
                     HideMenu();
                     OnEndGameConfirmButtonPressed?.Invoke();
                 }));
-            goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
+            //goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
             forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
             loseScreenPanel.OnReturnToMenuPressed += () => OnLeaveGameRequested?.Invoke(GameLeavingReason.ReturnToMenu);
             winOverlayView.OnGoNextPressed += HandleGoNextMap;
