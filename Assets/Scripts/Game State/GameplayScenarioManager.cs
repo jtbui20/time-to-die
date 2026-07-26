@@ -253,7 +253,7 @@ public class GameplayScenarioManager : MonoBehaviour
         await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
         // _enemyManager.ProcessDamage();
-        // _enemyManager.ProcessDeathChains();
+        _enemyManager.ProcessDeathChains();
         
         SwitchToState(GameplayStates.EnemyTurn);
     }
