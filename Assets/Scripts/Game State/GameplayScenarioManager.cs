@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DefaultNamespace;
@@ -50,11 +51,14 @@ public class GameplayScenarioManager : MonoBehaviour
 
     private GameScenarioDirector _director;
     private GameplayUIPresenter _uiPresenter;
+    
     private RackController _rackController;
     private BPMActionSynchronizer _bpmSynchronizer;
 
     public bool ImmediateStart = false;
     public GameEndingBecause EndGameReason;
+
+    public BombDefinition currentReward;
 
     public event Action<GameLeavingReason> OnGameLeave;
 
@@ -83,6 +87,16 @@ public class GameplayScenarioManager : MonoBehaviour
         GetComponent<GameplayPlayerInstance>().Inject(player);
     }
 
+    public GameScenarioStats GenerateStats()
+    {
+        var lives = GameEndingBecause.Lose == EndGameReason ? 0 : Lives;
+        
+        
+        return new GameScenarioStats(player.GetPlayerSessionData().StageNumber,
+            lives, 0, CurrentTurn, 0
+        );
+    }
+
     void Setup()
     {
         player.InitializePlayer();
@@ -91,9 +105,6 @@ public class GameplayScenarioManager : MonoBehaviour
         LinkUI();
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
-        _rackController.SetInteraction(false);
-        // Lazy just rip from the session
-        _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
 
         this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
         _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
@@ -101,6 +112,11 @@ public class GameplayScenarioManager : MonoBehaviour
         _enemyManager.OnEnemyCountChanged += GeneralUpdateUI;
         _enemyManager.OnEnemyEscape += LoseLife;
         _enemyManager.OnEnemiesDefeated += EnemyDefeat;
+        
+        _rackController.SetInteraction(false);
+        // Lazy just rip from the session
+        
+        
     }
 
     void LinkUI()
@@ -109,6 +125,8 @@ public class GameplayScenarioManager : MonoBehaviour
         _uiPresenter.OnEndGameConfirmButtonPressed += () => EndGameWithReason(GameEndingBecause.Lose);
         _uiPresenter.OnLeaveGameRequested += OnGameLeave;
         _uiPresenter.OnForceWin += () => EndGameWithReason(GameEndingBecause.Win);
+        _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
+        _uiPresenter.OnRewardSelected += (bomb) => currentReward = bomb;
     }
     
     void PlayerTurnButtonPressed()
@@ -211,6 +229,8 @@ public class GameplayScenarioManager : MonoBehaviour
     void StartScenario()
     {
         // Start with enemy turn spawning
+        // _enemyManager.SpawnEnemies()
+        
         _enemyManager.SpawnWave(CurrentTurn);
         
         // Then we transition to turn start
@@ -268,8 +288,11 @@ public class GameplayScenarioManager : MonoBehaviour
 
     void GameEnd()
     {
-
         // Configure which end screen to show
+        GameScenarioStats stats = GenerateStats();
+        
+        List<BombDefinition> reward = new List<BombDefinition>();
+        _uiPresenter.SetOutcomeScreen(EndGameReason, stats, reward);
         _director.SetGameEndReason(EndGameReason);
     }
 

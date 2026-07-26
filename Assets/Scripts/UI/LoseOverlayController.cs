@@ -11,7 +11,6 @@ namespace DefaultNamespace.UI
         public RoundStatsView roundStatsView;
 
         public event Action OnReturnToMenuPressed;
-        
         public void SetStats(GameScenarioStats stats)
         {
             roundStatsView.SetStats(stats);

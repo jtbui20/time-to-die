@@ -63,6 +63,9 @@ namespace DefaultNamespace
                     SceneManager.LoadScene("MainMenu");
                     break;
                 case GameLeavingReason.NextLevel:
+
+                    var reward = gameplayManager.currentReward;
+                    player.BombBagReference.Add(reward);
                     DeconstructCurrentScene();
                     SetupNextStage();
                     break;
