@@ -212,7 +212,13 @@ namespace DefaultNamespace.UI
 
         private void RegisterBomb(FreeBomb bomb)
         {
-            var TrayBomb = Instantiate(trayBombPrefab, GetLastPositionOnTray(),  Quaternion.identity, this.transform)
+            
+            // Make a random rotation value and spawn it with a random rotation
+            Quaternion randomRotation = new Quaternion(
+                0, 0, UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)
+            );
+            
+            var TrayBomb = Instantiate(trayBombPrefab, GetLastPositionOnTray(), randomRotation , this.transform)
                 .GetComponent<TrayBomb>();
             
             GameObject prefab = bombBindingsPrefab.GetPrefab(bomb.BombType);
