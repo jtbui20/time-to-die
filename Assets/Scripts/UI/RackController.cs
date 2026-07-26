@@ -36,6 +36,8 @@ namespace DefaultNamespace.UI
         [Header("Prefabs")] public GameObject trayBombPrefab;
 
         public BombManager _bombManager;
+
+        private bool canInteract = true;
         
         
         private bool FollowingMouse;
@@ -47,6 +49,11 @@ namespace DefaultNamespace.UI
 
         public event Action<FreeBomb, Vector3> OnValidBombSpawnPosition;
 
+        
+        public void SetInteraction(bool canInteract)
+        {
+            this.canInteract = canInteract;
+        }
 
         public async Awaitable LoadInNewBombs(List<FreeBomb> bombs)
         {
@@ -140,6 +147,7 @@ namespace DefaultNamespace.UI
             RaycastHit hit = GetViableLocationForBomb();
             if (hit.collider != null)
             {
+                currentBomb.TryShowDropShadow(hit.point);
                 Vector3 targetPosition = hit.point + verticalOffset;
                 currentBomb.transform.position = targetPosition;
                 // currentBomb.transform.DOMove(hit.point + verticalOffset, 0.3f).SetEase(Ease.OutSine);
@@ -148,6 +156,8 @@ namespace DefaultNamespace.UI
 
         private void OnBombMouseDown(TrayBomb bomb)
         {
+            if (!canInteract) return;
+            bomb.ShowDropshadow();
             Debug.Log("clicked");
             bomb.rigidBody.isKinematic = true;
             bomb.collider.excludeLayers = OverlayLayers;
@@ -157,6 +167,9 @@ namespace DefaultNamespace.UI
 
         private void OnBombMouseUp(TrayBomb bomb)
         {
+            if (!canInteract) return;
+            bomb.HideDropshadow();
+
             Debug.Log("released");
             
             // Check if it's a valid spot

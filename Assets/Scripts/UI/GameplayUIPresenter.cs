@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ namespace DefaultNamespace.UI
         public Button endGameButton;
         public Button closeButton;
         public Button forceWin;
+        public BombBagView bombBagView;
 
         [Header("Win Screen Panel")] public GameObject winScreen;
         public Button goNextButton;
@@ -36,6 +38,13 @@ namespace DefaultNamespace.UI
         public event Action OnForceWin;
 
         private Animator UIAnimator;
+        
+        private bool canInteract;
+
+        public void SetInteraction(bool value)
+        {
+            canInteract = value;
+        }
 
         private void Awake()
         {
@@ -44,7 +53,10 @@ namespace DefaultNamespace.UI
 
         void Start()
         {
-            endTurnButton.onClick.AddListener(() => OnEndTurnButtonPressed?.Invoke());
+            endTurnButton.onClick.AddListener(() =>
+            {
+                if (canInteract) OnEndTurnButtonPressed?.Invoke();
+            });
             closeButton.onClick.AddListener(HideMenu);
             settingsButton.onClick.AddListener(ShowMenu);
             endGameButton.onClick.AddListener(() => ShowPopup("Are you sure you want to end the game?",
@@ -54,7 +66,7 @@ namespace DefaultNamespace.UI
                     OnEndGameConfirmButtonPressed?.Invoke();
                 }));
             goNextButton.onClick.AddListener(() => OnLeaveGameRequested?.Invoke(GameLeavingReason.NextLevel));
-            forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
+            // forceWin.onClick.AddListener(() => OnForceWin?.Invoke());
             loseScreenPanel.OnReturnToMenuPressed += () => OnLeaveGameRequested?.Invoke(GameLeavingReason.ReturnToMenu);
         }
 
@@ -64,9 +76,15 @@ namespace DefaultNamespace.UI
             var popupComponent = popup.GetComponent<PopupWithConfirmCancel>();
             popupComponent.Setup(message, callback);
         }
+
+        public void SetupBagView(List<BombDefinition> bombs)
+        {
+            bombBagView.LoadBombs(bombs);
+        }
         
         public void UpdateStageText(GameplayStates stage)
         {
+            return;
             stageText.text = stage switch
             {
                 GameplayStates.GameStart => "Game Start",

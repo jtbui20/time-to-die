@@ -41,6 +41,10 @@ namespace DefaultNamespace.UI
         {
             PlayerData data = ScriptableObject.CreateInstance<PlayerData>();
             data.BombBagReference = selectedLoadout.bombsInLoadout;
+            
+            // For pure random, we need to generate 8 random bombs
+            
+            
             // Pick a random first map
             data.CurrentLevel = FirstMaps[Random.Range(0, FirstMaps.Count)];
             data.StageNumber = 0;

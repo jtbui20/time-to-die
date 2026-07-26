@@ -13,6 +13,11 @@ namespace DefaultNamespace
         public PlayerData PlayerData { get { return _playerDataReference; } }
         public int MaxHandSize = 5;
 
+        public PlayerData GetPlayerSessionData()
+        {
+            return _playerDataReference;
+        }
+
         public void Awake()
         {
             BombDeck = new ThreePileTemplateCardManager<FreeBomb>();

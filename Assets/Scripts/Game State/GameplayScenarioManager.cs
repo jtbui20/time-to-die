@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using DefaultNamespace;
 using DefaultNamespace.Game_State;
 using DefaultNamespace.UI;
@@ -49,6 +50,7 @@ public class GameplayScenarioManager : MonoBehaviour
 
     private GameScenarioDirector _director;
     private GameplayUIPresenter _uiPresenter;
+    
     private RackController _rackController;
     private BPMActionSynchronizer _bpmSynchronizer;
 
@@ -97,7 +99,11 @@ public class GameplayScenarioManager : MonoBehaviour
         _enemyManager.OnEnemyCountChanged += GeneralUpdateUI;
         _enemyManager.OnEnemyEscape += LoseLife;
         _enemyManager.OnEnemiesDefeated += EnemyDefeat;
-        EnemyTurn();
+        
+        _rackController.SetInteraction(false);
+        // Lazy just rip from the session
+        
+        _uiPresenter.SetupBagView(player.GetPlayerSessionData().BombBagReference);
     }
 
     void LinkUI()
@@ -123,7 +129,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public void GeneralUpdateUI()
     {
         _uiPresenter.UpdateStageText(CurrentState);
-        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemyCount);
+        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemiesLeft);
     }
 
     public void GoNextStage()
@@ -165,7 +171,7 @@ public class GameplayScenarioManager : MonoBehaviour
                 PlayerEndTurn();
                 break;
             case GameplayStates.Detonation:
-                DetonationStep();
+                DetonationStep().Forget();
                 break;
             case GameplayStates.EnemyTurn:
                 EnemyTurn();
@@ -210,6 +216,8 @@ public class GameplayScenarioManager : MonoBehaviour
         // Start with enemy turn spawning
         // _enemyManager.SpawnEnemies()
         
+        _enemyManager.SpawnWave(CurrentTurn);
+        
         // Then we transition to turn start
         _bpmSynchronizer.StartTimer();
     }
@@ -229,6 +237,8 @@ public class GameplayScenarioManager : MonoBehaviour
     void PlayerTurn()
     {
         // Enable inputs and such
+        _rackController.SetInteraction(true);
+        _uiPresenter.SetInteraction(true);
     }
 
     void PlayerEndTurn()
@@ -239,27 +249,29 @@ public class GameplayScenarioManager : MonoBehaviour
         _rackController.HandleDiscard();
     }
 
-    async Awaitable DetonationStep()
+    async UniTask DetonationStep()
     {
+        _rackController.SetInteraction(false);
+        _uiPresenter.SetInteraction(false);
         _bombManager.GenerateBombActionQueue();
-        // This should be a "detonate & tick" function
-        // await
         
-        // This will eventually tick multiple times by a separate function
-        // _bombManager
+        await _bombManager.WaitForBombsToComplete();
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
         // _enemyManager.ProcessDamage();
         _enemyManager.ProcessDeathChains();
+        
+        SwitchToState(GameplayStates.EnemyTurn);
     }
 
-    async Awaitable EnemyTurn()
+    void EnemyTurn()
     {
         _enemyManager.ProcessStep();
         
         _enemyManager.SpawnWave(CurrentTurn);
     }
 
-    async Awaitable GameEnd()
+    void GameEnd()
     {
 
         // Configure which end screen to show

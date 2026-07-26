@@ -10,6 +10,12 @@ public class TrayBomb : MonoBehaviour
     public Vector3 BombOffset = new Vector3(0f, -0.312f, 0f);
     public Vector3 BombScale = new Vector3(0.246f, 0.246f, 0.246f);
 
+    public GameObject dropShadow;
+    public Vector3 dropShadowOffset = new Vector3(0f, +0.312f, 0f);
+
+        public bool isLifted = false;
+        
+    
     private GameObject insideReference;
     
     public event Action<TrayBomb> OnMouseDownEvent;
@@ -40,6 +46,22 @@ public class TrayBomb : MonoBehaviour
         visual.transform.localScale = BombScale;
         // Shift -0.312 down
         visual.transform.localPosition = BombOffset;
+    }
+
+
+    public void ShowDropshadow()
+    {
+        dropShadow.SetActive(true);
+    }
+    
+    public void HideDropshadow()
+    {
+        dropShadow.SetActive(false);
+    }
+
+    public void TryShowDropShadow(Vector3 position)
+    {
+        dropShadow.transform.position = position + dropShadowOffset;
     }
     
 
