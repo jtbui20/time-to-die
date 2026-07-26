@@ -43,6 +43,14 @@ namespace DefaultNamespace.UI
             data.BombBagReference = selectedLoadout.bombsInLoadout;
             
             // For pure random, we need to generate 8 random bombs
+            if (selectedLoadout.name == "Pure Random")
+            {
+                selectedLoadout.BombBagReference.Clear();
+                for (int i = 0; i < 8; i++)
+                {
+                    data.BombBagReference.Add(Helper.GenerateRandomBombDefinition());
+                }
+            }
             
             
             // Pick a random first map

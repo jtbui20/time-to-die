@@ -22,6 +22,25 @@ public static class Helper
     {
         return Vector2.Distance(Vector3to2(origin), Vector3to2(target));
     }
+
+    public static BombDefinition GenerateRandomBombDefinition()
+{
+    var bomb = ScriptableObject.CreateInstance<BombDefinition>();
+
+    bomb.Initialize(
+        (BombType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(BombType)).Length),
+        UnityEngine.Random.Range(1, 3),          // Health
+        UnityEngine.Random.Range(5, 5),          // Range
+        UnityEngine.Random.Range(5, 5),          // Chain Distance
+        UnityEngine.Random.Range(1, 2),          // Chain Tick
+        1f,                                      // Chain Damage Mult
+        0f,                                      // Chain Range Mult
+        UnityEngine.Random.Range(1, 10),          // Damage
+        "Random Bomb"
+    );
+
+    return bomb;
+}
 }    
 
 public static class IListExtensions {

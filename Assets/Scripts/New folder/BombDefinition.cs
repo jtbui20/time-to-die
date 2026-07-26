@@ -26,6 +26,30 @@ public class BombDefinition : ScriptableObject, IUnitDefinition
 
     public event Action OnRebuild;
 
+    public void Initialize(
+    BombType bombType,
+    int health,
+    int range,
+    int chainDistance,
+    int chainTick,
+    float chainDamageMult,
+    float chainRangeMult,
+    int damage,
+    string description)
+    {
+        this.bombType = bombType;
+        this.health = health;
+        this.range = range;
+        this.chainDistance = chainDistance;
+        this.chainTick = chainTick;
+        this.chainDamageMult = chainDamageMult;
+        this.chainRangeMult = chainRangeMult;
+        this.damage = damage;
+        this.description = description;
+
+        Rebuild();
+    }
+
     private void OnEnable()
     {
         Rebuild();
