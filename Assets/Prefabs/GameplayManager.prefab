@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.GameplayPlayerInstance
   _playerDataReference: {fileID: 11400000, guid: 8f7b003cffdc48cff92af3f7f3cb9615, type: 2}
-  MaxHandSize: 5
+  MaxHandSize: 3
 --- !u!114 &-502719615974728707
 MonoBehaviour:
   m_ObjectHideFlags: 0
