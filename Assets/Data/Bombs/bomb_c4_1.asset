@@ -16,8 +16,8 @@ MonoBehaviour:
   health: 1
   range: 5
   chainDistance: 3
-  chainTick: 1
+  chainTick: 2
   chainDamageMult: 1
   chainRangeMult: 0
-  damage: 1
+  damage: 3
   description: 
