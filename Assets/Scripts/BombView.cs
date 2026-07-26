@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 
-public class BombView : UnitView
+public class BombView : UnitView, IBombReference
 {
     [SerializeField] Vector3 countdownTextOffset;
     public FreeBomb Bomb { get; private set; }

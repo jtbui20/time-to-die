@@ -15,6 +15,7 @@ public class BombManager : MonoBehaviour
     private List<FreeBomb> bombs = new();
     [SerializeField] private List<FreeBomb> explodeQueue = new();
     public List<FreeBomb> Bombs { get { return bombs; } }
+    public LayerMask DestructibleMask { get { return destructibleMask; } }
     public BombBindings bombPrefabBindings;
     
     [SerializeField]

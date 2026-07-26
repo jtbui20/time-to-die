@@ -204,6 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fdbbaece364b448c1ca8a30bdb7687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.UI.BombItemHoverView
+  bombLayers:
+    serializedVersion: 2
+    m_Bits: 0
   bombNameText: {fileID: 4296041361667317384}
   bombDescriptionText: {fileID: 5829403070021724348}
   bombDamage: {fileID: 6804600593399364177}
@@ -411,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Turns Left
+  m_text: Explode in
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 44777f138aff962a2b750e07da003709, type: 2}
   m_sharedMaterial: {fileID: 333174688464296878, guid: 44777f138aff962a2b750e07da003709, type: 2}
