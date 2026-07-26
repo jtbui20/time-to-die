@@ -18,10 +18,15 @@ public class EnemyManager : MonoBehaviour
     private int finalWave = -1;
     private int currentWave = 0;
     [SerializeField] private int enemyCount;
+    private int totalEnemyCount;
+    
 
     public List<FreeEnemy> EnemyList { get { return enemies; } }
     public int EnemyCount { get { return enemyCount; } }
 
+    public int TotalEnemyCount { get { return totalEnemyCount; } }
+    public int EnemiesLeft { get { return totalEnemyCount - enemyCount; } }
+    
     private void Awake()
     {
         if (Instance == null)
@@ -50,6 +55,8 @@ public class EnemyManager : MonoBehaviour
             {
                 highestWave = spawn.TurnNumber;
             }
+
+            totalEnemyCount++;
         }
         finalWave = highestWave;
         

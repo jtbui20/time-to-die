@@ -101,7 +101,6 @@ public class GameplayScenarioManager : MonoBehaviour
         _enemyManager.OnEnemyCountChanged += GeneralUpdateUI;
         _enemyManager.OnEnemyEscape += LoseLife;
         _enemyManager.OnEnemiesDefeated += EnemyDefeat;
-        EnemyTurn();
     }
 
     void LinkUI()
@@ -127,7 +126,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public void GeneralUpdateUI()
     {
         _uiPresenter.UpdateStageText(CurrentState);
-        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemyCount);
+        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemiesLeft);
     }
 
     public void GoNextStage()
@@ -212,7 +211,7 @@ public class GameplayScenarioManager : MonoBehaviour
     void StartScenario()
     {
         // Start with enemy turn spawning
-        // _enemyManager.SpawnEnemies()
+        _enemyManager.SpawnWave(CurrentTurn);
         
         // Then we transition to turn start
         _bpmSynchronizer.StartTimer();
