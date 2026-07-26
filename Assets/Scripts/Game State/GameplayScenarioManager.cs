@@ -83,8 +83,9 @@ public class GameplayScenarioManager : MonoBehaviour
     }
 
     void Setup()
-    {      
+    {
         player.InitializePlayer();
+        Lives = player.PlayerData.CurrentLevel.StartingLives;
         // Spawn in the UI prefab
         LinkUI();
         _director.OnTimelineCompleted += OnTimelineCompleted;
@@ -92,6 +93,11 @@ public class GameplayScenarioManager : MonoBehaviour
 
         this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
         _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
+
+        _enemyManager.OnEnemyCountChanged += GeneralUpdateUI;
+        _enemyManager.OnEnemyEscape += LoseLife;
+        _enemyManager.OnEnemiesDefeated += EnemyDefeat;
+        EnemyTurn();
     }
 
     void LinkUI()
@@ -117,7 +123,7 @@ public class GameplayScenarioManager : MonoBehaviour
     public void GeneralUpdateUI()
     {
         _uiPresenter.UpdateStageText(CurrentState);
-        _uiPresenter.UpdateEnemiesLeftText(15);
+        _uiPresenter.UpdateEnemiesLeftText(_enemyManager.EnemyCount);
     }
 
     public void GoNextStage()
@@ -132,6 +138,9 @@ public class GameplayScenarioManager : MonoBehaviour
 
     public void Deconstruct()
     {
+        _enemyManager.OnEnemyCountChanged -= GeneralUpdateUI;
+        _enemyManager.OnEnemyEscape -= LoseLife;
+        _enemyManager.OnEnemiesDefeated -= EnemyDefeat;
         NavMesh.RemoveNavMeshData(this.NavMeshData);
         Destroy(gameObject);
     }
@@ -252,7 +261,24 @@ public class GameplayScenarioManager : MonoBehaviour
 
     async Awaitable GameEnd()
     {
+
         // Configure which end screen to show
         _director.SetGameEndReason(EndGameReason);
+    }
+
+    public void LoseLife()
+    {
+        Lives -= 1;
+        if (Lives <= 0)
+        {
+            EndGameReason = GameEndingBecause.Lose;
+            SwitchToState(GameplayStates.GameEnd);
+        }
+    }
+
+    public void EnemyDefeat()
+    {
+        EndGameReason = GameEndingBecause.Win;
+        SwitchToState(GameplayStates.GameEnd);
     }
 }

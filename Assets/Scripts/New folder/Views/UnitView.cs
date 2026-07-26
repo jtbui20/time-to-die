@@ -17,6 +17,7 @@ public class UnitView : MonoBehaviour, IDamageable
         UpdateView();
 
         Unit.Position = transform.position;
+        Debug.Log($"View subscribed to {unit.GetHashCode()}");
     }
 
     protected void OnDisable()
@@ -40,6 +41,7 @@ public class UnitView : MonoBehaviour, IDamageable
 
     protected void Cleanup()
     {
+        Debug.Log($"Destroying {gameObject.name}");
         Unit.OnCleanup -= Cleanup;
         Destroy(gameObject);
     }

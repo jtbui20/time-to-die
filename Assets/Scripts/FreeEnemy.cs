@@ -63,6 +63,7 @@ public class FreeEnemy : FreeUnit
     public override void Cleanup()
     {
         EnemyManager.Instance.Remove(this);
+        Debug.Log($"Cleaning up {GetHashCode()}");
 
         base.Cleanup();
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +9,9 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<Waypoint> spawners;
     [SerializeField] private float spawnDelay = 1f;
     public static EnemyManager Instance;
+    public event Action OnEnemyCountChanged;
+    public event Action OnEnemyEscape;
+    public event Action OnEnemiesDefeated;
 
     private List<FreeEnemy> enemies = new();
     private Coroutine[] spawnCoroutines;
@@ -75,6 +79,7 @@ public class EnemyManager : MonoBehaviour
         {
             enemies.Add(enemy);
             enemyCount++;
+            OnEnemyCountChanged?.Invoke();
         }
     }
 
@@ -92,17 +97,21 @@ public class EnemyManager : MonoBehaviour
         {
             enemies.Remove(enemy);
             enemyCount--;
+            OnEnemyCountChanged?.Invoke();
         }
 
         if (currentWave >= finalWave && enemies.Count <= 0)
         {
             // all enemies dead
+            OnEnemiesDefeated?.Invoke();
         }
     }
 
     public void Escape(FreeEnemy enemy)
     {
         // trigger lose life
+        OnEnemyEscape?.Invoke();
+        enemy.Cleanup();
     }
 
     public void ProcessStep()
@@ -150,6 +159,7 @@ public class EnemyManager : MonoBehaviour
                         newEnemies += group.EnemyCount;
                     }
                     enemyCount += newEnemies;
+                    OnEnemyCountChanged?.Invoke();
                     spawnCoroutines[i] = StartCoroutine(SpawnWithDelay(spawnDelay, spawnQueue));
                 }
             }

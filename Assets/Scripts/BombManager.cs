@@ -120,18 +120,19 @@ public class BombManager : MonoBehaviour
         {
             if (target == null)
             {
-                return;
+                continue;
             }
 
             if (target is FreeBomb chainedBomb)
             {
-                var direction = (chainedBomb.Position - currentBomb.Position);
+                var direction = chainedBomb.Position - currentBomb.Position;
                 direction.y = 0f;
                 direction.Normalize();
                 Vector3 newPos = chainedBomb.Position + direction * currentBomb.ChainDistance;
                 
                 // Substitute with damage formula
                 chainedBomb.TakeDamage(currentBomb.ChainTick);
+                chainedBomb.ApplyChainScaling(currentBomb);
 
                 if (chainedBomb.Health <= 0)
                 {
@@ -142,7 +143,7 @@ public class BombManager : MonoBehaviour
             }
             else
             {
-                target.TakeDamage(currentBomb.Damage);
+                target.TakeDamage(Mathf.CeilToInt(currentBomb.Damage * (1f + currentBomb.CurrentDamageMult)));
             }
         }
         currentBomb.Cleanup();

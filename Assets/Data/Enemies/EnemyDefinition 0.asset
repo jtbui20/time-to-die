@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
   enemyPrefab: {fileID: 5035190084511586992, guid: 346462f0a2af9f248a03decdebbce10e, type: 3}
   health: 3
-  speed: 5
+  speed: 15
   description: AAAAAAAA
