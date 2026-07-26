@@ -166,6 +166,7 @@ MonoBehaviour:
   closeButton: {fileID: 6728289528574328160}
   forceWin: {fileID: 7448383830218856132}
   bombBagView: {fileID: 4947772885799430622}
+  forceQuitButton: {fileID: 0}
   winScreen: {fileID: 2531548751866179162}
   goNextButton: {fileID: 4073597891555199084}
   loseScreenPanel: {fileID: 4492865376390543630}
@@ -457,6 +458,14 @@ PrefabInstance:
     - target: {fileID: 2354967565613780969, guid: cada919694d82bd649f471d6ffaad663, type: 3}
       propertyPath: m_Name
       value: GameUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538297468029480416, guid: cada919694d82bd649f471d6ffaad663, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 377
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538297468029480416, guid: cada919694d82bd649f471d6ffaad663, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 197
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

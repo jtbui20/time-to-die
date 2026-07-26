@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TrayBomb : MonoBehaviour
+public class TrayBomb : MonoBehaviour, IBombReference
 {
     public FreeBomb actualBomb;
     public Rigidbody rigidBody;
@@ -20,6 +20,7 @@ public class TrayBomb : MonoBehaviour
     
     public event Action<TrayBomb> OnMouseDownEvent;
     public event Action<TrayBomb> OnMouseUpEvent;
+    public FreeBomb Bomb => actualBomb;
 
     private void Awake()
     {
