@@ -6,7 +6,7 @@ namespace DefaultNamespace.Data
     [CreateAssetMenu(fileName = "Loadout", menuName = "Data/Loadout", order = 0)]
     public class LoadoutScriptableObject : ScriptableObject
     {
-        public string Name;
+        public string LoadoutName;
         public List<BombDefinition> bombsInLoadout;
         public string Description;
     }

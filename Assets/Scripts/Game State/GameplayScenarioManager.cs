@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DefaultNamespace;
 using DefaultNamespace.Game_State;
@@ -5,6 +6,7 @@ using DefaultNamespace.UI;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Playables;
+using Object = UnityEngine.Object;
 
 public enum GameplayStates
 {
@@ -15,6 +17,20 @@ public enum GameplayStates
     Detonation,
     EnemyTurn,
     GameEnd,
+}
+
+public enum GameEndingBecause
+{
+    None,
+    Win,
+    Lose,
+}
+
+public enum GameLeavingReason
+{
+    ReturnToMenu,
+    NextLevel,
+    HardQuit
 }
 
 public class GameplayScenarioManager : MonoBehaviour
@@ -37,6 +53,9 @@ public class GameplayScenarioManager : MonoBehaviour
     private BPMActionSynchronizer _bpmSynchronizer;
 
     public bool ImmediateStart = false;
+    public GameEndingBecause EndGameReason;
+
+    public event Action<GameLeavingReason> OnGameLeave;
 
     void Awake()
     {
@@ -67,12 +86,32 @@ public class GameplayScenarioManager : MonoBehaviour
     {      
         player.InitializePlayer();
         // Spawn in the UI prefab
-        _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
+        LinkUI();
         _director.OnTimelineCompleted += OnTimelineCompleted;
         _rackController._bombManager = _bombManager;
 
         this.NavMeshData = NavMesh.AddNavMeshData(player.PlayerData.CurrentLevel.LevelNavigation.NavMeshData);
         _enemyManager.SetupSpawner(player.PlayerData.CurrentLevel.SpawnerSchedule, player.PlayerData.CurrentLevel.LevelNavigation.Waypoints);
+    }
+
+    void LinkUI()
+    {
+        _uiPresenter.OnEndTurnButtonPressed += PlayerTurnButtonPressed;
+        _uiPresenter.OnEndGameConfirmButtonPressed += () => EndGameWithReason(GameEndingBecause.Lose);
+        _uiPresenter.OnLeaveGameRequested += OnGameLeave;
+        _uiPresenter.OnForceWin += () => EndGameWithReason(GameEndingBecause.Win);
+    }
+    
+    void PlayerTurnButtonPressed()
+    {
+        // Only do this if 
+        SwitchToState(GameplayStates.PlayerExit);
+    }
+    
+    void EndGameWithReason(GameEndingBecause reason)
+    {
+        EndGameReason = reason;
+        SwitchToState(GameplayStates.GameEnd);
     }
 
     public void GeneralUpdateUI()
@@ -81,13 +120,23 @@ public class GameplayScenarioManager : MonoBehaviour
         _uiPresenter.UpdateEnemiesLeftText(15);
     }
 
+    public void GoNextStage()
+    {
+        OnGameLeave?.Invoke(GameLeavingReason.NextLevel);
+    }
+
+    public void GoMenu()
+    {
+        OnGameLeave?.Invoke(GameLeavingReason.ReturnToMenu);
+    }
+
     public void Deconstruct()
     {
         NavMesh.RemoveNavMeshData(this.NavMeshData);
         Destroy(gameObject);
     }
 
-    public void SwitchToState(GameplayStates state)
+    private void SwitchToState(GameplayStates state)
     {
         CurrentState = state;
         Debug.Log($"Switching to state: {state}");
@@ -122,7 +171,7 @@ public class GameplayScenarioManager : MonoBehaviour
         _director.PlayState(CurrentState);
     }
 
-    public void OnTimelineCompleted(GameplayStates state)
+    private void OnTimelineCompleted(GameplayStates state)
     {
         switch (state)
         {
@@ -173,11 +222,6 @@ public class GameplayScenarioManager : MonoBehaviour
         // Enable inputs and such
     }
 
-    void PlayerTurnButtonPressed()
-    {
-        SwitchToState(GameplayStates.PlayerExit);
-    }
-
     void PlayerEndTurn()
     {
         // Gather Information
@@ -208,5 +252,7 @@ public class GameplayScenarioManager : MonoBehaviour
 
     async Awaitable GameEnd()
     {
+        // Configure which end screen to show
+        _director.SetGameEndReason(EndGameReason);
     }
 }

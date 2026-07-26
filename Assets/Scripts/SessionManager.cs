@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,6 @@ namespace DefaultNamespace
                 SetupNextStage();
             }
         }
-        
 
         public void NewRun(PlayerData player)
         {
@@ -48,8 +48,29 @@ namespace DefaultNamespace
                 gameplayManager = Instantiate(GameplayManagerPrefab).GetComponent<GameplayScenarioManager>();
             }
             gameplayManager.Inject(player);
-            
+
+            gameplayManager.OnGameLeave += WhenGameLeave;
+
             // The gameplay manager will start when it's ready
+        }
+
+        void WhenGameLeave(GameLeavingReason reason)
+        {
+            switch (reason)
+            {
+                case GameLeavingReason.ReturnToMenu:
+                    DeconstructCurrentScene();
+                    SceneManager.LoadScene("MainMenu");
+                    break;
+                case GameLeavingReason.NextLevel:
+                    DeconstructCurrentScene();
+                    SetupNextStage();
+                    break;
+                case GameLeavingReason.HardQuit:
+                    default:
+                    DeconstructCurrentScene();
+                    break;
+            }
         }
 
         void DeconstructCurrentScene()
@@ -59,12 +80,6 @@ namespace DefaultNamespace
                 gameplayManager.Deconstruct();
                 Destroy(gameplayManager.gameObject);
             }
-            
-            if (currentScene.IsValid())
-            {
-                SceneManager.UnloadSceneAsync(currentScene);
-            }
-            
         }
     }
 }
