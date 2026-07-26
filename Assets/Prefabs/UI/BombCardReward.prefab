@@ -88,108 +88,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2511210773553022754, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2511210773553022754, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2511210773553022754, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2511210773553022754, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2511210773553022754, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619811021586835112, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619811021586835112, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619811021586835112, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619811021586835112, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2619811021586835112, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4988580028158415496, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
       propertyPath: m_Name
       value: BombCardReward
       objectReference: {fileID: 0}
-    - target: {fileID: 6252213808390597696, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
+    - target: {fileID: 5613694540032421839, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
+      propertyPath: selectedBackground.a
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6252213808390597696, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6252213808390597696, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6252213808390597696, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6252213808390597696, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
+    - target: {fileID: 5613694540032421839, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
+      propertyPath: unselectedBackground.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4988580028158415496, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5342450698191475835}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
---- !u!114 &1343681231489047969 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1295231486556408743, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-  m_PrefabInstance: {fileID: 242104597632194054}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072988061368222862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d77412317844415a4032a57429300cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.UI.BombItemInventoryView
---- !u!1 &5072988061368222862 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4988580028158415496, guid: 0be85831e64c66f1488dc1eb36aed453, type: 3}
-  m_PrefabInstance: {fileID: 242104597632194054}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5342450698191475835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072988061368222862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1051871fbb2d496682bc8f1078240aad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.UI.SingleRewardView
-  bombDefinition: {fileID: 0}
-  bombItemInventoryView: {fileID: 1343681231489047969}
-  Background: {fileID: 0}
-  selectedBackground: {r: 0, g: 0, b: 0, a: 0}
-  unselectedBackground: {r: 0, g: 0, b: 0, a: 0}

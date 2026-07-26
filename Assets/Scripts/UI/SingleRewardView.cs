@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace DefaultNamespace.UI
 {
-    public class SingleRewardView : MonoBehaviour, IPointerClickHandler
+    public class SingleRewardView : MonoBehaviour
     {
         // public Button selfSelect;
         public BombDefinition bombDefinition;
@@ -21,36 +21,28 @@ namespace DefaultNamespace.UI
         
         private bool IsSelected = false;
 
+        public Button selfButton;
+
         public void SetSelected(bool isSelected)
         {
             IsSelected = isSelected;
             
-            if (IsSelected)
-            {
-                Background.color = selectedBackground;
-            }
-            else
-            {
-                Background.color = unselectedBackground;
-            }
+            Debug.Log(isSelected);
+
+            Background.color = IsSelected ? selectedBackground : unselectedBackground;
         }
-        private event Action OnRewardSelected;
+        public event Action<BombDefinition> OnRewardSelected;
 
         private void Start()
         {
-            // selfSelect.onClick.AddListener(() => OnRewardSelected?.Invoke());
+            
         }
         
-        public void SetReward(BombDefinition bombDefinition, Action OnRewardSelected)
+        public void SetReward(BombDefinition bombDefinition)
         {
             this.bombDefinition = bombDefinition;
-            this.OnRewardSelected = OnRewardSelected;
             bombItemInventoryView.SetBombTarget(bombDefinition);
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            OnRewardSelected?.Invoke();
+            selfButton.onClick.AddListener(() => OnRewardSelected?.Invoke(bombDefinition));
         }
     }
 }

@@ -10,13 +10,14 @@ namespace DefaultNamespace.UI
         public event Action<BombDefinition> OnRewardSelected;
         public List<SingleRewardView> rewardViews = new();
         
+        private List<BombDefinition> rewardList = new();
+        
         // Tell the actual controller that we've selected
 
         public void SetRewards(List<BombDefinition> bombDefinitions)
         {
             ConfigureViews(bombDefinitions);
-            
-
+            Debug.Log($"RewardsViewUI: SetRewards called with {bombDefinitions.Count} rewards.");
         }
         
         public void SetSelectedReward(BombDefinition bombDefinition)
@@ -38,10 +39,12 @@ namespace DefaultNamespace.UI
 
         void ConfigureViews(List<BombDefinition> bombDefinitions)
         {
+            rewardList = bombDefinitions;
             for (int i = 0; i < rewardViews.Count; i++)
             {
                 var rewardView = rewardViews[i];
-                rewardView.SetReward(bombDefinitions[i], () => OnRewardSelected?.Invoke(rewardView.bombDefinition));
+                rewardView.SetReward(bombDefinitions[i]);
+                rewardView.OnRewardSelected += SetSelectedReward;
             }
         }
     }
